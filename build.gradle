@@ -1,0 +1,36 @@
+version '1.0.0'
+
+String nexus = "https://repository-master.mulesoft.org/nexus/content/repositories"
+
+apply plugin: 'java'
+apply plugin: "application"
+
+
+mainClassName = "co.acme.parse.AmfParsing"
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    ivy {
+        url "${System.properties['user.home']}/.ivy2/local"
+        layout 'ivy'
+    }
+    maven {
+        url nexus + '/releases'
+    }
+    maven {
+        url nexus + '/snapshots'
+    }
+}
+
+dependencies {
+    compile group: 'org.mule.amf', name: 'amf-client_2.12', version: '1.6.0-SNAPSHOT', configuration: 'compile'
+
+    // https://mvnrepository.com/artifact/org.assertj/assertj-core
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.9.1'
+
+    // https://mvnrepository.com/artifact/junit/junit
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

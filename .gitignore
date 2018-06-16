@@ -1,0 +1,11 @@
+.idea/
+.gradle/
+/build
+out/
+target/
+src/main/js/example/node_modules/
+src/main/js/example/package-lock.json
+src/main/js/converter/node_modules/
+src/main/js/converter/package-lock.json
+amf-examples.iml
+.DS_Store

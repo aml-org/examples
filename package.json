@@ -1,0 +1,22 @@
+{
+  "name": "aml-examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aml-org/examples.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aml-org/examples/issues"
+  },
+  "homepage": "https://github.com/aml-org/examples#readme",
+  "dependencies": {
+    "amf-client-js": "^1.5.0-1"
+  }
+}
