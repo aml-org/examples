@@ -1,0 +1,40 @@
+#%Dialect 1.0
+
+dialect: Places
+version: 1.0
+
+external:
+  schema: http://schema.org/
+
+nodeMappings:
+
+  LocationNode:
+    classTerm: schema.Place
+    mapping:
+      name:
+        propertyTerm: schema.name
+        mandatory: true
+        range: string
+      image:
+        propertyTerm: schema.image
+        range: uri
+      location:
+        mandatory: true
+        propertyTerm: schema.geo
+        range: CoordinateNode
+
+  CoordinateNode:
+    classTerm: schema.GeoCoordinates
+    mapping:
+      lat:
+        propertyTerm: schema.latitude
+        mandatory: true
+        range: double
+      long:
+        propertyTerm: schema.longitude
+        mandatory: true
+        range: double
+
+documents:
+  root:
+    encodes: LocationNode
