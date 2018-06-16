@@ -2,7 +2,7 @@ var amf = require("amf-client-js");
 var AMF = amf.AMF;
 var Aml10Parser = amf.Aml10Parser;
 
-//#parsing-example
+//#validation-example
 AMF.init()
     .then(function() {
         return AMF.registerDialect("file://aml/music/dialect/playlist.yaml")
