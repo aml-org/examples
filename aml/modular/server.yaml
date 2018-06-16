@@ -1,0 +1,5 @@
+#%DatabaseServer / DB Config 1.1
+
+host: localhost
+port: 5001
+driver: mysql

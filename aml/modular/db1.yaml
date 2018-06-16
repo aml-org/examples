@@ -1,0 +1,14 @@
+#%DBConfig 1.0
+
+server:
+  host: localhost
+  port: 5001
+  driver: mysql
+
+dbs:
+  dev:
+    name: accounts_dev
+    username: jsmith
+  test:
+    name: accounts_test
+    username: jsmith

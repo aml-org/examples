@@ -1,0 +1,11 @@
+#%DB Config 1.1
+
+server: !include server.yaml
+
+dbs:
+  dev:
+    name: accounts_dev
+    username: jsmith
+  test:
+    name: accounts_test
+    username: jsmith

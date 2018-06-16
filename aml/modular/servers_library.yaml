@@ -1,0 +1,18 @@
+#%Library / DB Config 1.2
+
+servers:
+
+  local_mysql:
+    host: localhost
+    port: 5001
+    driver: mysql
+
+  local_postgres:
+    host: localhost
+    port: 5432
+    driver: postgres
+
+  production_mysql:
+    host: db.myapp.com
+    port: 9501
+    driver: mysql
