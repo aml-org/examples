@@ -10,7 +10,7 @@ AMF.init()
     .then(function() {
         new Aml10Parser()
             .parseFileAsync("file://aml/music/playlist1.yaml")
-            .then(displayEncodedElement)
+            .then(displayEncodedElement);
     });
 
 function displayEncodedElement(model) {

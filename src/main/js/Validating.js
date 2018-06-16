@@ -9,10 +9,10 @@ AMF.init()
     })
     .then(function() {
         return new Aml10Parser()
-            .parseFileAsync("file://aml/music/playlist1.yaml")
+            .parseFileAsync("file://aml/music/playlist1.yaml");
     })
     .then(function(unit) {
-        return AMF.validate(unit, "Playlist 1.0", "AMF")
+        return AMF.validate(unit, "Playlist 1.0", "AMF");
     })
     .then(function(report) {
         console.log("Validates?");
