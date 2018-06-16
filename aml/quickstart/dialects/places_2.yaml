@@ -1,7 +1,10 @@
 #%Dialect 1.0
 
 dialect: Places
-version: 1.0
+version: 1.1
+
+uses:
+  geo: ../vocabularies/geolocation.yaml
 
 external:
   schema: http://schema.org/
@@ -20,18 +23,18 @@ nodeMappings:
         range: uri
       location:
         mandatory: true
-        propertyTerm: schema.geo
-        range: CoordinateNode
+        propertyTerm: geo.position
+        range: CoordinatesNode
 
-  CoordinateNode:
-    classTerm: schema.GeoCoordinates
+  CoordinatesNode:
+    classTerm: geo.Point
     mapping:
       lat:
-        propertyTerm: schema.latitude
+        propertyTerm: geo.latitude
         mandatory: true
         range: double
       long:
-        propertyTerm: schema.longitude
+        propertyTerm: geo.longitude
         mandatory: true
         range: double
 
