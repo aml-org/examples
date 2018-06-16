@@ -1,19 +1,17 @@
 package aml_org.examples;
 
 import amf.client.AMF;
-import amf.client.model.document.BaseUnit;
 import amf.client.model.document.DialectInstance;
-import amf.client.model.domain.DialectDomainElement;
 import amf.client.parse.Aml10Parser;
 
 import java.util.concurrent.ExecutionException;
 
-import static java.lang.System.*;
+import static java.lang.System.out;
 
 public class Parsing {
 
+    //#parsing-example
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        //#parsing-example
 
         AMF.init().get();
 
