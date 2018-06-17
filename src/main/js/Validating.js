@@ -5,7 +5,7 @@ var Aml10Parser = amf.Aml10Parser;
 //#validation-example
 AMF.init()
     .then(function() {
-        return AMF.registerDialect("file://aml/music/dialect/playlist.yaml")
+        return AMF.registerDialect("file://aml/music/dialect/playlist.yaml");
     })
     .then(function() {
         return new Aml10Parser()

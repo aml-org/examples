@@ -77,7 +77,7 @@ items:
   5:
     track:
       spotifyId: 3MpnuPOrFwNB1iCGr4JkVn
-      title: Duo belli occhi fur l'armi, onde traffitta
+      title: "Duo belli occhi fur l'armi, onde traffitta"
       duration: 247
     artist:
       spotifyId: 3f26hJvBDQnllvH0aP4OSb
@@ -113,5 +113,3 @@ items:
     album:
       spotifyId: 2EqstXogPyAqKnQV2Imr04
       title: Shostakovich The Jazz Album
-
-

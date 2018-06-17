@@ -125,11 +125,3 @@ nodeMappings:
         propertyTerm: music.genre
         range: string
         allowMultiple: true
-
-
-
-
-
-
-
-
