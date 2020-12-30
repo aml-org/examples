@@ -1,10 +1,8 @@
 {
   "name": "aml-examples",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -17,6 +15,9 @@
   },
   "homepage": "https://github.com/aml-org/examples#readme",
   "dependencies": {
-    "amf-client-js": "^1.5.0-1"
+    "amf-client-js": "snapshot"
+  },
+  "devDependencies": {
+    "mocha": "^8.2.1"
   }
 }
