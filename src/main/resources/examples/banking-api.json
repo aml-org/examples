@@ -43,6 +43,14 @@
       }
     },
     "/customers/{customer_id}/accounts": {
+      "parameters": [
+        {
+          "name": "customer_id",
+          "required": true,
+          "in": "path",
+          "type": "string"
+        }
+      ],
       "get": {
         "description": "Returns a collection accounts",
         "responses": {
@@ -52,10 +60,15 @@
         }
       }
     },
-    "/customers/{customer_id}/cards": {
-
-    },
     "/customers/{customer_id}/cards/debit": {
+      "parameters": [
+        {
+          "name": "customer_id",
+          "required": true,
+          "in": "path",
+          "type": "string"
+        }
+      ],
       "get": {
         "description": "Returns a collection of cards",
         "responses": {

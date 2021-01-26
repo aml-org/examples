@@ -4,16 +4,13 @@ import amf.client.AMF;
 import amf.client.model.document.BaseUnit;
 import amf.client.model.document.Document;
 import amf.client.model.domain.DomainElement;
-import amf.client.parse.AmfGraphParser;
-import amf.client.parse.Oas20Parser;
-import amf.client.parse.Raml08Parser;
-import amf.client.parse.Raml10Parser;
+import amf.client.parse.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 
 public class ParsingTest {
@@ -56,6 +53,19 @@ public class ParsingTest {
 
         final BaseUnit model = parser.parseStringAsync(api).get();
         assertNotNull(model);
+        assertTrue(model.raw().isPresent());
+        assertEquals(model.raw().get(), api);
+
+        final DomainElement webApi = ((Document) model).encodes();
+        assertNotNull(webApi);
+    }
+
+    @Test
+    public void parseOas30() throws ExecutionException, InterruptedException {
+        final Oas30Parser parser = new Oas30Parser();
+
+        final BaseUnit model = parser.parseFileAsync("file://src/main/resources/examples/banking-api-oas30.json").get();
+        assertNotNull(model);
 
         final DomainElement webApi = ((Document) model).encodes();
         assertNotNull(webApi);
@@ -84,6 +94,8 @@ public class ParsingTest {
 
         final BaseUnit model = parser.parseStringAsync(api).get();
         assertNotNull(model);
+        assertTrue(model.raw().isPresent());
+        assertEquals(model.raw().get(), api);
 
         final DomainElement webApi = ((Document) model).encodes();
         assertNotNull(webApi);
@@ -112,6 +124,8 @@ public class ParsingTest {
 
         final BaseUnit model = parser.parseStringAsync(api).get();
         assertNotNull(model);
+        assertTrue(model.raw().isPresent());
+        assertEquals(model.raw().get(), api);
 
         final DomainElement webApi = ((Document) model).encodes();
         assertNotNull(webApi);
@@ -122,46 +136,6 @@ public class ParsingTest {
         final AmfGraphParser parser = new AmfGraphParser();
 
         final BaseUnit model = parser.parseFileAsync("file://src/main/resources/examples/banking-api.jsonld").get();
-        assertNotNull(model);
-
-        final DomainElement webApi = ((Document) model).encodes();
-        assertNotNull(webApi);
-    }
-
-    @Test
-    public void parseAMFGraphString() throws ExecutionException, InterruptedException {
-        final AmfGraphParser parser = new AmfGraphParser();
-
-        final String api =
-                "[\n" +
-                        "  {\n" +
-                        "    \"@id\": \"\",\n" +
-                        "    \"@type\": [\n" +
-                        "      \"http://raml.org/vocabularies/document#Document\",\n" +
-                        "      \"http://raml.org/vocabularies/document#Fragment\",\n" +
-                        "      \"http://raml.org/vocabularies/document#Module\",\n" +
-                        "      \"http://raml.org/vocabularies/document#Unit\"\n" +
-                        "    ],\n" +
-                        "    \"http://raml.org/vocabularies/document#encodes\": [\n" +
-                        "      {\n" +
-                        "        \"@id\": \"#/web-api\",\n" +
-                        "        \"@type\": [\n" +
-                        "          \"http://schema.org/WebAPI\",\n" +
-                        "          \"http://raml.org/vocabularies/document#DomainElement\"\n" +
-                        "        ],\n" +
-                        "        \"http://schema.org/name\": [\n" +
-                        "          {\n" +
-                        "            \"@value\": \"ACME Banking HTTP API\"\n" +
-                        "          }\n" +
-                        "        ],\n" +
-                        "        \"http://raml.org/vocabularies/http#host\": [\n" +
-                        "          {\n" +
-                        "            \"@value\": \"acme-banking.com\"\n" +
-                        "          }\n" +
-                        "        ]" +
-                        "}]}]";
-
-        final BaseUnit model = parser.parseStringAsync(api).get();
         assertNotNull(model);
 
         final DomainElement webApi = ((Document) model).encodes();
