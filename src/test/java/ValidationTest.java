@@ -31,7 +31,6 @@ public class ValidationTest {
         final ValidationReport report = AMF.validate(model, ProfileNames.RAML(), MessageStyles.RAML()).get();
         System.out.println("report.conforms() == " + report.conforms());
         assertFalse(report.conforms());
-
     }
 
     @Test
