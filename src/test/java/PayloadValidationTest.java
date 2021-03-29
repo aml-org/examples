@@ -12,7 +12,6 @@ import org.junit.Test;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 
 public class PayloadValidationTest {
 
@@ -21,6 +20,7 @@ public class PayloadValidationTest {
     @BeforeClass
     public static void setup() throws ExecutionException, InterruptedException {
         AMF.init().get();
+
         final Raml10Parser parser = new Raml10Parser();
         final Raml10Resolver resolver = new Raml10Resolver();
 
@@ -29,14 +29,11 @@ public class PayloadValidationTest {
 
         // get the model.encodes() to isolate the WebApi model
         final WebApi webApi = (WebApi) ((Document) resolvedModel).encodes();
-        assertNotNull(webApi);
-
         final EndPoint usersEndpoint = webApi.endPoints().get(0);
         final Operation postMethod = usersEndpoint.operations().get(0);
         final Request request = postMethod.requests().get(0);
         final Payload userPayload = request.payloads().get(0);
         final AnyShape userSchema = (AnyShape) userPayload.schema();
-        assertNotNull(userSchema);
 
         payloadValidator = userSchema.payloadValidator("application/json").get();
     }
@@ -56,7 +53,7 @@ public class PayloadValidationTest {
     }
 
     @Test
-    public void syncValidateTest() throws ExecutionException, InterruptedException {
+    public void syncValidateTest() {
         final String invalidUserPayload = "{\"name\": \"firstname and lastname\"}";
         final ValidationReport validationReport = payloadValidator.syncValidate("application/json", invalidUserPayload);
         assertFalse(validationReport.conforms());
