@@ -1,0 +1,564 @@
+[
+  {
+    "@id": "",
+    "@type": [
+      "doc:Document",
+      "doc:Fragment",
+      "doc:Module",
+      "doc:Unit"
+    ],
+    "doc:encodes": [
+      {
+        "@id": "#/web-api",
+        "@type": [
+          "apiContract:WebAPI",
+          "apiContract:API",
+          "doc:RootDomainElement",
+          "doc:DomainElement"
+        ],
+        "core:name": [
+          {
+            "@value": "ACME Banking HTTP API"
+          }
+        ],
+        "apiContract:server": [
+          {
+            "@id": "#/web-api/acme-banking.com%2Fapis",
+            "@type": [
+              "apiContract:Server",
+              "doc:DomainElement"
+            ],
+            "core:urlTemplate": [
+              {
+                "@value": "acme-banking.com/apis"
+              }
+            ]
+          }
+        ],
+        "apiContract:accepts": [
+          {
+            "@value": "application/json"
+          }
+        ],
+        "apiContract:contentType": [
+          {
+            "@value": "application/json"
+          }
+        ],
+        "core:version": [
+          {
+            "@value": "1.0"
+          }
+        ],
+        "apiContract:endpoint": [
+          {
+            "@id": "#/web-api/end-points/%2Fcustomers",
+            "@type": [
+              "apiContract:EndPoint",
+              "doc:DomainElement"
+            ],
+            "apiContract:path": [
+              {
+                "@value": "/customers"
+              }
+            ]
+          },
+          {
+            "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D",
+            "@type": [
+              "apiContract:EndPoint",
+              "doc:DomainElement"
+            ],
+            "apiContract:path": [
+              {
+                "@value": "/customers/{customer_id}"
+              }
+            ],
+            "apiContract:supportedOperation": [
+              {
+                "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D/delete",
+                "@type": [
+                  "apiContract:Operation",
+                  "doc:DomainElement"
+                ],
+                "apiContract:method": [
+                  {
+                    "@value": "delete"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Removes a Customer from the system"
+                  }
+                ],
+                "apiContract:returns": [
+                  {
+                    "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D/delete/200",
+                    "@type": [
+                      "apiContract:Response",
+                      "apiContract:Message",
+                      "doc:DomainElement"
+                    ],
+                    "apiContract:statusCode": [
+                      {
+                        "@value": "200"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "200"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "OK"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D/get",
+                "@type": [
+                  "apiContract:Operation",
+                  "doc:DomainElement"
+                ],
+                "apiContract:method": [
+                  {
+                    "@value": "get"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Returns Customer data"
+                  }
+                ],
+                "apiContract:returns": [
+                  {
+                    "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D/get/200",
+                    "@type": [
+                      "apiContract:Response",
+                      "apiContract:Message",
+                      "doc:DomainElement"
+                    ],
+                    "apiContract:statusCode": [
+                      {
+                        "@value": "200"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "200"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "OK"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "apiContract:parameter": [
+              {
+                "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D/parameter/path/customer_id",
+                "@type": [
+                  "apiContract:Parameter",
+                  "doc:DomainElement"
+                ],
+                "core:name": [
+                  {
+                    "@value": "customer_id"
+                  }
+                ],
+                "apiContract:paramName": [
+                  {
+                    "@value": "customer_id"
+                  }
+                ],
+                "apiContract:required": [
+                  {
+                    "@value": true
+                  }
+                ],
+                "apiContract:binding": [
+                  {
+                    "@value": "path"
+                  }
+                ],
+                "raml-shapes:schema": [
+                  {
+                    "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D/parameter/default-binding/customer_id/scalar/schema",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "schema"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Faccounts",
+            "@type": [
+              "apiContract:EndPoint",
+              "doc:DomainElement"
+            ],
+            "apiContract:path": [
+              {
+                "@value": "/customers/{customer_id}/accounts"
+              }
+            ],
+            "apiContract:supportedOperation": [
+              {
+                "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Faccounts/get",
+                "@type": [
+                  "apiContract:Operation",
+                  "doc:DomainElement"
+                ],
+                "apiContract:method": [
+                  {
+                    "@value": "get"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Returns a collection accounts"
+                  }
+                ],
+                "apiContract:returns": [
+                  {
+                    "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Faccounts/get/200",
+                    "@type": [
+                      "apiContract:Response",
+                      "apiContract:Message",
+                      "doc:DomainElement"
+                    ],
+                    "apiContract:statusCode": [
+                      {
+                        "@value": "200"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "200"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "OK"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "apiContract:parameter": [
+              {
+                "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Faccounts/parameter/path/customer_id",
+                "@type": [
+                  "apiContract:Parameter",
+                  "doc:DomainElement"
+                ],
+                "core:name": [
+                  {
+                    "@value": "customer_id"
+                  }
+                ],
+                "apiContract:paramName": [
+                  {
+                    "@value": "customer_id"
+                  }
+                ],
+                "apiContract:required": [
+                  {
+                    "@value": true
+                  }
+                ],
+                "apiContract:binding": [
+                  {
+                    "@value": "path"
+                  }
+                ],
+                "raml-shapes:schema": [
+                  {
+                    "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Faccounts/parameter/default-binding/customer_id/scalar/schema",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "schema"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Fcards%2Fdebit",
+            "@type": [
+              "apiContract:EndPoint",
+              "doc:DomainElement"
+            ],
+            "apiContract:path": [
+              {
+                "@value": "/customers/{customer_id}/cards/debit"
+              }
+            ],
+            "apiContract:supportedOperation": [
+              {
+                "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Fcards%2Fdebit/get",
+                "@type": [
+                  "apiContract:Operation",
+                  "doc:DomainElement"
+                ],
+                "apiContract:method": [
+                  {
+                    "@value": "get"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Returns a collection of cards"
+                  }
+                ],
+                "apiContract:returns": [
+                  {
+                    "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Fcards%2Fdebit/get/200",
+                    "@type": [
+                      "apiContract:Response",
+                      "apiContract:Message",
+                      "doc:DomainElement"
+                    ],
+                    "apiContract:statusCode": [
+                      {
+                        "@value": "200"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "200"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "OK"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Fcards%2Fdebit/post",
+                "@type": [
+                  "apiContract:Operation",
+                  "doc:DomainElement"
+                ],
+                "apiContract:method": [
+                  {
+                    "@value": "post"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Requests the creation of a new DebitCard"
+                  }
+                ],
+                "apiContract:expects": [
+                  {
+                    "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Fcards%2Fdebit/post/request",
+                    "@type": [
+                      "apiContract:Request",
+                      "apiContract:Message",
+                      "doc:DomainElement"
+                    ],
+                    "apiContract:parameter": [
+                      {
+                        "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Fcards%2Fdebit/post/request/parameter/query/account",
+                        "@type": [
+                          "apiContract:Parameter",
+                          "doc:DomainElement"
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "account"
+                          }
+                        ],
+                        "apiContract:paramName": [
+                          {
+                            "@value": "account"
+                          }
+                        ],
+                        "core:description": [
+                          {
+                            "@value": "account id"
+                          }
+                        ],
+                        "apiContract:required": [
+                          {
+                            "@value": false
+                          }
+                        ],
+                        "apiContract:binding": [
+                          {
+                            "@value": "query"
+                          }
+                        ],
+                        "raml-shapes:schema": [
+                          {
+                            "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Fcards%2Fdebit/post/request/parameter/default-binding/account/scalar/schema",
+                            "@type": [
+                              "raml-shapes:ScalarShape",
+                              "raml-shapes:AnyShape",
+                              "shacl:Shape",
+                              "raml-shapes:Shape",
+                              "doc:DomainElement"
+                            ],
+                            "shacl:datatype": [
+                              {
+                                "@id": "http://www.w3.org/2001/XMLSchema#integer"
+                              }
+                            ],
+                            "shacl:name": [
+                              {
+                                "@value": "schema"
+                              }
+                            ],
+                            "core:description": [
+                              {
+                                "@value": "account id"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "apiContract:returns": [
+                  {
+                    "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Fcards%2Fdebit/post/200",
+                    "@type": [
+                      "apiContract:Response",
+                      "apiContract:Message",
+                      "doc:DomainElement"
+                    ],
+                    "apiContract:statusCode": [
+                      {
+                        "@value": "200"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "200"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "OK"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "apiContract:parameter": [
+              {
+                "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Fcards%2Fdebit/parameter/path/customer_id",
+                "@type": [
+                  "apiContract:Parameter",
+                  "doc:DomainElement"
+                ],
+                "core:name": [
+                  {
+                    "@value": "customer_id"
+                  }
+                ],
+                "apiContract:paramName": [
+                  {
+                    "@value": "customer_id"
+                  }
+                ],
+                "apiContract:required": [
+                  {
+                    "@value": true
+                  }
+                ],
+                "apiContract:binding": [
+                  {
+                    "@value": "path"
+                  }
+                ],
+                "raml-shapes:schema": [
+                  {
+                    "@id": "#/web-api/end-points/%2Fcustomers%2F%7Bcustomer_id%7D%2Fcards%2Fdebit/parameter/default-binding/customer_id/scalar/schema",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "schema"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "doc:version": [
+      {
+        "@value": "2.3.0"
+      }
+    ],
+    "doc:root": [
+      {
+        "@value": true
+      }
+    ],
+    "@context": {
+      "@base": "file:///Users/amirra/mulesoft/sandbox/test.json",
+      "shacl": "http://www.w3.org/ns/shacl#",
+      "raml-shapes": "http://a.ml/vocabularies/shapes#",
+      "doc": "http://a.ml/vocabularies/document#",
+      "apiContract": "http://a.ml/vocabularies/apiContract#",
+      "core": "http://a.ml/vocabularies/core#"
+    }
+  }
+]

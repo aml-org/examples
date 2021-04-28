@@ -51,8 +51,7 @@ public class ErrorHandlerTest {
         final BaseUnit unresolvedModel = parser.parseFileAsync("file://resources/examples/resolution-error.raml").get();
         assertNotNull(unresolvedModel);
 
-        assertThrows(RuntimeException.class, () -> {
-            resolver.resolve(unresolvedModel, ResolutionPipeline.DEFAULT_PIPELINE(), new UnhandledErrorHandler());
-        });
+        assertThrows(RuntimeException.class,
+                () -> resolver.resolve(unresolvedModel, ResolutionPipeline.DEFAULT_PIPELINE(), new UnhandledErrorHandler()));
     }
 }
