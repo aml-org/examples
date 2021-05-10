@@ -11,7 +11,7 @@ The examples are incremental, from simple to more complex.
 To run the Java examples you must build the project with gradle and then run the unit tests:
 ```bash
 gradle clean build
-gradle test
+gradle :AMF4:test
 ```
 
 You can also run a specific file. For example, you can run only the parsing examples:
@@ -28,4 +28,16 @@ jest
 You can also run a specific file. For example, you can run only the parsing examples: 
 ```bash
 jest parsing.test.js
+```
+### Scala
+Scala tests are available under the new AMF5 module. **This is a work in progress, and some tests fail**.
+
+To run the Scala examples you must build the project with gradle and then run the unit tests:
+```bash
+gradle clean build
+gradle :AMF5:test
+```
+You can also run a specific file. For example, you can run only the parsing examples:
+```bash
+gradle test --tests "ParsingTestScala"
 ```

@@ -1,2 +1,4 @@
 rootProject.name = 'examples'
-include('examples')
+
+include 'AMF4'
+include 'AMF5'
