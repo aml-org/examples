@@ -1,0 +1,15 @@
+#%Dialect 1.0
+dialect: SimpleDialect
+version: "1.0"
+nodeMappings:
+  Simple:
+    mapping:
+      a:
+        unique: true
+        range: string
+      b:
+        unique: true
+        range: integer
+documents:
+  root:
+    encodes: Simple

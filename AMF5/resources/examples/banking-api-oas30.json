@@ -60,12 +60,7 @@
         },
         "requestBody": {
           "content": {}
-        },
-        "servers": [
-          {
-            "url": "acme-banking.com/apis"
-          }
-        ]
+        }
       }
     },
     "/customers/{customer_id}/accounts": {
@@ -89,12 +84,7 @@
         },
         "requestBody": {
           "content": {}
-        },
-        "servers": [
-          {
-            "url": "acme-banking.com/apis"
-          }
-        ]
+        }
       }
     },
     "/customers/{customer_id}/cards/debit": {
@@ -118,12 +108,7 @@
         },
         "requestBody": {
           "content": {}
-        },
-        "servers": [
-          {
-            "url": "acme-banking.com/apis"
-          }
-        ]
+        }
       },
       "post": {
         "requestBody": {
@@ -154,12 +139,7 @@
             "description": "OK",
             "content": {}
           }
-        },
-        "servers": [
-          {
-            "url": "acme-banking.com/apis"
-          }
-        ]
+        }
       }
     }
   }

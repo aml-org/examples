@@ -30,3 +30,5 @@ dependencies {
     // https://mvnrepository.com/artifact/junit/junit
     testCompile group: 'junit', name: 'junit', version: '4.13.1'
 }
+
+tasks.test.dependsOn(tasks.npm_test)
