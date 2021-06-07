@@ -1,0 +1,30 @@
+#%RAML 1.0
+title: Test API
+baseUri: https://example.com
+mediaType: application/json
+
+/tests:
+  get:
+    displayName: listTests
+    responses:
+      200:
+        body:
+          type: string[]
+
+/tests/{id}:
+  get:
+    displayName: fetchTest
+    responses:
+      200:
+        body:
+          type: string
+
+/others:
+  get:
+    displayName: listOthers
+
+  /{id}:
+    get:
+      displayName: fetchOther
+      body:
+        type: string

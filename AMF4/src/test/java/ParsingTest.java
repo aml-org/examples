@@ -1,4 +1,3 @@
-import amf.client.AMF;
 import amf.client.model.document.BaseUnit;
 import amf.client.model.document.Document;
 import amf.client.model.domain.DomainElement;
