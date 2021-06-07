@@ -1,41 +1,28 @@
-import amf.client.environment.{AsyncAPIConfiguration, OASConfiguration, RAMLConfiguration, WebAPIConfiguration}
-import amf.client.remote.Content
-import amf.client.resource.ResourceLoader
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
-import amf.client.convert.CoreClientConverters._
+import amf.client.environment.{AsyncAPIConfiguration, WebAPIConfiguration}
+import amf.client.exported.AMLConfiguration
+import org.junit.Assert.assertTrue
 
 /**
- * Basic, not-working examples saved to help create more complex examples
- */
+  * Basic, not-working examples saved to help create more complex examples
+  */
 class TemplateExamples {
   def parseWithDialect() = {
     // import amf-aml
-    AMLConfiguration.AML().withDialect("file://dialect.yaml").flatMap(_.createClient().parse("file://myinstance.yaml"))
-  }
-  // depends on api-contract
-  def parseOnlyRaml() = {
-    RAMLConfiguration.RAML10().createClient().parse("file://raml.raml").map(_.conforms)
-  }
-
-  def withResourceLoader = {
-    val rl = new ResourceLoader {
-      /** Fetch specified resource and return associated content. Resource should have benn previously accepted. */
-      override def fetch(resource: String): ClientFuture[Content] = Future.failed(new Exception)
-      /** Accepts specified resource. */
-      override def accepts(resource: String): Boolean = false
-    }
-    WebAPIConfiguration.WebAPI().withResourceLoader(rl).createClient().parse("")
-  }
-
-  def parseString = {
-    val environment = OASConfiguration.OAS()
-    AMFParser.parseContent("", environment)
+    val client = AMLConfiguration
+      .predefined()
+      .withDialect("file://dialect.yaml")
+      .get()
+      .createClient()
+    val result = client.parse("file://myinstance.yaml").get()
+    assertTrue(result.conforms)
   }
 
   def parseSyncANDAsync() = {
-    WebAPIConfiguration.WebAPI().merge(AsyncAPIConfiguration.Async20()).createClient().parse("")
+    WebAPIConfiguration
+      .WebAPI()
+      .merge(AsyncAPIConfiguration.Async20())
+      .createClient()
+      .parse("")
   }
   // basico: parse, render, validar, transformar
   // parse -> instance -> la guardo

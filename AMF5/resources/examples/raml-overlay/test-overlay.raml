@@ -1,0 +1,9 @@
+#%RAML 1.0 Overlay
+extends: test-api.raml
+
+annotationTypes:
+  test-ann: boolean
+
+/tests/{id}:
+  get:
+    (test-ann): true

@@ -111,5 +111,4 @@ public class ModelBuilderTest {
         final ValidationReport report = AMF.validate(model, ProfileNames.RAML(), MessageStyles.RAML()).get();
         assertTrue(report.conforms());
     }
-
 }

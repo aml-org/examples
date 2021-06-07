@@ -1,20 +1,21 @@
+import amf.Core;
 import amf.client.model.document.BaseUnit;
 import amf.client.model.document.Document;
-import amf.client.parse.*;
+import amf.client.parse.Oas30Parser;
+import amf.client.parse.Raml10Parser;
 import amf.client.render.Oas30Renderer;
 import amf.client.render.Raml10Renderer;
 import amf.client.resolve.Oas30Resolver;
 import amf.client.resolve.Raml10Resolver;
 import amf.core.resolution.pipelines.ResolutionPipeline;
+import amf.plugins.document.WebApi;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import amf.plugins.document.WebApi;
-import amf.Core;
 
 import java.util.concurrent.ExecutionException;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class ResolutionTest {
 
@@ -26,7 +27,7 @@ public class ResolutionTest {
 
 
     @Test
-    public void resolveRaml() throws ExecutionException, InterruptedException {
+    public void resolveRaml10Compatibility() throws ExecutionException, InterruptedException {
         final Raml10Parser parser = new Raml10Parser();
         final Raml10Resolver resolver = new Raml10Resolver();
 
@@ -41,7 +42,7 @@ public class ResolutionTest {
     }
 
     @Test
-    public void resolveOas() throws ExecutionException, InterruptedException {
+    public void resolveOas30() throws ExecutionException, InterruptedException {
         final Oas30Parser parser = new Oas30Parser();
         final Oas30Resolver resolver = new Oas30Resolver();
 
@@ -61,10 +62,10 @@ public class ResolutionTest {
         final Raml10Resolver resolver = new Raml10Resolver();
 
         final Document unresolvedModel = (Document) parser.parseFileAsync("file://resources/examples/raml-overlay/test-overlay.raml").get();
-        assertThat("unresolved overlay should reference main API", unresolvedModel.references().size() == 1);
+        assertTrue("unresolved overlay should reference main API", unresolvedModel.references().size() == 1);
 
         final Document resolvedModel = (Document) resolver.resolve(unresolvedModel, ResolutionPipeline.EDITING_PIPELINE());
-        assertThat("resolved model shouldn't reference anything", resolvedModel.references().size() == 0);
+        assertTrue("resolved model shouldn't reference anything", resolvedModel.references().size() == 0);
 
         System.out.println(new Raml10Renderer().generateString(resolvedModel).get());
     }
