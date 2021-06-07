@@ -14,8 +14,6 @@ import scala.concurrent.duration.Duration
 
 
 class PayloadValidationTestScala {
-  private var payloadValidator: PayloadValidator = null
-
 
   @Test
   def PayloadValidationTest(): Unit = {
@@ -32,7 +30,7 @@ class PayloadValidationTestScala {
     val userPayload = request.payloads.head
     val userSchema = userPayload.schema
 
-    payloadValidator = ShapePayloadValidatorFactory.createPayloadValidator(userSchema, new ValidationConfiguration(configuration))
+    val payloadValidator = ShapePayloadValidatorFactory.createPayloadValidator(userSchema, new ValidationConfiguration(configuration))
     val invalidUserPayload = "{\"name\": \"firstname and lastname\"}"
 
     val isValid = Await.result(payloadValidator.isValid("application/json", invalidUserPayload), Duration.Inf)

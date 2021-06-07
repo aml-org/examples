@@ -1,5 +1,6 @@
 import amf.client.exported.{OASConfiguration, RAMLConfiguration}
 import amf.core.resolution.pipelines.TransformationPipeline
+import amf.plugins.document.apicontract.resolution.pipelines.compatibility.Raml10CompatibilityPipeline
 import amf.plugins.document.apicontract.resolution.pipelines.{Oas30TransformationPipeline, Raml10TransformationPipeline}
 import org.junit.Assert.{assertNotNull, assertTrue}
 import org.junit.Test
@@ -12,7 +13,7 @@ class TransformationTestScala {
       client.parse("file://resources/examples/banking-api.raml").get()
     val transformed = client.transform(
       parseResult.baseUnit,
-      TransformationPipeline.COMPATIBILITY_PIPELINE
+      Raml10CompatibilityPipeline.name
     )
     assertNotNull(transformed)
     // has amf-specific fields for cross-spec conversion support
