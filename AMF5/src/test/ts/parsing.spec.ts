@@ -1,7 +1,9 @@
-import {AMFClient, exported, OASConfiguration, RAMLConfiguration} from "amf-client-js"
+import {AMFClient, exported, model, OASConfiguration, RAMLConfiguration} from "amf-client-js"
 import {expect} from "chai";
 import AMFDocumentResult = exported.AMFDocumentResult
 import AMFResult = exported.AMFResult
+import Document = model.document.Document
+import WebApi = model.domain.WebApi
 
 describe("Parsing", () => {
     let client: AMFClient;
@@ -20,16 +22,20 @@ describe("Parsing", () => {
         it("parse document from string", async () => {
             const api: string =
                 `{
-                "swagger": 2.0,
+                "swagger": "2.0",
                 "info": {
                     "title": "ACME Banking HTTP API",
                     "version": "1.0"
                 },
+                "paths": {},
                 "host": "acme-banking.com"
             }`
             const result: AMFResult = await client.parseContent(api)
             expect(result.results).to.be.empty
             expect(result.conforms).to.be.true
+            const document: Document = result.baseUnit as Document
+            const webApi: WebApi = document.encodes as WebApi
+            expect(webApi.name.value()).to.be.equal("ACME Banking HTTP API")
         })
 
     })
@@ -57,14 +63,16 @@ describe("Parsing", () => {
 
         it("parse document from string", async () => {
             const api: string =
-                `
-                #%RAML 1.0
+                `#%RAML 1.0
                 title: ACME Banking HTTP API
                 version: 1.0
                 `
             const result: AMFResult = await client.parseContent(api)
             expect(result.results).to.be.empty
             expect(result.conforms).to.be.true
+            const document: Document = result.baseUnit as Document
+            const webApi: WebApi = document.encodes as WebApi
+            expect(webApi.name.value()).to.be.equal("ACME Banking HTTP API")
         })
     })
     describe("RAML 0.8", () => {
@@ -80,25 +88,16 @@ describe("Parsing", () => {
 
         it("parse document from string", async () => {
             const api: string =
-                `
-                #%RAML 0.8
+                `#%RAML 0.8
                 title: ACME Banking HTTP API
                 version: 1.0
                 `
             const result: AMFResult = await client.parseContent(api)
             expect(result.results).to.be.empty
             expect(result.conforms).to.be.true
-        })
-    })
-    describe("AMF Graph", () => {
-        beforeEach(() => {
-            client = OASConfiguration.OAS20().createClient()
-        })
-
-        it("parse document from file", async () => {
-            const parsingResult: AMFDocumentResult = await client.parseDocument("file://resources/examples/banking-api.jsonld")
-            expect(parsingResult.results).to.be.empty
-            expect(parsingResult.conforms).to.be.true
+            const document: Document = result.baseUnit as Document
+            const webApi: WebApi = document.encodes as WebApi
+            expect(webApi.name.value()).to.be.equal("ACME Banking HTTP API")
         })
     })
 });

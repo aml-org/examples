@@ -39,16 +39,16 @@ describe("Transform RAML APIs", () => {
         })
     })
 
-    // TODO: Fix assert
-    describe.skip("OAS 3.0", () => {
+    describe("OAS 3.0", () => {
         it("transforms the document", async () => {
             const parseResult: AMFDocumentResult = await client.parseDocument("file://resources/examples/banking-api-oas30.json")
             const transformed: AMFResult = client.transform(parseResult.baseUnit, OAS_30_DEFAULT)
             const doc: Document = transformed.baseUnit as Document
             const api: WebApi = doc.encodes as WebApi
             const apiOperations: Operation[] = api.endPoints.flatMap(e => e.operations)
-            const firstServerOfEachOperation: Server[] = apiOperations.map(op => op.servers[0]).filter(s => s != undefined)
-            expect(firstServerOfEachOperation).to.have.length(apiOperations.length)
+            const firstServerOfEachOperation: Server[] = apiOperations.map(op => op.servers[0])
+            expect(firstServerOfEachOperation).to.not.contain(undefined, "There is an operation without server")
+            expect(firstServerOfEachOperation).to.have.length(apiOperations.length, "Each operation should have a server")
         })
     })
 })
