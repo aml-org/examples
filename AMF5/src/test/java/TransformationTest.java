@@ -1,4 +1,3 @@
-import amf.Core;
 import amf.client.exported.AMFClient;
 import amf.client.exported.AMFConfiguration;
 import amf.client.exported.OASConfiguration;

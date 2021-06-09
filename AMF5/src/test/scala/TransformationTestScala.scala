@@ -8,7 +8,7 @@ class TransformationTestScala extends AsyncFlatSpec with should.Matchers {
 
   "AMF transformation" should "transform a RAML 1.0 api with compatibility pipeline" in {
     val client = RAMLConfiguration.RAML10().createClient()
-    client.parse("file://AMF5/resources/examples/banking-api.raml") map { parseResult =>
+    client.parse("file://resources/examples/banking-api.raml") map { parseResult =>
       val transformed =
         client.transform(parseResult.bu, Raml10CompatibilityPipeline.name)
       // has amf-specific fields for cross-spec conversion support
@@ -19,7 +19,7 @@ class TransformationTestScala extends AsyncFlatSpec with should.Matchers {
 
   it should "transform an OAS 3.0 api with default pipeline" in {
     val client = OASConfiguration.OAS30().createClient()
-    client.parse("file://AMF5/resources/examples/banking-api-oas30.json") map { parseResult =>
+    client.parse("file://resources/examples/banking-api-oas30.json") map { parseResult =>
       val transformed =
         client.transform(parseResult.bu, Oas30TransformationPipeline.name)
       println(client.render(transformed.bu, "application/oas30+json"))
@@ -30,7 +30,7 @@ class TransformationTestScala extends AsyncFlatSpec with should.Matchers {
   it should "apply a RAML 1.0 Overlay to an api" in {
     val client = RAMLConfiguration.RAML10().createClient()
     client.parse(
-      "file://AMF5/resources/examples/raml-overlay/test-overlay.raml"
+      "file://resources/examples/raml-overlay/test-overlay.raml"
     ) map { parseResult =>
       assert(
         parseResult.bu.references.size == 1,

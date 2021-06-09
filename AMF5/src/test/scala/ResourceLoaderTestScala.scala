@@ -38,7 +38,7 @@ class ResourceLoaderTestScala extends AsyncFlatSpec with should.Matchers {
       .createClient()
 
     client.parse(
-      "CustomProtocol/AMF5/resources/examples/banking-api.raml"
+      "CustomProtocol/resources/examples/banking-api.raml"
     ) map (_.conforms shouldBe true)
   }
 }

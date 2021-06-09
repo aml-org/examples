@@ -12,6 +12,7 @@ import amf.core.resolution.pipelines.TransformationPipeline;
 import amf.remod.ClientShapePayloadValidatorFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import amf.client.remod.amfcore.plugins.validate.ValidationConfiguration;
 
 import java.util.concurrent.ExecutionException;
 
@@ -38,7 +39,7 @@ public class PayloadValidationTest {
         final AnyShape userSchema = (AnyShape) userPayload.schema();
 
         // TODO: createPayloadValidator should receive client configuration
-        payloadValidator = ClientShapePayloadValidatorFactory.createPayloadValidator(userSchema, client.getConfiguration()._internal());
+        payloadValidator = ClientShapePayloadValidatorFactory.createPayloadValidator(userSchema, ValidationConfiguration.apply(client.getConfiguration()._internal()));
     }
 
     @Test

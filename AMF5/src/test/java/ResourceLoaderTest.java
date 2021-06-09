@@ -1,7 +1,5 @@
 import amf.MessageStyles;
 import amf.ProfileNames;
-import amf.client.environment.DefaultEnvironment;
-import amf.client.environment.Environment;
 import amf.client.exported.AMFClient;
 import amf.client.exported.AMFConfiguration;
 import amf.client.exported.RAMLConfiguration;

@@ -15,7 +15,7 @@ class ErrorHandlerTestScala extends AsyncFlatSpec with should.Matchers {
         ) // throws an exception when an error is found
         .createClient()
 
-    client.parse("file://AMF5/resources/examples/resolution-error.raml") map { parseResult =>
+    client.parse("file://resources/examples/resolution-error.raml") map { parseResult =>
       assertThrows[java.lang.Exception] {
         client.transform(parseResult.bu, Raml10TransformationPipeline.name)
       }

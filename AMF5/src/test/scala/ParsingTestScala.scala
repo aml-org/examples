@@ -6,7 +6,7 @@ class ParsingTestScala extends AsyncFlatSpec with should.Matchers {
 
   "AMF client" should "parse an OAS 2.0 API" in {
     val client = OASConfiguration.OAS20().createClient()
-    client.parse("file://AMF5/resources/examples/banking-api.json") map (_.conforms shouldBe true)
+    client.parse("file://resources/examples/banking-api.json") map (_.conforms shouldBe true)
   }
 
   it should "parse an OAS 2.0 API from a string" in {
@@ -26,13 +26,13 @@ class ParsingTestScala extends AsyncFlatSpec with should.Matchers {
   it should "parse an OAS 3.0 API" in {
     val client = OASConfiguration.OAS30().createClient()
     client.parse(
-      "file://AMF5/resources/examples/banking-api-oas30.json"
+      "file://resources/examples/banking-api-oas30.json"
     ) map (_.conforms shouldBe true)
   }
 
   it should "parse an RAML 1.0 API" in {
     val client = RAMLConfiguration.RAML10().createClient()
-    client.parse("file://AMF5/resources/examples/banking-api.raml") map (_.conforms shouldBe true)
+    client.parse("file://resources/examples/banking-api.raml") map (_.conforms shouldBe true)
   }
 
   it should "parse an RAML 1.0 API from a string" in {
@@ -48,7 +48,7 @@ class ParsingTestScala extends AsyncFlatSpec with should.Matchers {
   it should "parse an RAML 0.8 API" in {
     val client = RAMLConfiguration.RAML08().createClient()
     client.parse(
-      "file://AMF5/resources/examples/banking-api-08.raml"
+      "file://resources/examples/banking-api-08.raml"
     ) map (_.conforms shouldBe true)
   }
 

@@ -1,4 +1,3 @@
-import amf.Core;
 import amf.client.exported.*;
 import amf.client.model.document.BaseUnit;
 import amf.client.model.document.Document;
