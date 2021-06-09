@@ -1,4 +1,4 @@
-import amf.client.environment.{OASConfiguration, RAMLConfiguration}
+import amf.client.environment.{OASConfiguration, RAMLConfiguration, WebAPIConfiguration}
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
@@ -60,5 +60,12 @@ class ParsingTestScala extends AsyncFlatSpec with should.Matchers {
         |title: ACME Banking HTTP API
         |version: 1.0""".stripMargin
     client.parseContent(api) map (_.conforms shouldBe true)
+  }
+
+  it should "parse AMF Graph" in {
+    val client = WebAPIConfiguration.WebAPI().createClient()
+    client.parse(
+      "file://resources/examples/banking-api.jsonld"
+    ) map (_.conforms shouldBe true)
   }
 }

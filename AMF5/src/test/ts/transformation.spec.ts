@@ -12,8 +12,8 @@ import Vendor = core.Vendor
 
 describe("Transform RAML APIs", () => {
     let client: AMFClient
-    const RAML_10_EDITING: string = PipelineName.from(Vendor.RAML10.name, TransformationPipeline.EDITING_PIPELINE)
-    const OAS_30_EDITING: string = PipelineName.from(Vendor.OAS30.name, TransformationPipeline.EDITING_PIPELINE)
+    const RAML_10_DEFAULT: string = PipelineName.from(Vendor.RAML10.name, TransformationPipeline.DEFAULT_PIPELINE)
+    const OAS_30_DEFAULT: string = PipelineName.from(Vendor.OAS30.name, TransformationPipeline.DEFAULT_PIPELINE)
 
     beforeEach(() => {
         client = WebAPIConfiguration.WebAPI().createClient()
@@ -21,14 +21,16 @@ describe("Transform RAML APIs", () => {
 
     describe("RAML 1.0", () => {
         it("applies resource types and traits, applies inheritance, etc", async () => {
-            const parseResult: AMFDocumentResult = await client.parseDocument("file://resources/examples/banking-api.raml")
-            const transformed: AMFResult = client.transform(parseResult.baseUnit, RAML_10_EDITING)
-            // TODO: add api with resource types
+            const parseResult: AMFDocumentResult = await client.parseDocument("file://resources/examples/raml-resource-type.raml")
+            const transformed: AMFResult = client.transform(parseResult.baseUnit, RAML_10_DEFAULT)
+            const doc: Document = transformed.baseUnit as Document
+            const api: WebApi = doc.encodes as WebApi
+            expect(api.endPoints[0].operations).to.not.empty
         })
 
         it("applies overlays to document", async () => {
             const parseResult: AMFDocumentResult = await client.parseDocument("file://resources/examples/raml-overlay/test-overlay.raml")
-            const transformed: AMFResult = client.transform(parseResult.baseUnit, RAML_10_EDITING)
+            const transformed: AMFResult = client.transform(parseResult.baseUnit, RAML_10_DEFAULT)
             const doc: Document = transformed.baseUnit as Document
             expect(doc.references()).to.be.empty
             const api: WebApi = doc.encodes as WebApi
@@ -41,7 +43,7 @@ describe("Transform RAML APIs", () => {
     describe.skip("OAS 3.0", () => {
         it("transforms the document", async () => {
             const parseResult: AMFDocumentResult = await client.parseDocument("file://resources/examples/banking-api-oas30.json")
-            const transformed: AMFResult = client.transform(parseResult.baseUnit, OAS_30_EDITING)
+            const transformed: AMFResult = client.transform(parseResult.baseUnit, OAS_30_DEFAULT)
             const doc: Document = transformed.baseUnit as Document
             const api: WebApi = doc.encodes as WebApi
             const apiOperations: Operation[] = api.endPoints.flatMap(e => e.operations)

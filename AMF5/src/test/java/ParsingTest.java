@@ -21,8 +21,11 @@ public class ParsingTest {
         // A BaseUnit is the return type of any parsing
         // The actual object can be many different things, depending on the content of the source file
         // https://github.com/aml-org/amf/blob/develop/documentation/model.md#baseunit
-        final BaseUnit model = client.parse("file://resources/examples/banking-api.json").get().baseUnit();
+        final AMFResult parseResult = client.parse("file://resources/examples/banking-api.json").get();
+        final BaseUnit model = parseResult.baseUnit();
+
         assertNotNull(model);
+        assertTrue(parseResult.conforms());
 
         // DomainElement is the base class for any element describing a domain model
         final DomainElement webApi = ((Document) model).encodes();
@@ -40,11 +43,15 @@ public class ParsingTest {
                         "    \"title\": \"ACME Banking HTTP API\",\n" +
                         "    \"version\": \"1.0\"\n" +
                         "  },\n" +
-                        "  \"host\": \"acme-banking.com\"" +
+                        "  \"host\": \"acme-banking.com\",\n" +
+                        "  \"paths\": {}\n" +
                         "}";
 
-        final BaseUnit model = client.parseContent(api).get().baseUnit();
+        final AMFResult parseResult = client.parseContent(api).get();
+        final BaseUnit model = parseResult.baseUnit();
+
         assertNotNull(model);
+        assertTrue(parseResult.conforms());
         assertTrue(model.raw().isPresent());
         assertEquals(model.raw().get(), api);
 
@@ -56,9 +63,11 @@ public class ParsingTest {
     public void parseOas30() throws ExecutionException, InterruptedException {
         final AMFClient client = OASConfiguration.OAS30().createClient();
 
-        final BaseUnit model = client.parse("file://resources/examples/banking-api-oas30.json").get().baseUnit();
-        assertNotNull(model);
+        final AMFResult parseResult = client.parse("file://resources/examples/banking-api-oas30.json").get();
+        final BaseUnit model = parseResult.baseUnit();
 
+        assertNotNull(model);
+        assertTrue(parseResult.conforms());
         final DomainElement webApi = ((Document) model).encodes();
         assertNotNull(webApi);
     }
@@ -67,8 +76,11 @@ public class ParsingTest {
     public void parseRaml10() throws ExecutionException, InterruptedException {
         final AMFClient client = RAMLConfiguration.RAML10().createClient();
 
-        final BaseUnit model = client.parse("file://resources/examples/banking-api.raml").get().baseUnit();
+        final AMFResult parseResult = client.parse("file://resources/examples/banking-api.raml").get();
+        final BaseUnit model = parseResult.baseUnit();
+
         assertNotNull(model);
+        assertTrue(parseResult.conforms());
 
         final DomainElement webApi = ((Document) model).encodes();
         assertNotNull(webApi);
@@ -84,8 +96,11 @@ public class ParsingTest {
                         "title: ACME Banking HTTP API\n" +
                         "version: 1.0";
 
-        final BaseUnit model = client.parseContent(api).get().baseUnit();
+        final AMFResult parseResult = client.parseContent(api).get();
+        final BaseUnit model = parseResult.baseUnit();
+
         assertNotNull(model);
+        assertTrue(parseResult.conforms());
         assertTrue(model.raw().isPresent());
         assertEquals(model.raw().get(), api);
 
@@ -97,8 +112,11 @@ public class ParsingTest {
     public void parseRaml08() throws ExecutionException, InterruptedException {
         final AMFClient client = RAMLConfiguration.RAML08().createClient();
 
-        final BaseUnit model = client.parse("file://resources/examples/banking-api-08.raml").get().baseUnit();
+        final AMFResult parseResult = client.parse("file://resources/examples/banking-api-08.raml").get();
+        final BaseUnit model = parseResult.baseUnit();
+
         assertNotNull(model);
+        assertTrue(parseResult.conforms());
 
         final DomainElement webApi = ((Document) model).encodes();
         assertNotNull(webApi);
@@ -114,8 +132,11 @@ public class ParsingTest {
                         "title: ACME Banking HTTP API\n" +
                         "version: 1.0";
 
-        final BaseUnit model = client.parseContent(api).get().baseUnit();
+        final AMFResult parseResult = client.parseContent(api).get();
+        final BaseUnit model = parseResult.baseUnit();
+
         assertNotNull(model);
+        assertTrue(parseResult.conforms());
         assertTrue(model.raw().isPresent());
         assertEquals(model.raw().get(), api);
 
@@ -125,10 +146,13 @@ public class ParsingTest {
 
     @Test
     public void parseAMFGraph() throws ExecutionException, InterruptedException {
-        final AMFClient client = WebAPIConfiguration.WebAPI().createClient(); // change to GraphConfig
+        final AMFClient client = WebAPIConfiguration.WebAPI().createClient();
 
-        final BaseUnit model = client.parse("file://resources/examples/banking-api.jsonld").get().baseUnit();
+        final AMFResult parseResult = client.parse("file://resources/examples/banking-api.jsonld").get();
+
+        final BaseUnit model = parseResult.baseUnit();
         assertNotNull(model);
+        assertTrue(parseResult.conforms());
 
         final DomainElement webApi = ((Document) model).encodes();
         assertNotNull(webApi);

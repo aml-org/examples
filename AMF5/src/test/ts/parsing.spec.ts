@@ -90,4 +90,15 @@ describe("Parsing", () => {
             expect(result.conforms).to.be.true
         })
     })
+    describe("AMF Graph", () => {
+        beforeEach(() => {
+            client = OASConfiguration.OAS20().createClient()
+        })
+
+        it("parse document from file", async () => {
+            const parsingResult: AMFDocumentResult = await client.parseDocument("file://resources/examples/banking-api.jsonld")
+            expect(parsingResult.results).to.be.empty
+            expect(parsingResult.conforms).to.be.true
+        })
+    })
 });

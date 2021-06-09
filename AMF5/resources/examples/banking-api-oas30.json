@@ -4,14 +4,12 @@
     "title": "ACME Banking HTTP API",
     "version": "1.0"
   },
+  "servers": [
+    {
+      "url": "acme-banking.com/apis"
+    }
+  ],
   "paths": {
-    "/customers": {
-      "servers": [
-        {
-          "url": "acme-banking.com/apis"
-        }
-      ]
-    },
     "/customers/{customer_id}": {
       "delete": {
         "parameters": [
