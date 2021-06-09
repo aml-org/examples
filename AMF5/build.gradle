@@ -38,6 +38,5 @@ dependencies {
 task testAll {
     dependsOn test
     dependsOn scalatest
+//    dependsOn tasks.npm_test
 }
-
-tasks.test.dependsOn(tasks.npm_test)
