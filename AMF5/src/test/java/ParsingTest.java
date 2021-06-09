@@ -143,18 +143,4 @@ public class ParsingTest {
         final DomainElement webApi = ((Document) model).encodes();
         assertNotNull(webApi);
     }
-
-    @Test
-    public void parseAMFGraph() throws ExecutionException, InterruptedException {
-        final AMFClient client = WebAPIConfiguration.WebAPI().createClient();
-
-        final AMFResult parseResult = client.parse("file://resources/examples/banking-api.jsonld").get();
-
-        final BaseUnit model = parseResult.baseUnit();
-        assertNotNull(model);
-        assertTrue(parseResult.conforms());
-
-        final DomainElement webApi = ((Document) model).encodes();
-        assertNotNull(webApi);
-    }
 }
