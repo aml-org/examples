@@ -1,46 +1,53 @@
 import amf.client.environment.WebAPIConfiguration
 import amf.client.remod.amfcore.plugins.validate.ValidationConfiguration
 import amf.core.model.document.Document
-import amf.core.validation.PayloadValidator
 import amf.plugins.document.apicontract.resolution.pipelines.Raml10TransformationPipeline
 import amf.plugins.domain.apicontract.models.api.WebApi
 import amf.remod.ShapePayloadValidatorFactory
-import org.junit.Assert.assertFalse
-import org.junit.Test
+import org.scalatest.flatspec.AsyncFlatSpec
+import org.scalatest.matchers.should
 
-import scala.concurrent.Await
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.Duration
+class PayloadValidationTestScala extends AsyncFlatSpec with should.Matchers {
 
-
-class PayloadValidationTestScala {
-
-  @Test
-  def PayloadValidationTest(): Unit = {
+  "AMF payload validation" should "create and use a user schema payload validator" in {
     val configuration = WebAPIConfiguration.WebAPI()
     val client = configuration.createClient()
-    val parsingResult = Await.result(client.parse("file://resources/examples/simple-api.raml"), Duration.Inf)
-    val transformationResult = client.transform(parsingResult.bu, Raml10TransformationPipeline.name)
+    client.parse("file://AMF5/resources/examples/simple-api.raml") map { parseResult =>
+      val transformationResult = client.transform(parseResult.bu, Raml10TransformationPipeline.name)
 
-    // get the model.encodes() to isolate the WebApi model
-    val webApi = transformationResult.bu.asInstanceOf[Document].encodes.asInstanceOf[WebApi]
-    val usersEndpoint = webApi.endPoints.head
-    val postMethod = usersEndpoint.operations.head
-    val request = postMethod.requests.head
-    val userPayload = request.payloads.head
-    val userSchema = userPayload.schema
+      // get the model.encodes() to isolate the WebApi model
+      val webApi = transformationResult.bu
+        .asInstanceOf[Document]
+        .encodes
+        .asInstanceOf[WebApi]
+      val usersEndpoint = webApi.endPoints.head
+      val postMethod = usersEndpoint.operations.head
+      val request = postMethod.requests.head
+      val userPayload = request.payloads.head
+      val userSchema = userPayload.schema
 
-    val payloadValidator = ShapePayloadValidatorFactory.createPayloadValidator(userSchema, new ValidationConfiguration(configuration))
-    val invalidUserPayload = "{\"name\": \"firstname and lastname\"}"
+      // create payload validator
+      val payloadValidator =
+        ShapePayloadValidatorFactory.createPayloadValidator(
+          userSchema,
+          new ValidationConfiguration(configuration)
+        )
 
-    val isValid = Await.result(payloadValidator.isValid("application/json", invalidUserPayload), Duration.Inf)
-    assertFalse(isValid)
+      // invalid payload to validate against
+      val invalidUserPayload = "{\"name\": \"firstname and lastname\"}"
 
-    val validateReport = Await.result(payloadValidator.validate("application/json", invalidUserPayload), Duration.Inf)
-    assertFalse(validateReport.conforms)
+      // .isValid is a fail-fast method useful for just checking validity
+      payloadValidator.isValid("application/json", invalidUserPayload) map (_ shouldBe false)
 
-    val syncValidateReport = payloadValidator.syncValidate("application/json", invalidUserPayload)
-    assertFalse(syncValidateReport.conforms)
+      // .validate returns a Validation report with all results found
+      payloadValidator.validate(
+        "application/json",
+        invalidUserPayload
+      ) map (_.conforms shouldBe false)
+
+      // .syncValidate validates synchronously
+      payloadValidator.syncValidate("application/json", invalidUserPayload).conforms shouldBe false
+    }
 
   }
 }

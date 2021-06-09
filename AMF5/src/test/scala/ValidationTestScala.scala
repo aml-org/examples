@@ -1,44 +1,28 @@
 import amf.ProfileName
 import amf.client.environment.RAMLConfiguration
-import org.junit.Assert.{assertFalse, assertTrue}
-import org.junit.Test
+import org.scalatest.flatspec._
+import org.scalatest.matchers._
 
-import scala.concurrent.Await
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.Duration
+class ValidationTestScala extends AsyncFlatSpec with should.Matchers {
 
-class ValidationTestScala {
-
-  @Test def validateRaml(): Unit = {
+  "Raml Validation" should "not conform when the api has a validation error" in {
     val client = RAMLConfiguration.RAML().createClient()
-    val parsingResult = Await.result(
-      client.parse("file://resources/examples/banking-api-error.raml"),
-      Duration.Inf
-    )
-    assertTrue(parsingResult.conforms)
-    val validationResult =
-      Await.result(client.validate(parsingResult.bu), Duration.Inf)
-    assertFalse(validationResult.conforms)
+    client.parse("file://AMF5/resources/examples/banking-api-error.raml") flatMap { result =>
+      result.conforms shouldBe true
+      client.validate(result.bu) map { validationResult =>
+        validationResult.conforms shouldBe false
+      }
+    }
   }
 
-  @Test def validateRamlWithCustomValidation(): Unit = {
-    val configuration = Await.result(
-      RAMLConfiguration
-        .RAML()
-        .withCustomValidationsEnabled
-        .flatMap(_.withCustomProfile("file://resources/validation_profile.raml")),
-      Duration.Inf
-    )
-    val client = configuration.createClient()
-    val parsingResult = Await.result(
-      client.parse("file://resources/examples/banking-api-error.raml"),
-      Duration.Inf
-    )
-    val validationResult = Await.result(
-      client.validate(parsingResult.bu, ProfileName("Banking")),
-      Duration.Inf
-    )
-    assertTrue(validationResult.conforms)
+  it should "conform when validating with a custom validation profile" in {
+    RAMLConfiguration.RAML().withCustomValidationsEnabled flatMap (_.withCustomProfile(
+      "file://AMF5/resources/validation_profile.raml"
+    )) flatMap { configuration =>
+      val client = configuration.createClient()
+      client.parse("file://AMF5/resources/examples/banking-api-error.raml") flatMap { parseResult =>
+        client.validate(parseResult.bu, ProfileName("Banking")) map (_.conforms shouldBe true)
+      }
+    }
   }
-
 }

@@ -2,15 +2,16 @@ import amf.client.exported.RAMLConfiguration
 import amf.client.model.document.Document
 import amf.client.model.domain.{Request, WebApi}
 import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.scalatest.flatspec.AsyncFlatSpec
+import org.scalatest.matchers.should
 
 import java.util.Collections
 
-class ModelBuilderTestScala {
+class ModelBuilderTestScala extends AsyncFlatSpec with should.Matchers {
 
-  @Test def buildWebApiTest(): Unit = {
+  "AMF" should "create a valid model in memory" in {
     val stringDataType = "http://www.w3.org/2001/XMLSchema#string"
-
+    val client = RAMLConfiguration.RAML().createClient()
     val api = new WebApi()
       .withName("Music Service API")
       .withVersion("v1")
@@ -102,11 +103,8 @@ class ModelBuilderTestScala {
     model.withEncodes(api)
 
     // Run RAML default validations on parsed unit (expects one error -> invalid protocols value)
-    val client = RAMLConfiguration.RAML().createClient()
     val validationReport = client.validate(model).get()
-    assertTrue(
-      "Created model in memory should be valid",
-      validationReport.conforms
-    )
+    validationReport.conforms shouldBe true
+    validationReport.results.size() shouldBe 0
   }
 }

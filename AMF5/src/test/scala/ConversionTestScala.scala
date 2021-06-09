@@ -1,45 +1,28 @@
+import amf.client.environment.WebAPIConfiguration
 import amf.plugins.document.apicontract.resolution.pipelines.compatibility.{Oas20CompatibilityPipeline, Raml10CompatibilityPipeline}
-import org.junit.Assert._
-import org.junit.Test
+import org.scalatest.flatspec.AsyncFlatSpec
+import org.scalatest.matchers.should
 
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
+class ConversionTestScala extends AsyncFlatSpec with should.Matchers {
 
-class ConversionTestScala {
-
-  import amf.client.environment.WebAPIConfiguration
-
-  import scala.concurrent.ExecutionContext.Implicits.global
-
-  @Test def Raml10ToOas20Conversion(): Unit = {
+  "AMF" should "convert a RAML 1.0 API to OAS 2.0" in {
     val client = WebAPIConfiguration.WebAPI().createClient()
-    val parseResult = Await.result(
-      client.parse("file://resources/examples/banking-api.raml"),
-      Duration.Inf
-    )
-    val transformResult =
-      client.transform(parseResult.bu, Oas20CompatibilityPipeline.name)
-    val renderResult =
-      client.render(transformResult.bu, "application/oas20+json")
-    val readApi = getStrFromFile(
-      "resources/expected/converted-banking-api.json"
-    )
-    assertEquals(readApi, renderResult)
+    client.parse("file://AMF5/resources/examples/banking-api.raml") map { parseResult =>
+      val transformResult = client.transform(parseResult.bu, Oas20CompatibilityPipeline.name)
+      val renderResult = client.render(transformResult.bu, "application/oas20+json")
+      val readApi = getStrFromFile("AMF5/resources/expected/converted-banking-api.json")
+      renderResult shouldEqual readApi
+    }
   }
 
-  @Test def Oas20ToRaml10Conversion(): Unit = {
+  "AMF" should "convert an OAS 2.0 API to RAML 1.0" in {
     val client = WebAPIConfiguration.WebAPI().createClient()
-    client
-      .parse("file://resources/examples/banking-api.json")
-      .map(parseResult => {
-        val transformResult =
-          client.transform(parseResult.bu, Raml10CompatibilityPipeline.name)
-        val renderResult =
-          client.render(transformResult.bu, "application/raml10+yaml")
-        val readApi =
-          getStrFromFile("resources/expected/converted-banking-api.raml")
-        assertEquals(readApi, renderResult)
-      })
+    client.parse("file://AMF5/resources/examples/banking-api.json") map { parseResult =>
+      val transformResult = client.transform(parseResult.bu, Raml10CompatibilityPipeline.name)
+      val renderResult = client.render(transformResult.bu, "application/raml10+yaml")
+      val readApi = getStrFromFile("AMF5/resources/expected/converted-banking-api.raml")
+      renderResult shouldEqual readApi
+    }
   }
 
   private def getStrFromFile(path: String): String = {

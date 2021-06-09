@@ -1,17 +1,15 @@
-import amf.client.exported.{OASConfiguration, RAMLConfiguration}
-import org.junit.Assert._
-import org.junit.Test
+import amf.client.environment.{OASConfiguration, RAMLConfiguration}
+import org.scalatest.flatspec.AsyncFlatSpec
+import org.scalatest.matchers.should
 
+class ParsingTestScala extends AsyncFlatSpec with should.Matchers {
 
-class ParsingTestScala {
-
-  @Test def parseOas20(): Unit = {
+  "AMF client" should "parse an OAS 2.0 API" in {
     val client = OASConfiguration.OAS20().createClient()
-    val parsingResult = client.parse("file://resources/examples/banking-api.json").get()
-    assertTrue(parsingResult.conforms)
+    client.parse("file://AMF5/resources/examples/banking-api.json") map (_.conforms shouldBe true)
   }
 
-  @Test def parseOas20String(): Unit = {
+  it should "parse an OAS 2.0 API from a string" in {
     val client = OASConfiguration.OAS20().createClient()
     val api =
       """{
@@ -22,63 +20,45 @@ class ParsingTestScala {
         |    },
         |    "host": "acme-banking.com"
         |}""".stripMargin
-    val parsingResult = client.parseContent(api).get();
-    assertTrue(parsingResult.conforms)
+    client.parseContent(api) map (_.conforms shouldBe true)
   }
 
-  @Test def parseOas30(): Unit = {
-    val parsingResult = OASConfiguration
-      .OAS30()
-      .createClient()
-      .parse("file://resources/examples/banking-api-oas30.json")
-      .get()
-    assertTrue(parsingResult.conforms)
+  it should "parse an OAS 3.0 API" in {
+    val client = OASConfiguration.OAS30().createClient()
+    client.parse(
+      "file://AMF5/resources/examples/banking-api-oas30.json"
+    ) map (_.conforms shouldBe true)
   }
 
-  @Test def parseRaml10(): Unit = {
-    val parsingResult = RAMLConfiguration
-      .RAML10()
-      .createClient()
-      .parse("file://resources/examples/banking-api.raml")
-      .get()
-    assertTrue(parsingResult.conforms)
+  it should "parse an RAML 1.0 API" in {
+    val client = RAMLConfiguration.RAML10().createClient()
+    client.parse("file://AMF5/resources/examples/banking-api.raml") map (_.conforms shouldBe true)
   }
 
-  @Test def parseRaml10String(): Unit = {
+  it should "parse an RAML 1.0 API from a string" in {
+    val client = RAMLConfiguration.RAML10().createClient()
     val api =
       """#%RAML 1.0
         |
         |title: ACME Banking HTTP API
         |version: 1.0""".stripMargin
-    val parsingResult = RAMLConfiguration
-      .RAML10()
-      .createClient()
-      .parseContent(api)
-      .get()
-    assertTrue(parsingResult.conforms)
+    client.parseContent(api) map (_.conforms shouldBe true)
   }
 
-  @Test def parseRaml08(): Unit = {
-    val parsingResult = RAMLConfiguration
-      .RAML08()
-      .createClient()
-      .parse("file://resources/examples/banking-api-08.raml")
-      .get()
-    assertTrue(parsingResult.conforms)
+  it should "parse an RAML 0.8 API" in {
+    val client = RAMLConfiguration.RAML08().createClient()
+    client.parse(
+      "file://AMF5/resources/examples/banking-api-08.raml"
+    ) map (_.conforms shouldBe true)
   }
 
-  @Test def parseRaml08String(): Unit = {
+  it should "parse an RAML 0.8 API from a string" in {
+    val client = RAMLConfiguration.RAML08().createClient()
     val api =
       """#%RAML 0.8
         |
         |title: ACME Banking HTTP API
         |version: 1.0""".stripMargin
-    val parsingResult = RAMLConfiguration
-      .RAML08()
-      .createClient()
-      .parseContent(api)
-      .get()
-    assertTrue(parsingResult.conforms)
+    client.parseContent(api) map (_.conforms shouldBe true)
   }
-  // TODO: add graph parse
 }

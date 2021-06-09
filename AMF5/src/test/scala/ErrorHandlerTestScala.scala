@@ -1,26 +1,24 @@
 import amf.client.environment.RAMLConfiguration
 import amf.core.errorhandling.UnhandledErrorHandler
 import amf.plugins.document.apicontract.resolution.pipelines.Raml10TransformationPipeline
-import org.junit.Test
+import org.scalatest.flatspec.AsyncFlatSpec
+import org.scalatest.matchers.should
 
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
+class ErrorHandlerTestScala extends AsyncFlatSpec with should.Matchers {
 
-class ErrorHandlerTestScala {
-
-  @Test(expected = classOf[java.lang.Exception])
-  def customErrorHandler(): Unit = {
+  "AMF client" should "use a custom error handler provider" in {
     val client =
       RAMLConfiguration
         .RAML10()
-        .withErrorHandlerProvider(() => UnhandledErrorHandler)
+        .withErrorHandlerProvider(() =>
+          UnhandledErrorHandler
+        ) // throws an exception when an error is found
         .createClient()
 
-    val parseResult = Await.result(
-      client.parse("file://resources/examples/resolution-error.raml"),
-      Duration.Inf
-    )
-
-    client.transform(parseResult.bu, Raml10TransformationPipeline.name)
+    client.parse("file://AMF5/resources/examples/resolution-error.raml") map { parseResult =>
+      assertThrows[java.lang.Exception] {
+        client.transform(parseResult.bu, Raml10TransformationPipeline.name)
+      }
+    }
   }
 }
