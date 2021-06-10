@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "test-amf4": "cd AMF4 && npm install && jest",
+    "test-amf5": "cd AMF5 && npm install && npm test"
+  }
+}

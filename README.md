@@ -5,39 +5,56 @@ The purpose of this repository is to provide a set of usage examples for AMF and
 The examples are incremental, from simple to more complex.
 
 
-## Usage
+# AMF 4 examples
 
 ### Java
 To run the Java examples you must build the project with gradle and then run the unit tests:
 ```bash
-gradle clean build
+gradle :AMF4:clean build
 gradle :AMF4:test
 ```
 
 You can also run a specific file. For example, you can run only the parsing examples:
 ```bash
-gradle test --tests "ParsingTest"
+gradle :AMF4:test --tests "ParsingTest"
 ```
 
 ### JavaScript
-To run the Javascript you need to build the project with npm and run the unit tests with jest:
+To run the Javascript you need to go to the AMF4 folder, build the project with npm and run the unit tests with jest,
+it can all be done running the following command on the root folder:
 ```bash
-npm install
-jest
+npm run test-amf4
 ```
 You can also run a specific file. For example, you can run only the parsing examples: 
 ```bash
 jest parsing.test.js
 ```
-### Scala
-Scala tests are available under the new AMF5 module. **This is a work in progress, and some tests fail**.
 
-To run the Scala examples you must build the project with gradle and then run the unit tests:
+# AMF 5 examples
+
+### Java
+To run the Java examples you must build the project with gradle and then run the unit tests:
 ```bash
-gradle clean build
+gradle :AMF4:clean build
 gradle :AMF5:test
 ```
-You can also run a specific file. For example, you can run only the parsing examples:
+
+### Scala
+To run the Scala examples you must build the project with gradle and then run the scalatest unit tests:
 ```bash
-gradle test --tests "ParsingTestScala"
+gradle :AMF5:clean build
+gradle :AMF5:scalatest
+```
+
+### TypeScript
+To run the Javascript you need to go to the AMF5 folder, build the project with npm and run the unit tests,
+it can all be done running the following command on the root folder:
+```bash
+npm run test-amf5
+```
+
+### All tests
+You can run all AMF 5 tests (Scala, Java and TypeScript) by running the following task:
+```bash
+gradle :AMF5:testAll
 ```
