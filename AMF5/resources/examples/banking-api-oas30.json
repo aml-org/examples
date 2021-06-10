@@ -4,14 +4,12 @@
     "title": "ACME Banking HTTP API",
     "version": "1.0"
   },
+  "servers": [
+    {
+      "url": "acme-banking.com/apis"
+    }
+  ],
   "paths": {
-    "/customers": {
-      "servers": [
-        {
-          "url": "acme-banking.com/apis"
-        }
-      ]
-    },
     "/customers/{customer_id}": {
       "delete": {
         "parameters": [
@@ -60,12 +58,7 @@
         },
         "requestBody": {
           "content": {}
-        },
-        "servers": [
-          {
-            "url": "acme-banking.com/apis"
-          }
-        ]
+        }
       }
     },
     "/customers/{customer_id}/accounts": {
@@ -89,12 +82,7 @@
         },
         "requestBody": {
           "content": {}
-        },
-        "servers": [
-          {
-            "url": "acme-banking.com/apis"
-          }
-        ]
+        }
       }
     },
     "/customers/{customer_id}/cards/debit": {
@@ -118,12 +106,7 @@
         },
         "requestBody": {
           "content": {}
-        },
-        "servers": [
-          {
-            "url": "acme-banking.com/apis"
-          }
-        ]
+        }
       },
       "post": {
         "requestBody": {
@@ -154,12 +137,7 @@
             "description": "OK",
             "content": {}
           }
-        },
-        "servers": [
-          {
-            "url": "acme-banking.com/apis"
-          }
-        ]
+        }
       }
     }
   }

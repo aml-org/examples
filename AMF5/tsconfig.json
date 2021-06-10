@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib",
+    "rootDir": "./src/ts",
+    "target": "es5",
+    "lib": [
+      "es2019"
+    ]
+  },
+  "include": ["src/test/ts/*"],
+  "exclude": ["node_modules"]
+}

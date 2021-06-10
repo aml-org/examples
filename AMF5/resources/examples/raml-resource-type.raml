@@ -1,0 +1,14 @@
+#%RAML 1.0
+title: Example API
+version: v1
+mediaType: application/json
+resourceTypes:
+  rtExample:
+    get:
+      responses:
+        200:
+          body:
+            type: string
+
+/example:
+  type: rtExample

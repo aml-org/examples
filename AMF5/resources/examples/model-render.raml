@@ -1,0 +1,53 @@
+#%RAML 1.0
+title: Music Service API
+mediaType:
+  - application/json
+version: v1
+/albums:
+  displayName: several-albums
+  get:
+    description: Get Several Albums
+    queryParameters:
+      album-ids:
+        description: A comma-separated list of IDs
+        type: string
+    responses:
+      "200":
+        body:
+          application/json:
+            type: string
+/me:
+  displayName: current-user
+  get:
+    description: Get Current User's Profile
+    responses:
+      "200":
+        body:
+          application/json:
+            type: string
+/albums/{id}:
+  displayName: albums
+  get:
+    description: Get an Album
+    queryParameters:
+      Market?:
+        description: " The market (an ISO 3166-1 alpha-2 country code)"
+        type: string
+    responses:
+      "200":
+        body:
+          application/json:
+            type: string
+  uriParameters:
+    id:
+      description: The album ID
+      type: string
+/me/playlists:
+  displayName: current-user-playlists
+  get:
+    description: Get a List of Current User's Playlists
+    responses:
+      "200":
+        body:
+          application/json:
+            type: string

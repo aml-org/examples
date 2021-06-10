@@ -1,55 +1,52 @@
-import amf.client.exported.{OASConfiguration, RAMLConfiguration}
-import amf.core.resolution.pipelines.TransformationPipeline
+import amf.client.environment.{OASConfiguration, RAMLConfiguration}
+import amf.core.model.document.Document
 import amf.plugins.document.apicontract.resolution.pipelines.{Oas30TransformationPipeline, Raml10TransformationPipeline}
-import org.junit.Assert.{assertNotNull, assertTrue}
-import org.junit.Test
+import amf.plugins.document.apicontract.resolution.pipelines.compatibility.Raml10CompatibilityPipeline
+import amf.plugins.domain.apicontract.models.api.WebApi
+import org.scalatest.flatspec.AsyncFlatSpec
+import org.scalatest.matchers.should
 
-class TransformationTestScala {
+class TransformationTestScala extends AsyncFlatSpec with should.Matchers {
 
-  @Test def transformRaml10Compatibility(): Unit = {
+  "AMF transformation" should "transform a RAML 1.0 applying resource types with default pipeline" in {
     val client = RAMLConfiguration.RAML10().createClient()
-    val parseResult =
-      client.parse("file://resources/examples/banking-api.raml").get()
-    val transformed = client.transform(
-      parseResult.baseUnit,
-      TransformationPipeline.COMPATIBILITY_PIPELINE
-    )
-    assertNotNull(transformed)
-    // has amf-specific fields for cross-spec conversion support
-    println(client.render(transformed.baseUnit))
+    client.parse("file://resources/examples/raml-resource-type.raml") map { parseResult =>
+      val transformed = client.transform(parseResult.bu, Raml10TransformationPipeline.name)
+      val document = transformed.bu.asInstanceOf[Document]
+      val allOperations = document.encodes.asInstanceOf[WebApi].endPoints.flatMap(_.operations)
+      assert(allOperations.nonEmpty,"resource type should be resolved defining new operation")
+    }
   }
 
-  @Test def transformOas30(): Unit = {
+  it should "transform an OAS 3.0 api with default pipeline" in {
     val client = OASConfiguration.OAS30().createClient()
-    val parseResult =
-      client.parse("file://resources/examples/banking-api-oas30.json").get()
-    val transformed =
-      client.transform(parseResult.baseUnit, Oas30TransformationPipeline.name) // uses default pipeline
-    assertNotNull(transformed)
-    println(client.render(transformed.baseUnit))
+    client.parse("file://resources/examples/banking-api-oas30.json") map { parseResult =>
+      val transformed =
+        client.transform(parseResult.bu, Oas30TransformationPipeline.name)
+      val document = transformed.bu.asInstanceOf[Document]
+      val allOperations = document.encodes.asInstanceOf[WebApi].endPoints.flatMap(_.operations)
+      assert(allOperations.forall(_.servers.nonEmpty),"servers should be resolved to operations")
+    }
   }
 
-  @Test def resolveRamlOverlay(): Unit = {
+  it should "apply a RAML 1.0 Overlay to an api" in {
     val client = RAMLConfiguration.RAML10().createClient()
+    client.parse(
+      "file://resources/examples/raml-overlay/test-overlay.raml"
+    ) map { parseResult =>
+      assert(
+        parseResult.bu.references.size == 1,
+        "unresolved overlay should reference main API"
+      )
+      val transformed =
+        client.transform(parseResult.bu, Raml10TransformationPipeline.name)
 
-    val parseResult = client
-      .parse("file://resources/examples/raml-overlay/test-overlay.raml")
-      .get()
-    assertTrue(
-      "unresolved overlay should reference main API",
-      parseResult.baseUnit.references.size == 1
-    )
-
-    val transformResult = client.transform(
-      parseResult.baseUnit,
-      Raml10TransformationPipeline.name
-    )
-    assertTrue(
-      "transformed model shouldn't reference anything",
-      transformResult.baseUnit.references.size == 0
-    )
-
-    println(client.render(transformResult.baseUnit))
+      assert(
+        transformed.bu.references.isEmpty,
+        "transformed model shouldn't reference anything"
+      )
+      val webapi = transformed.bu.asInstanceOf[Document].encodes.asInstanceOf[WebApi]
+      assert(webapi.endPoints.size > 1)
+    }
   }
-
 }
