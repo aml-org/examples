@@ -16,8 +16,6 @@ import { expect } from "chai";
 
 describe("Transform RAML APIs", () => {
   let client: AMFClient;
-  const RAML_10_DEFAULT: string = PipelineName.from(Vendor.RAML10.mediaType, PipelineId.Default);
-  const OAS_30_DEFAULT: string = PipelineName.from(Vendor.OAS30.mediaType, PipelineId.Default);
 
   beforeEach(() => {
     client = WebAPIConfiguration.WebAPI().createClient();
@@ -28,7 +26,7 @@ describe("Transform RAML APIs", () => {
       const parseResult: AMFDocumentResult = await client.parseDocument(
         "file://resources/examples/raml-resource-type.raml"
       );
-      const transformed: AMFResult = client.transform(parseResult.baseUnit, RAML_10_DEFAULT);
+      const transformed: AMFResult = client.transform(parseResult.baseUnit);
       const doc: Document = transformed.baseUnit as Document;
       const api: WebApi = doc.encodes as WebApi;
       expect(api.endPoints[0].operations).to.not.empty;
@@ -38,7 +36,7 @@ describe("Transform RAML APIs", () => {
       const parseResult: AMFDocumentResult = await client.parseDocument(
         "file://resources/examples/raml-overlay/test-overlay.raml"
       );
-      const transformed: AMFResult = client.transform(parseResult.baseUnit, RAML_10_DEFAULT);
+      const transformed: AMFResult = client.transform(parseResult.baseUnit);
       const doc: Document = transformed.baseUnit as Document;
       expect(doc.references()).to.be.empty;
       const api: WebApi = doc.encodes as WebApi;
@@ -54,7 +52,7 @@ describe("Transform RAML APIs", () => {
       const parseResult: AMFDocumentResult = await client.parseDocument(
         "file://resources/examples/banking-api-oas30.json"
       );
-      const transformed: AMFResult = client.transform(parseResult.baseUnit, OAS_30_DEFAULT);
+      const transformed: AMFResult = client.transform(parseResult.baseUnit);
       const doc: Document = transformed.baseUnit as Document;
       const api: WebApi = doc.encodes as WebApi;
       const apiOperations: Operation[] = api.endPoints.flatMap((e) => e.operations);
