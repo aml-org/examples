@@ -1,37 +1,42 @@
 import {
-    AMLClient,
-    AMLConfiguration,
-    AMLDialectInstanceResult,
-    AMLDialectResult,
-    Dialect, DialectDomainElement,
-    DialectInstance
+  AMLClient,
+  AMLConfiguration,
+  AMLDialectInstanceResult,
+  AMLDialectResult,
+  Dialect,
+  DialectDomainElement,
+  DialectInstance,
 } from "amf-client-js";
-import {expect} from "chai";
-
+import { expect } from "chai";
 
 describe("AML Operations", () => {
+  const simpleDialect: string = "file://resources/examples/dialect.yaml";
+  const simpleDialectInstance: string = "file://resources/examples/dialect-instance.yaml";
+  const simpleNodeTypeUri: string = "file://resources/examples/dialect.yaml#/declarations/Simple";
 
-    const simpleDialect: string = "file://resources/examples/dialect.yaml"
-    const simpleDialectInstance: string = "file://resources/examples/dialect-instance.yaml"
-    const simpleNodeTypeUri: string = "file://resources/examples/dialect.yaml#/declarations/Simple"
+  it("parses a dialect", async () => {
+    const amlConfig: AMLConfiguration = AMLConfiguration.predefined();
+    const client: AMLClient = amlConfig.createClient();
+    const parseResult: AMLDialectResult = await client.parseDialect(simpleDialect);
+    expect(parseResult.conforms).to.be.true;
+    const dialect: Dialect = parseResult.baseUnit as Dialect;
+    const dialectElementId: string = dialect.documents().root().encoded().value();
+    expect(dialectElementId).to.be.equal(
+      "file://resources/examples/dialect.yaml#/declarations/Simple"
+    );
+  });
 
-    it("parses a dialect", async () => {
-        const amlConfig: AMLConfiguration = AMLConfiguration.predefined()
-        const client: AMLClient = amlConfig.createClient()
-        const parseResult: AMLDialectResult = await client.parseDialect(simpleDialect)
-        expect(parseResult.conforms).to.be.true
-        const dialect: Dialect = parseResult.baseUnit as Dialect
-        const dialectElementId: string = dialect.documents().root().encoded().value()
-        expect(dialectElementId).to.be.equal("file://resources/examples/dialect.yaml#/declarations/Simple")
-    })
-
-    it("parse a dialect instance", async () => {
-        const amlConfig: AMLConfiguration = await AMLConfiguration.predefined().withDialect(simpleDialect)
-        const client: AMLClient = amlConfig.createClient()
-        const parseResult: AMLDialectInstanceResult = await client.parseDialectInstance(simpleDialectInstance)
-        expect(parseResult.conforms).to.be.true
-        const instance: DialectInstance = parseResult.dialectInstance as DialectInstance
-        const instanceElement: DialectDomainElement = instance.encodes as DialectDomainElement
-        expect(instanceElement.getTypeUris()).to.contain(simpleNodeTypeUri)
-    })
-})
+  it("parse a dialect instance", async () => {
+    const amlConfig: AMLConfiguration = await AMLConfiguration.predefined().withDialect(
+      simpleDialect
+    );
+    const client: AMLClient = amlConfig.createClient();
+    const parseResult: AMLDialectInstanceResult = await client.parseDialectInstance(
+      simpleDialectInstance
+    );
+    expect(parseResult.conforms).to.be.true;
+    const instance: DialectInstance = parseResult.dialectInstance as DialectInstance;
+    const instanceElement: DialectDomainElement = instance.encodes as DialectDomainElement;
+    expect(instanceElement.getTypeUris()).to.contain(simpleNodeTypeUri);
+  });
+});
