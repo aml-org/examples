@@ -1,6 +1,6 @@
 import amf.apicontract.client.scala.WebAPIConfiguration
 import amf.core.client.common.remote.Content
-import amf.core.internal.resource.ResourceLoader
+import amf.core.client.scala.resource.ResourceLoader
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
