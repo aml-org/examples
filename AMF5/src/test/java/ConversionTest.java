@@ -1,12 +1,7 @@
-import amf.client.exported.AMFClient;
-import amf.client.exported.WebAPIConfiguration;
-import amf.client.model.document.BaseUnit;
-import amf.client.remod.amfcore.resolution.PipelineName;
-import amf.core.remote.Oas20;
-import amf.core.remote.Raml10;
-import amf.core.resolution.pipelines.TransformationPipeline;
-import amf.plugins.document.apicontract.resolution.pipelines.compatibility.Oas20CompatibilityPipeline;
-import org.junit.BeforeClass;
+import amf.apicontract.client.common.ProvidedMediaType;
+import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.WebAPIConfiguration;
+import amf.core.client.platform.model.document.BaseUnit;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -25,8 +20,7 @@ public class ConversionTest {
         AMFClient client = WebAPIConfiguration.WebAPI().createClient();
 
         final BaseUnit ramlApi = client.parse("file://resources/examples/banking-api.raml").get().baseUnit();
-        final String pipelineName = PipelineName.from(Oas20.name(), TransformationPipeline.COMPATIBILITY_PIPELINE());
-        final BaseUnit convertedOas = client.transform(ramlApi, pipelineName).baseUnit();
+        final BaseUnit convertedOas = client.transformCompatibility(ramlApi, ProvidedMediaType.Oas20()).baseUnit();
         final String result = client.render(convertedOas,"application/oas20+json").trim();
 
         Path path = Paths.get("resources/expected/converted-banking-api.json");
@@ -39,8 +33,7 @@ public class ConversionTest {
         AMFClient client = WebAPIConfiguration.WebAPI().createClient();
 
         final BaseUnit oasApi = client.parse("file://resources/examples/banking-api.json").get().baseUnit();
-        final String pipelineName = PipelineName.from(Raml10.name(), TransformationPipeline.COMPATIBILITY_PIPELINE());
-        final BaseUnit convertedRaml = client.transform(oasApi, pipelineName).baseUnit();
+        final BaseUnit convertedRaml = client.transformCompatibility(oasApi, ProvidedMediaType.Raml10()).baseUnit();
         final String result = client.render(convertedRaml,"application/raml10+yaml").trim();
 
         Path path = Paths.get("resources/expected/converted-banking-api.raml");

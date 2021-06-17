@@ -1,6 +1,5 @@
-import amf.client.environment.RAMLConfiguration
-import amf.core.errorhandling.UnhandledErrorHandler
-import amf.plugins.document.apicontract.resolution.pipelines.Raml10TransformationPipeline
+import amf.apicontract.client.scala.RAMLConfiguration
+import amf.core.client.scala.errorhandling.UnhandledErrorHandler
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
@@ -17,7 +16,7 @@ class ErrorHandlerTestScala extends AsyncFlatSpec with should.Matchers {
 
     client.parse("file://resources/examples/resolution-error.raml") map { parseResult =>
       assertThrows[java.lang.Exception] {
-        client.transform(parseResult.bu, Raml10TransformationPipeline.name)
+        client.transform(parseResult.bu)
       }
     }
   }

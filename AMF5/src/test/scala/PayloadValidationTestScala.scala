@@ -1,9 +1,8 @@
-import amf.client.environment.WebAPIConfiguration
-import amf.client.remod.amfcore.plugins.validate.ValidationConfiguration
-import amf.core.model.document.Document
-import amf.plugins.document.apicontract.resolution.pipelines.Raml10TransformationPipeline
-import amf.plugins.domain.apicontract.models.api.WebApi
-import amf.remod.ShapePayloadValidatorFactory
+import amf.apicontract.client.scala.WebAPIConfiguration
+import amf.apicontract.client.scala.model.domain.api.WebApi
+import amf.core.client.common.validation.ValidationMode
+import amf.core.client.scala.model.document.Document
+import amf.core.internal.validation.ValidationConfiguration
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
@@ -13,7 +12,7 @@ class PayloadValidationTestScala extends AsyncFlatSpec with should.Matchers {
     val configuration = WebAPIConfiguration.WebAPI()
     val client = configuration.createClient()
     client.parse("file://resources/examples/simple-api.raml") map { parseResult =>
-      val transformationResult = client.transform(parseResult.bu, Raml10TransformationPipeline.name)
+      val transformationResult = client.transform(parseResult.bu)
 
       // get the model.encodes() to isolate the WebApi model
       val webApi = transformationResult.bu
@@ -28,25 +27,22 @@ class PayloadValidationTestScala extends AsyncFlatSpec with should.Matchers {
 
       // create payload validator
       val payloadValidator =
-        ShapePayloadValidatorFactory.createPayloadValidator(
+        configuration.payloadValidatorFactory().createFor(
           userSchema,
-          new ValidationConfiguration(configuration)
+          "application/json",
+          ValidationMode.StrictValidationMode
         )
 
       // invalid payload to validate against
       val invalidUserPayload = "{\"name\": \"firstname and lastname\"}"
 
-      // .isValid is a fail-fast method useful for just checking validity
-      payloadValidator.isValid("application/json", invalidUserPayload) map (_ shouldBe false)
-
       // .validate returns a Validation report with all results found
       payloadValidator.validate(
-        "application/json",
         invalidUserPayload
       ) map (_.conforms shouldBe false)
 
       // .syncValidate validates synchronously
-      payloadValidator.syncValidate("application/json", invalidUserPayload).conforms shouldBe false
+      payloadValidator.syncValidate(invalidUserPayload).conforms shouldBe false
     }
 
   }

@@ -1,6 +1,6 @@
-import amf.client.environment.AMLConfiguration
-import amf.plugins.document.vocabularies.model.document.Dialect
-import amf.plugins.document.vocabularies.model.domain.DialectDomainElement
+import amf.aml.client.scala.AMLConfiguration
+import amf.aml.client.scala.model.document.Dialect
+import amf.aml.client.scala.model.domain.DialectDomainElement
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 

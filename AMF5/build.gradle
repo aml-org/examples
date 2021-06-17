@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.github.amlorg', name: 'amf-cli_2.12', version: '5.0.0-SUPER-SECRET-SNAPSHOT', configuration: 'compile'
+    compile group: 'com.github.amlorg', name: 'amf-api-contract_2.12', version: '5.0.0-SUPER-SECRET-SNAPSHOT', configuration: 'compile'
     // https://mvnrepository.com/artifact/org.assertj/assertj-core
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.18.1'
     // https://mvnrepository.com/artifact/junit/junit
@@ -38,5 +38,5 @@ dependencies {
 task testAll {
     dependsOn test
     dependsOn scalatest
-    dependsOn tasks.npm_test
+//    dependsOn tasks.npm_test
 }

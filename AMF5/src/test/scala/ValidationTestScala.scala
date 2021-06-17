@@ -1,5 +1,5 @@
-import amf.ProfileName
-import amf.client.environment.RAMLConfiguration
+import amf.apicontract.client.scala.RAMLConfiguration
+import amf.core.client.common.validation.ProfileName
 import org.scalatest.flatspec._
 import org.scalatest.matchers._
 

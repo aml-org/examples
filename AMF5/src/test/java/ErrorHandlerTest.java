@@ -1,16 +1,8 @@
-import amf.client.exported.AMFClient;
-import amf.client.exported.AMFResult;
-import amf.client.exported.ErrorHandlerProvider;
-import amf.client.exported.RAMLConfiguration;
-import amf.client.model.document.BaseUnit;
-import amf.client.remod.amfcore.resolution.PipelineName;
-import amf.client.resolve.ClientErrorHandler;
-import amf.client.validate.ValidationResult;
-import amf.core.errorhandling.UnhandledErrorHandler;
-import amf.core.parser.Range;
-import amf.core.remote.Raml10;
-import amf.core.resolution.pipelines.TransformationPipeline;
-import amf.plugins.document.apicontract.resolution.pipelines.Raml10TransformationPipeline;
+import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.RAMLConfiguration;
+import amf.core.client.platform.AMFResult;
+import amf.core.client.platform.errorhandling.ClientErrorHandler;
+import amf.core.client.platform.validation.ValidationResult;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -49,8 +41,7 @@ public class ErrorHandlerTest {
 
         assertNotNull(parseResult.baseUnit());
 
-        final String pipelineName = PipelineName.from(Raml10.name(), TransformationPipeline.DEFAULT_PIPELINE());
         assertThrows(RuntimeException.class,
-                () -> client.transform(parseResult.baseUnit(), pipelineName));
+                () -> client.transform(parseResult.baseUnit()));
     }
 }
