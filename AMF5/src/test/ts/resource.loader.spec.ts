@@ -1,17 +1,10 @@
 import {
-    AMFClient,
-    client,
-    exported,
-    JsServerFileResourceLoader,
-    resource,
+    AMFClient, AMFDocumentResult, ClientResourceLoader, Content,
+    JsServerFileResourceLoader, ResourceLoader,
     ResourceLoaderFactory,
     WebAPIConfiguration
 } from "amf-client-js";
-import Content = client.remote.Content
-import AMFDocumentResult = exported.AMFDocumentResult
-import ClientResourceLoader = client.resource.ClientResourceLoader
 import {expect} from "chai";
-import ResourceLoader = resource.ResourceLoader
 
 describe("Resource Loader test", () => {
     it("Fetches file accessed with Mock Git Protocol", async () => {

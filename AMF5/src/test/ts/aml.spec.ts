@@ -1,10 +1,12 @@
-import {AMLClient, AMLConfiguration, exported, model} from "amf-client-js";
+import {
+    AMLClient,
+    AMLConfiguration,
+    AMLDialectInstanceResult,
+    AMLDialectResult,
+    Dialect, DialectDomainElement,
+    DialectInstance
+} from "amf-client-js";
 import {expect} from "chai";
-import Dialect = model.document.Dialect;
-import DialectInstance = model.document.DialectInstance;
-import DialectDomainElement = model.domain.DialectDomainElement;
-import AMLDialectResult = exported.AMLDialectResult;
-import AMLDialectInstanceResult = exported.AMLDialectInstanceResult;
 
 
 describe("AML Operations", () => {

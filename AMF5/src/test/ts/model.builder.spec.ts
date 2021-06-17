@@ -1,14 +1,7 @@
-import {core, model, RAMLConfiguration} from "amf-client-js"
+import {amf, Document, EndPoint, Operation, Parameter, RAMLConfiguration, Request, Vendor, WebApi} from "amf-client-js"
 import {expect} from "chai";
 import * as fileSystem from "fs";
-import WebApi = model.domain.WebApi;
-import Request = model.domain.Request;
-import Document = model.document.Document;
-import BaseUnit = model.document.BaseUnit;
-import Vendor = core.Vendor;
-import EndPoint = model.domain.EndPoint;
-import Operation = model.domain.Operation;
-import Parameter = model.domain.Parameter;
+import BaseUnit = amf.core.client.platform.model.document.BaseUnit;
 
 describe("Model Builder", () => {
 

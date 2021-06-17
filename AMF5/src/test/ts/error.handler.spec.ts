@@ -1,12 +1,17 @@
-import {client, exported, handler, OASConfiguration, resolve, ErrorHandler, AMFClient} from "amf-client-js";
+import {
+    OASConfiguration,
+    ErrorHandler,
+    AMFClient,
+    JsErrorHandler,
+    ValidationResult,
+    ErrorHandlerProvider, AMFDocumentResult
+} from "amf-client-js";
 import * as chaiAsPromised from "chai-as-promised";
 import {expect, use as useChai} from "chai";
-import ErrorHandlerProvider = exported.ErrorHandlerProvider
-import AMFDocumentResult = exported.AMFDocumentResult
 
 useChai(chaiAsPromised);
 
-class MyErrorHandler implements handler.JsErrorHandler {
+class MyErrorHandler implements JsErrorHandler {
 
     private readonly err: Error;
 
@@ -14,11 +19,11 @@ class MyErrorHandler implements handler.JsErrorHandler {
         this.err = err
     }
 
-    report(result: client.validate.ValidationResult): void {
+    report(result: ValidationResult): void {
         throw this.err
     }
 
-    getResults(): Array<client.validate.ValidationResult> {
+    getResults(): Array<ValidationResult> {
         return [];
     }
 }

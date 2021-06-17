@@ -1,16 +1,21 @@
-import {core, AMFClient, PipelineName, TransformationPipeline, WebAPIConfiguration, exported} from "amf-client-js";
+import {
+    AMFClient,
+    PipelineName,
+    WebAPIConfiguration,
+    PipelineId,
+    AMFDocumentResult,
+    Vendor,
+    AMFResult
+} from "amf-client-js";
 import {expect} from "chai";
 import * as fileSystem from "fs";
 
-import Vendor = core.Vendor
-import AMFDocumentResult = exported.AMFDocumentResult
-import AMFResult = exported.AMFResult
 
 describe("Conversion", () => {
 
     let client: AMFClient
-    const OAS_20_CONVERSION = PipelineName.from(Vendor.OAS20.name, TransformationPipeline.COMPATIBILITY_PIPELINE)
-    const RAML_10_CONVERSION = PipelineName.from(Vendor.RAML10.name, TransformationPipeline.COMPATIBILITY_PIPELINE)
+    const OAS_20_CONVERSION = PipelineName.from(Vendor.OAS20.mediaType, PipelineId.Compatibility)
+    const RAML_10_CONVERSION = PipelineName.from(Vendor.RAML10.mediaType, PipelineId.Compatibility)
     const RAML_10_CONVERTED_GOLDEN = "resources/expected/converted-banking-api.raml"
     const OAS_20_CONVERTED_GOLDEN = "resources/expected/converted-banking-api.json"
 

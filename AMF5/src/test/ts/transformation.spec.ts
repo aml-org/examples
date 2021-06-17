@@ -1,19 +1,19 @@
-import {AMFClient, core, exported, TransformationPipeline, model, PipelineName, WebAPIConfiguration} from "amf-client-js";
+import {
+    AMFClient,
+    AMFDocumentResult,
+    AMFResult, Document, EndPoint, Operation,
+    PipelineId,
+    PipelineName, Server,
+    Vendor, WebApi,
+    WebAPIConfiguration
+} from "amf-client-js";
 import {expect} from "chai";
-import Document = model.document.Document
-import WebApi = model.domain.WebApi
-import EndPoint = model.domain.EndPoint
-import Operation = model.domain.Operation
-import Server = model.domain.Server
-import AMFDocumentResult = exported.AMFDocumentResult
-import AMFResult = exported.AMFResult
-import Vendor = core.Vendor
 
 
 describe("Transform RAML APIs", () => {
     let client: AMFClient
-    const RAML_10_DEFAULT: string = PipelineName.from(Vendor.RAML10.name, TransformationPipeline.DEFAULT_PIPELINE)
-    const OAS_30_DEFAULT: string = PipelineName.from(Vendor.OAS30.name, TransformationPipeline.DEFAULT_PIPELINE)
+    const RAML_10_DEFAULT: string = PipelineName.from(Vendor.RAML10.mediaType, PipelineId.Default)
+    const OAS_30_DEFAULT: string = PipelineName.from(Vendor.OAS30.mediaType, PipelineId.Default)
 
     beforeEach(() => {
         client = WebAPIConfiguration.WebAPI().createClient()

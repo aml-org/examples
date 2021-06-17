@@ -1,7 +1,5 @@
-import {AMFClient, exported, model, OASConfiguration} from "amf-client-js"
+import {AMFClient, AMFDocumentResult, OASConfiguration, WebApi} from "amf-client-js"
 import {expect} from "chai";
-import AMFDocumentResult = exported.AMFDocumentResult
-import WebApi = model.domain.WebApi
 
 describe("AMF Graph", () => {
 

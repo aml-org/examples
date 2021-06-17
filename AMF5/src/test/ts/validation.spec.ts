@@ -1,9 +1,5 @@
-import {AMFClient, client, exported, ProfileName, ProfileNames, RAMLConfiguration} from "amf-client-js";
+import {AMFClient, AMFValidationReport, AMFConfiguration, ValidationProfile, AMFDocumentResult, ProfileName, ProfileNames, RAMLConfiguration} from "amf-client-js";
 import {expect} from "chai";
-import AMFDocumentResult = exported.AMFDocumentResult;
-import AMFValidationReport = client.validate.AMFValidationReport;
-import AMFConfiguration = exported.AMFConfiguration
-import ValidationProfile = client.validate.ValidationProfile
 
 
 describe("RAML 1.0 validation", () => {

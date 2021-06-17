@@ -1,9 +1,13 @@
-import {AMFClient, exported, model, OASConfiguration, RAMLConfiguration} from "amf-client-js"
+import {
+    AMFClient,
+    AMFDocumentResult,
+    AMFResult,
+    Document,
+    OASConfiguration,
+    RAMLConfiguration,
+    WebApi
+} from "amf-client-js"
 import {expect} from "chai";
-import AMFDocumentResult = exported.AMFDocumentResult
-import AMFResult = exported.AMFResult
-import Document = model.document.Document
-import WebApi = model.domain.WebApi
 
 describe("Parsing", () => {
     let client: AMFClient;
