@@ -1,11 +1,13 @@
-import amf.MessageStyles;
-import amf.ProfileNames;
-import amf.client.exported.AMFClient;
-import amf.client.exported.RAMLConfiguration;
-import amf.client.model.document.Document;
-import amf.client.model.domain.*;
-import amf.client.validate.AMFValidationReport;
-import amf.core.AMF;
+import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.RAMLConfiguration;
+import amf.apicontract.client.platform.model.domain.EndPoint;
+import amf.apicontract.client.platform.model.domain.Operation;
+import amf.apicontract.client.platform.model.domain.Parameter;
+import amf.apicontract.client.platform.model.domain.Request;
+import amf.apicontract.client.platform.model.domain.api.WebApi;
+import amf.core.client.common.validation.ProfileNames;
+import amf.core.client.platform.model.document.Document;
+import amf.core.client.platform.validation.AMFValidationReport;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

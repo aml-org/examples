@@ -1,9 +1,9 @@
-import amf.client.exported.AMLClient;
-import amf.client.exported.AMLConfiguration;
-import amf.client.exported.AMLDialectInstanceResult;
-import amf.client.exported.AMLDialectResult;
-import amf.client.model.document.Dialect;
-import amf.client.model.domain.DialectDomainElement;
+import amf.aml.client.platform.AMLClient;
+import amf.aml.client.platform.AMLConfiguration;
+import amf.aml.client.platform.AMLDialectInstanceResult;
+import amf.aml.client.platform.AMLDialectResult;
+import amf.aml.client.platform.model.document.Dialect;
+import amf.aml.client.platform.model.domain.DialectDomainElement;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;

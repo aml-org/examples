@@ -1,10 +1,9 @@
-import amf.client.exported.*;
-import amf.client.model.document.BaseUnit;
-import amf.client.model.document.Document;
-import amf.client.model.domain.DomainElement;
-import amf.core.remote.Amf;
-import amf.plugins.document.WebApi;
-import org.junit.BeforeClass;
+import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.WebAPIConfiguration;
+import amf.core.client.platform.AMFResult;
+import amf.core.client.platform.model.document.BaseUnit;
+import amf.core.client.platform.model.document.Document;
+import amf.core.client.platform.model.domain.DomainElement;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;

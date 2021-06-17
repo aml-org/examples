@@ -1,13 +1,12 @@
-import amf.MessageStyles;
-import amf.ProfileNames;
-import amf.client.exported.AMFClient;
-import amf.client.exported.AMFConfiguration;
-import amf.client.exported.RAMLConfiguration;
-import amf.client.model.document.BaseUnit;
-import amf.client.remote.Content;
-import amf.client.resource.FileResourceLoader;
-import amf.client.resource.ResourceLoader;
-import amf.client.validate.AMFValidationReport;
+import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.AMFConfiguration;
+import amf.apicontract.client.platform.RAMLConfiguration;
+import amf.core.client.common.remote.Content;
+import amf.core.client.common.validation.ProfileNames;
+import amf.core.client.platform.model.document.BaseUnit;
+import amf.core.client.platform.resource.FileResourceLoader;
+import amf.core.client.platform.resource.ResourceLoader;
+import amf.core.client.platform.validation.AMFValidationReport;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

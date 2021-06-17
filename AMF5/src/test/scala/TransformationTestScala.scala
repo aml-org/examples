@@ -1,8 +1,9 @@
-import amf.client.environment.{OASConfiguration, RAMLConfiguration}
-import amf.core.model.document.Document
-import amf.plugins.document.apicontract.resolution.pipelines.{Oas30TransformationPipeline, Raml10TransformationPipeline}
-import amf.plugins.document.apicontract.resolution.pipelines.compatibility.Raml10CompatibilityPipeline
-import amf.plugins.domain.apicontract.models.api.WebApi
+import amf.apicontract.client.common.ProvidedMediaType
+import amf.apicontract.client.scala.RAMLConfiguration
+import amf.apicontract.client.scala.OASConfiguration
+import amf.apicontract.client.scala.model.domain.api.WebApi
+import amf.core.client.common.transform.{PipelineId, PipelineName}
+import amf.core.client.scala.model.document.Document
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
@@ -11,7 +12,7 @@ class TransformationTestScala extends AsyncFlatSpec with should.Matchers {
   "AMF transformation" should "transform a RAML 1.0 applying resource types with default pipeline" in {
     val client = RAMLConfiguration.RAML10().createClient()
     client.parse("file://resources/examples/raml-resource-type.raml") map { parseResult =>
-      val transformed = client.transform(parseResult.bu, Raml10TransformationPipeline.name)
+      val transformed = client.transform(parseResult.bu)
       val document = transformed.bu.asInstanceOf[Document]
       val allOperations = document.encodes.asInstanceOf[WebApi].endPoints.flatMap(_.operations)
       assert(allOperations.nonEmpty,"resource type should be resolved defining new operation")
@@ -22,7 +23,7 @@ class TransformationTestScala extends AsyncFlatSpec with should.Matchers {
     val client = OASConfiguration.OAS30().createClient()
     client.parse("file://resources/examples/banking-api-oas30.json") map { parseResult =>
       val transformed =
-        client.transform(parseResult.bu, Oas30TransformationPipeline.name)
+        client.transform(parseResult.bu)
       val document = transformed.bu.asInstanceOf[Document]
       val allOperations = document.encodes.asInstanceOf[WebApi].endPoints.flatMap(_.operations)
       assert(allOperations.forall(_.servers.nonEmpty),"servers should be resolved to operations")
@@ -39,7 +40,7 @@ class TransformationTestScala extends AsyncFlatSpec with should.Matchers {
         "unresolved overlay should reference main API"
       )
       val transformed =
-        client.transform(parseResult.bu, Raml10TransformationPipeline.name)
+        client.transform(parseResult.bu)
 
       assert(
         transformed.bu.references.isEmpty,

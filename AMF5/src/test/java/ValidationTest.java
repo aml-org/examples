@@ -1,11 +1,9 @@
-import amf.MessageStyles;
-import amf.ProfileName;
-import amf.ProfileNames;
-import amf.client.exported.AMFClient;
-import amf.client.exported.AMLClient;
-import amf.client.exported.RAMLConfiguration;
-import amf.client.model.document.BaseUnit;
-import amf.client.validate.AMFValidationReport;
+import amf.aml.client.platform.AMLClient;
+import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.RAMLConfiguration;
+import amf.core.client.common.validation.ProfileName;
+import amf.core.client.platform.model.document.BaseUnit;
+import amf.core.client.platform.validation.AMFValidationReport;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
@@ -31,7 +29,7 @@ public class ValidationTest {
     public void validateRamlWithCustomValidation() throws ExecutionException, InterruptedException {
 
         // Run RAML custom validations with a validation profile that accepts the previously invalid protocol value
-        final AMLClient client = RAMLConfiguration.RAML10()
+        final AMFClient client = RAMLConfiguration.RAML10()
                 .withCustomValidationsEnabled().get()
                 .withCustomProfile("file://resources/validation_profile.raml").get()
                 .createClient();

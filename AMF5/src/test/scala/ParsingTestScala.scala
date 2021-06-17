@@ -1,5 +1,5 @@
-import amf.client.environment.{OASConfiguration, RAMLConfiguration, WebAPIConfiguration}
-import amf.core.model.document.Document
+import amf.apicontract.client.scala.{OASConfiguration, RAMLConfiguration}
+import amf.core.client.scala.model.document.Document
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.must.Matchers.convertToAnyMustWrapper
 import org.scalatest.matchers.should

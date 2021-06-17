@@ -1,0 +1,12 @@
+build
+node_modules
+resources
+.gitignore
+.mocharc.json
+build.gradle
+gradle.properties
+package.json
+tsconfig.json
+yarn.lock
+src/test/java
+src/test/scala

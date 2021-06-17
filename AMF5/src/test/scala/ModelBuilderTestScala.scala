@@ -1,22 +1,21 @@
-import amf.client.exported.RAMLConfiguration
-import amf.client.model.document.Document
-import amf.client.model.domain.{Request, WebApi}
+import amf.apicontract.client.scala.RAMLConfiguration
+import amf.apicontract.client.scala.model.domain.Request
+import amf.apicontract.client.scala.model.domain.api.WebApi
+import amf.core.client.scala.model.document.Document
 import org.junit.Assert.assertTrue
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
-
-import java.util.Collections
 
 class ModelBuilderTestScala extends AsyncFlatSpec with should.Matchers {
 
   "AMF" should "create a valid model in memory" in {
     val stringDataType = "http://www.w3.org/2001/XMLSchema#string"
     val client = RAMLConfiguration.RAML().createClient()
-    val api = new WebApi()
+    val api = WebApi()
       .withName("Music Service API")
       .withVersion("v1")
-      .withContentType(Collections.singletonList("application/json"))
-      .withAccepts(Collections.singletonList("application/json"))
+      .withContentType(List("application/json"))
+      .withAccepts(List("application/json"))
 
     // create EndPoint /me
     val me = api.withEndPoint("/me").withName("current-user")
@@ -26,7 +25,7 @@ class ModelBuilderTestScala extends AsyncFlatSpec with should.Matchers {
     // add a 200 response of type string to the get operation
     meGet
       .withResponse("200")
-      .withPayload
+      .withPayload()
       .withMediaType("application/json")
       .withScalarSchema("schema")
       .withDataType(stringDataType)
@@ -39,7 +38,7 @@ class ModelBuilderTestScala extends AsyncFlatSpec with should.Matchers {
       .withDescription("Get a List of Current User's Playlists")
     playlistsGet
       .withResponse("200")
-      .withPayload
+      .withPayload()
       .withMediaType("application/json")
       .withScalarSchema("schema")
       .withDataType(stringDataType)
@@ -55,7 +54,7 @@ class ModelBuilderTestScala extends AsyncFlatSpec with should.Matchers {
       .withScalarSchema("music service Album ID")
       .withDataType(stringDataType)
     // create a request and a query parameter to add to the get operation
-    val marketRequest = new Request
+    val marketRequest = Request()
     val marketQueryParam = marketRequest
       .withQueryParameter("market")
       .withRequired(false)
@@ -71,14 +70,14 @@ class ModelBuilderTestScala extends AsyncFlatSpec with should.Matchers {
       .withDescription("Get an Album")
       .withRequest(marketRequest)
       .withResponse("200")
-      .withPayload
+      .withPayload()
       .withMediaType("application/json")
       .withScalarSchema("schema")
       .withDataType(stringDataType)
 
     // create EndPoint /albums with a query parameter of a list of album IDs and a string response
     val albums = api.withEndPoint("/albums").withName("several-albums")
-    val albumsRequest = new Request
+    val albumsRequest = Request()
     albumsRequest
       .withQueryParameter("ids")
       .withBinding("query")
@@ -92,19 +91,20 @@ class ModelBuilderTestScala extends AsyncFlatSpec with should.Matchers {
       .withDescription("Get Several Albums")
       .withRequest(albumsRequest)
       .withResponse("200")
-      .withPayload
+      .withPayload()
       .withMediaType("application/json")
       .withScalarSchema("schema")
       .withDataType(stringDataType)
 
-    assertTrue(api.endPoints.size() == 4)
+    assertTrue(api.endPoints.length == 4)
 
-    val model = new Document
+    val model = Document()
     model.withEncodes(api)
 
     // Run RAML default validations on parsed unit (expects one error -> invalid protocols value)
-    val validationReport = client.validate(model).get()
-    validationReport.conforms shouldBe true
-    validationReport.results.size() shouldBe 0
+    client.validate(model).map { validationReport =>
+      validationReport.conforms shouldBe true
+      validationReport.results.length shouldBe 0
+    }
   }
 }
