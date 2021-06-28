@@ -24,22 +24,4 @@ public class ValidationTest {
         System.out.println("report.conforms() == " + report.conforms());
         assertFalse(report.conforms());
     }
-
-    @Test
-    public void validateRamlWithCustomValidation() throws ExecutionException, InterruptedException {
-
-        // Run RAML custom validations with a validation profile that accepts the previously invalid protocol value
-        final AMFClient client = RAMLConfiguration.RAML10()
-                .withCustomValidationsEnabled().get()
-                .withCustomProfile("file://resources/validation_profile.raml").get()
-                .createClient();
-
-        final BaseUnit model = client.parse("file://resources/examples/banking-api-error.raml").get().baseUnit();
-        assertNotNull(model);
-
-        // TODO interface should be adjusted to obtain profile name after parsing custom profile.
-        final AMFValidationReport report = client.validate(model, new ProfileName("Banking")).get();
-        System.out.println("report.conforms() == " + report.conforms());
-        assertTrue(report.conforms());
-    }
 }
