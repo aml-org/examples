@@ -25,12 +25,11 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.github.amlorg', name: 'amf-api-contract_2.12', version: '5.0.0-SUPER-SECRET-SNAPSHOT', configuration: 'compile'
-    // https://mvnrepository.com/artifact/org.assertj/assertj-core
+    compile group: 'com.github.amlorg', name: 'amf-api-contract_2.12', version: '5.0.0-beta.1', configuration: 'compile'
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.18.1'
-    // https://mvnrepository.com/artifact/junit/junit
+
     testCompile group: 'junit', name: 'junit', version: '4.13.1'
-    // gradle-scalatest
+
     testCompile 'org.scalatest:scalatest_2.12:3.2.0'
     testRuntime 'com.vladsch.flexmark:flexmark-all:0.35.10'
 }
