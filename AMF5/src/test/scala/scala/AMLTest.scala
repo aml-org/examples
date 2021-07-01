@@ -1,10 +1,12 @@
+package scala
+
 import amf.aml.client.scala.AMLConfiguration
 import amf.aml.client.scala.model.document.Dialect
 import amf.aml.client.scala.model.domain.DialectDomainElement
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
-class AMLTestScala extends AsyncFlatSpec with should.Matchers {
+class AMLTest extends AsyncFlatSpec with should.Matchers {
   val simpleDialect = "file://resources/examples/dialect.yaml"
   val simpleDialectInstance = "file://resources/examples/dialect-instance.yaml"
   val simpleNodeTypeUri = "file://resources/examples/dialect.yaml#/declarations/Simple"

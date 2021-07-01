@@ -1,3 +1,5 @@
+package java;
+
 import amf.aml.client.platform.AMLClient;
 import amf.aml.client.platform.AMLConfiguration;
 import amf.aml.client.platform.AMLDialectInstanceResult;

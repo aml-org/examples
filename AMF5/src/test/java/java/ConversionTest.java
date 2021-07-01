@@ -1,3 +1,5 @@
+package java;
+
 import amf.apicontract.client.common.ProvidedMediaType;
 import amf.apicontract.client.platform.AMFClient;
 import amf.apicontract.client.platform.WebAPIConfiguration;

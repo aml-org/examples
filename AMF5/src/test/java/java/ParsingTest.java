@@ -1,3 +1,5 @@
+package java;
+
 import amf.apicontract.client.platform.AMFClient;
 import amf.apicontract.client.platform.OASConfiguration;
 import amf.apicontract.client.platform.RAMLConfiguration;

@@ -1,13 +1,12 @@
-import amf.apicontract.client.common.ProvidedMediaType
-import amf.apicontract.client.scala.RAMLConfiguration
-import amf.apicontract.client.scala.OASConfiguration
+package scala
+
+import amf.apicontract.client.scala.{OASConfiguration, RAMLConfiguration}
 import amf.apicontract.client.scala.model.domain.api.WebApi
-import amf.core.client.common.transform.{PipelineId, PipelineName}
 import amf.core.client.scala.model.document.Document
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
-class TransformationTestScala extends AsyncFlatSpec with should.Matchers {
+class TransformationTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF transformation" should "transform a RAML 1.0 applying resource types with default pipeline" in {
     val client = RAMLConfiguration.RAML10().createClient()

@@ -1,12 +1,13 @@
+package scala
+
 import amf.apicontract.client.scala.WebAPIConfiguration
 import amf.apicontract.client.scala.model.domain.api.WebApi
 import amf.core.client.common.validation.ValidationMode
 import amf.core.client.scala.model.document.Document
-import amf.core.internal.validation.ValidationConfiguration
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
-class PayloadValidationTestScala extends AsyncFlatSpec with should.Matchers {
+class PayloadValidationTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF payload validation" should "create and use a user schema payload validator" in {
     val configuration = WebAPIConfiguration.WebAPI()

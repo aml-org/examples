@@ -1,9 +1,11 @@
+package scala
+
 import amf.apicontract.client.common.ProvidedMediaType
 import amf.apicontract.client.scala.WebAPIConfiguration
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
-class ConversionTestScala extends AsyncFlatSpec with should.Matchers {
+class ConversionTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF" should "convert a RAML 1.0 API to OAS 2.0" in {
     val client = WebAPIConfiguration.WebAPI().createClient()

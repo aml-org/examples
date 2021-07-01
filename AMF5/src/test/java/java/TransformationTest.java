@@ -1,3 +1,5 @@
+package java;
+
 import amf.apicontract.client.platform.AMFClient;
 import amf.apicontract.client.platform.OASConfiguration;
 import amf.apicontract.client.platform.RAMLConfiguration;
@@ -6,7 +8,6 @@ import amf.apicontract.client.platform.model.domain.Operation;
 import amf.apicontract.client.platform.model.domain.api.WebApi;
 import amf.core.client.platform.model.document.BaseUnit;
 import amf.core.client.platform.model.document.Document;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Collection;
@@ -54,10 +55,10 @@ public class TransformationTest {
         final AMFClient client = RAMLConfiguration.RAML10().createClient();
 
         final Document unresolvedModel = client.parseDocument("file://resources/examples/raml-overlay/test-overlay.raml").get().document();
-        assertTrue("unresolved overlay should reference main API", unresolvedModel.references().size() == 1);
+        assertEquals("unresolved overlay should reference main API", 1, unresolvedModel.references().size());
 
         final Document resolvedModel = (Document) client.transform(unresolvedModel).baseUnit();
-        assertTrue("resolved model shouldn't reference anything", resolvedModel.references().size() == 0);
+        assertEquals("resolved model shouldn't reference anything", 0, resolvedModel.references().size());
         final WebApi api = (WebApi) ((Document) resolvedModel).encodes();
         assertTrue(api.endPoints().size() > 1);
 

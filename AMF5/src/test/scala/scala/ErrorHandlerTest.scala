@@ -1,9 +1,11 @@
+package scala
+
 import amf.apicontract.client.scala.RAMLConfiguration
 import amf.core.client.scala.errorhandling.UnhandledErrorHandler
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
-class ErrorHandlerTestScala extends AsyncFlatSpec with should.Matchers {
+class ErrorHandlerTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF client" should "use a custom error handler provider" in {
     val client =

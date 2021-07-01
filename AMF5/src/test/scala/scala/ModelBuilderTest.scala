@@ -1,3 +1,5 @@
+package scala
+
 import amf.apicontract.client.scala.RAMLConfiguration
 import amf.apicontract.client.scala.model.domain.Request
 import amf.apicontract.client.scala.model.domain.api.WebApi
@@ -6,7 +8,7 @@ import org.junit.Assert.assertTrue
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
-class ModelBuilderTestScala extends AsyncFlatSpec with should.Matchers {
+class ModelBuilderTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF" should "create a valid model in memory" in {
     val stringDataType = "http://www.w3.org/2001/XMLSchema#string"

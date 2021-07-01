@@ -1,4 +1,5 @@
-import amf.apicontract.client.platform.AMFConfiguration;
+package java;
+
 import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.apicontract.client.platform.model.domain.EndPoint;
 import amf.apicontract.client.platform.model.domain.Operation;

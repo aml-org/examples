@@ -1,10 +1,12 @@
+package scala
+
 import amf.apicontract.client.scala.{OASConfiguration, RAMLConfiguration}
 import amf.core.client.scala.model.document.Document
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.must.Matchers.convertToAnyMustWrapper
 import org.scalatest.matchers.should
 
-class ParsingTestScala extends AsyncFlatSpec with should.Matchers {
+class ParsingTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF client" should "parse an OAS 2.0 API" in {
     val client = OASConfiguration.OAS20().createClient()
