@@ -55,6 +55,23 @@ describe("Parsing", () => {
       expect(parsingResult.results).to.be.empty;
       expect(parsingResult.conforms).to.be.true;
     });
+
+    it("parse document from string", async () => {
+      const api: string = `{
+                            "openapi": "3.0.0",
+                            "info": {
+                              "title": "Basic content",
+                              "version": "0.1"
+                            },
+                            "paths": {}
+                          }`;
+      const result: AMFResult = await client.parseContent(api);
+      expect(result.results).to.be.empty;
+      expect(result.conforms).to.be.true;
+      const document: Document = result.baseUnit as Document;
+      const webApi: WebApi = document.encodes as WebApi;
+      expect(webApi.name.value()).to.be.equal("Basic content");
+    });
   });
   describe("RAML 1.0", () => {
     beforeEach(() => {
