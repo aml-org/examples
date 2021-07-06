@@ -5,6 +5,7 @@ import amf.apicontract.client.platform.model.domain.Operation;
 import amf.apicontract.client.platform.model.domain.Payload;
 import amf.apicontract.client.platform.model.domain.Request;
 import amf.apicontract.client.platform.model.domain.api.WebApi;
+import amf.core.client.common.remote.Content;
 import amf.core.client.common.validation.ValidationMode;
 import amf.core.client.platform.AMFGraphClient;
 import amf.core.client.platform.AMFGraphConfiguration;
@@ -12,14 +13,15 @@ import amf.core.client.platform.AMFResult;
 import amf.core.client.platform.execution.ExecutionEnvironment;
 import amf.core.client.platform.model.document.BaseUnit;
 import amf.core.client.platform.model.document.Document;
+import amf.core.client.platform.resource.FileResourceLoader;
+import amf.core.client.platform.resource.LoaderWithExecutionContext;
+import amf.core.client.platform.resource.ResourceLoader;
 import amf.core.client.platform.validation.AMFValidationReport;
 import amf.shapes.client.platform.model.domain.AnyShape;
 import org.junit.Test;
-
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadFactory;
+import scala.concurrent.ExecutionContext;
+import java.util.Collections;
+import java.util.concurrent.*;
 
 public class SchedulerTest {
     @Test
@@ -41,7 +43,8 @@ public class SchedulerTest {
         ExecutionEnvironment executionEnvironment = new ExecutionEnvironment(scheduler);
 
         final AMFGraphConfiguration config = RAMLConfiguration.RAML10()
-                .withExecutionEnvironment(executionEnvironment);
+                .withResourceLoaders(Collections.singletonList(new CustomResourceLoader())) // adds custom loader that uses execution context
+                .withExecutionEnvironment(executionEnvironment); // execution context is defined, resource loader is adjusted.
         final AMFGraphClient client = config.createClient();
 
         /* call async interfaces */
@@ -64,5 +67,36 @@ public class SchedulerTest {
         final Request request = postMethod.requests().get(0);
         final Payload userPayload = request.payloads().get(0);
         return (AnyShape) userPayload.schema();
+    }
+
+    /*
+        resource loader that uses execution context. Extending LoaderWithExecutionContext allows the configuration
+        to adapt the loader to the new execution context if modified.
+     */
+    private static class CustomResourceLoader implements ResourceLoader, LoaderWithExecutionContext {
+        private final FileResourceLoader resourceLoader;
+
+        @Override
+        public ResourceLoader withExecutionContext(ExecutionContext ec) {
+            return new CustomResourceLoader(ec);
+        }
+
+        public CustomResourceLoader() {
+            this.resourceLoader = new FileResourceLoader();
+        }
+
+        public CustomResourceLoader(ExecutionContext ec) {
+            this.resourceLoader = new FileResourceLoader(ec);
+        }
+
+        @Override
+        public CompletableFuture<Content> fetch(String path) {
+            return resourceLoader.fetch(path);
+        }
+
+        @Override
+        public boolean accepts(String resource) {
+            return resourceLoader.accepts(resource);
+        }
     }
 }

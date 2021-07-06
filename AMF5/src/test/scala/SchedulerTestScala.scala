@@ -1,16 +1,17 @@
 import amf.apicontract.client.scala.RAMLConfiguration
 import amf.apicontract.client.scala.model.domain.api.WebApi
+import amf.core.client.common.remote.Content
 import amf.core.client.common.validation.ValidationMode
-import amf.core.client.scala.AMFGraphConfiguration
-import amf.core.client.scala.errorhandling.UnhandledErrorHandler
 import amf.core.client.scala.execution.ExecutionEnvironment
 import amf.core.client.scala.model.document.{BaseUnit, Document}
 import amf.core.client.scala.model.domain.Shape
+import amf.core.client.scala.resource.{LoaderWithExecutionContext, ResourceLoader}
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
 import java.util.concurrent.{Executors, ThreadFactory}
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
+import scala.io.Source
 
 class SchedulerTestScala extends AsyncFlatSpec with should.Matchers {
 
@@ -30,7 +31,8 @@ class SchedulerTestScala extends AsyncFlatSpec with should.Matchers {
     val executionEnvironment = new ExecutionEnvironment(ExecutionContext.fromExecutorService(scheduler));
 
     val config = RAMLConfiguration.RAML10()
-      .withExecutionEnvironment(executionEnvironment);
+      .withResourceLoaders(List(CustomResourceLoader(scala.concurrent.ExecutionContext.Implicits.global)))
+      .withExecutionEnvironment(executionEnvironment); // execution context of loader is adjusted
     val client = config.createClient();
 
     /* call async interfaces */
@@ -59,5 +61,23 @@ class SchedulerTestScala extends AsyncFlatSpec with should.Matchers {
     val request       = postMethod.requests.head
     val userPayload   = request.payloads.head
     userPayload.schema
+  }
+
+  /*
+     resource loader that uses execution context. Extending LoaderWithExecutionContext allows the configuration
+     to adapt the loader to the new execution context if modified.
+  */
+  private case class CustomResourceLoader(ec: ExecutionContext) extends ResourceLoader with LoaderWithExecutionContext {
+
+    override def withExecutionContext(ec: ExecutionContext): ResourceLoader = CustomResourceLoader(ec)
+
+    /** Fetch specified resource and return associated content. Resource should have been previously accepted. */
+    override def fetch(resource: String): Future[Content] = {
+      val content = Source.fromFile(resource.stripPrefix("file://")).mkString
+      Future(new Content(content, resource))(ec)
+    }
+
+    /** Accepts specified resource. */
+    override def accepts(resource: String): Boolean = true
   }
 }
