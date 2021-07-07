@@ -1,4 +1,4 @@
-package java;
+package javaPlatform;
 
 import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.apicontract.client.platform.model.domain.EndPoint;

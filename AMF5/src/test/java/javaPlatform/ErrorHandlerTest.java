@@ -1,16 +1,14 @@
-package java;
+package javaPlatform;
 
 import amf.apicontract.client.platform.AMFClient;
 import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.core.client.platform.AMFResult;
 import amf.core.client.platform.errorhandling.ClientErrorHandler;
 import amf.core.client.platform.validation.ValidationResult;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertNotNull;

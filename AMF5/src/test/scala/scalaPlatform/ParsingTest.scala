@@ -1,4 +1,4 @@
-package scala
+package scalaPlatform
 
 import amf.apicontract.client.scala.{OASConfiguration, RAMLConfiguration}
 import amf.core.client.scala.model.document.Document

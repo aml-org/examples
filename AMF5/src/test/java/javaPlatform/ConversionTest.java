@@ -1,4 +1,4 @@
-package java;
+package javaPlatform;
 
 import amf.apicontract.client.common.ProvidedMediaType;
 import amf.apicontract.client.platform.AMFClient;

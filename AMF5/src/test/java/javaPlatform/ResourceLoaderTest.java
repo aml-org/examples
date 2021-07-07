@@ -1,4 +1,4 @@
-package java;
+package javaPlatform;
 
 import amf.apicontract.client.platform.AMFClient;
 import amf.apicontract.client.platform.AMFConfiguration;
@@ -9,7 +9,6 @@ import amf.core.client.platform.model.document.BaseUnit;
 import amf.core.client.platform.resource.FileResourceLoader;
 import amf.core.client.platform.resource.ResourceLoader;
 import amf.core.client.platform.validation.AMFValidationReport;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;

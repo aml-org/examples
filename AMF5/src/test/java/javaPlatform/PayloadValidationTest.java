@@ -1,4 +1,4 @@
-package java;
+package javaPlatform;
 
 import amf.apicontract.client.platform.AMFClient;
 import amf.apicontract.client.platform.RAMLConfiguration;

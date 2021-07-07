@@ -1,4 +1,4 @@
-package scala
+package scalaPlatform
 
 import amf.apicontract.client.scala.WebAPIConfiguration
 import amf.apicontract.client.scala.model.domain.api.WebApi

@@ -1,4 +1,4 @@
-package scala
+package scalaPlatform
 
 import amf.apicontract.client.scala.RAMLConfiguration
 import amf.apicontract.client.scala.model.domain.Request

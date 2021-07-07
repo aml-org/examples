@@ -1,9 +1,7 @@
-package java;
+package javaPlatform;
 
-import amf.aml.client.platform.AMLClient;
 import amf.apicontract.client.platform.AMFClient;
 import amf.apicontract.client.platform.RAMLConfiguration;
-import amf.core.client.common.validation.ProfileName;
 import amf.core.client.platform.model.document.BaseUnit;
 import amf.core.client.platform.validation.AMFValidationReport;
 import org.junit.Test;
