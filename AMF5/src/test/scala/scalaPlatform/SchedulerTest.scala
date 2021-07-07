@@ -37,7 +37,6 @@ class SchedulerTest extends AsyncFlatSpec with should.Matchers {
       .withExecutionEnvironment(executionEnvironment); // execution context of loader is adjusted
     val client = config.createClient();
 
-    /* call async interfaces */
     for {
       parseResult      <- client.parse("file://src/test/resources/examples/simple-api.raml")
       validationResult <- client.validate(parseResult.bu)
@@ -68,13 +67,13 @@ class SchedulerTest extends AsyncFlatSpec with should.Matchers {
      resource loader that uses execution context. Extending LoaderWithExecutionContext allows the configuration
      to adapt the loader to the new execution context if modified.
   */
-  private case class CustomResourceLoader(ec: ExecutionContext) extends ResourceLoader with LoaderWithExecutionContext {
+  private case class CustomResourceLoader(ec: ExecutionContext) extends ResourceLoader with LoaderWithExecutionContext with FileReader {
 
     override def withExecutionContext(ec: ExecutionContext): ResourceLoader = CustomResourceLoader(ec)
 
     /** Fetch specified resource and return associated content. Resource should have been previously accepted. */
     override def fetch(resource: String): Future[Content] = {
-      val content = Source.fromFile(resource.stripPrefix("file://")).mkString
+      val content = using(Source.fromFile(resource.stripPrefix("file://"))) { _.mkString }
       Future(new Content(content, resource))(ec)
     }
 
