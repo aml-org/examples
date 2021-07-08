@@ -26,9 +26,9 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.github.amlorg', name: 'amf-client_2.12', version: '4.7.4', configuration: 'compile'
+    implementation 'com.github.amlorg:amf-client_2.12:4.7.5'
     // https://mvnrepository.com/artifact/org.assertj/assertj-core
-    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.18.1'
+    testImplementation 'org.assertj:assertj-core:3.18.1'
     // https://mvnrepository.com/artifact/junit/junit
-    testCompile group: 'junit', name: 'junit', version: '4.13.1'
+    testImplementation 'junit:junit:4.13.1'
 }
