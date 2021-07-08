@@ -1,8 +1,6 @@
 import {
     AMFClient,
-    PipelineName,
     WebAPIConfiguration,
-    PipelineId,
     AMFDocumentResult,
     Vendor,
     AMFResult,
@@ -33,7 +31,7 @@ describe("Conversion", () => {
       ProvidedMediaType.Oas20
     );
     expect(transformResult.results).to.be.empty;
-    const rendered: string = client.render(transformResult.baseUnit, Vendor.OAS20.mediaType);
+    const rendered: string = client.render(transformResult.baseUnit, ProvidedMediaType.Oas20);
     expect(rendered).to.be.equal(golden, `Rendered: ${rendered} \nGolden: ${golden}`);
   });
 
@@ -50,7 +48,7 @@ describe("Conversion", () => {
       ProvidedMediaType.Raml10
     );
     expect(transformResult.results).to.be.empty;
-    const rendered: string = client.render(transformResult.baseUnit, Vendor.RAML10.mediaType);
+    const rendered: string = client.render(transformResult.baseUnit, ProvidedMediaType.Raml10);
     expect(rendered).to.be.equal(golden, `Rendered: ${rendered} \nGolden: ${golden}`);
   });
 });

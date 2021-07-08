@@ -11,7 +11,7 @@ import scala.concurrent.Future
 import scala.io.Source
 
 // TODO: check tests work when interfaces are implemented
-class ResourceLoaderTest extends AsyncFlatSpec with should.Matchers {
+class ResourceLoaderTest extends AsyncFlatSpec with should.Matchers with FileReader {
 
   private class CustomResourceLoader extends ResourceLoader {
     private val CUSTOM_PATH_PATTERN = Pattern.compile("^CustomProtocol/")
@@ -29,12 +29,6 @@ class ResourceLoaderTest extends AsyncFlatSpec with should.Matchers {
       if (resource == null || resource.isEmpty) return false
       val matcher = CUSTOM_PATH_PATTERN.matcher(resource)
       matcher.find
-    }
-
-    private def using(source: Source)(func: Source => String): String = {
-      val toReturn = func(source)
-      source.close()
-      toReturn
     }
   }
 
