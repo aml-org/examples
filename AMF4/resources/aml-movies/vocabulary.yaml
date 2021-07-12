@@ -1,0 +1,23 @@
+#%Vocabulary 1.0
+vocabulary: Movies vocabulary
+usage: Learn AMF
+
+base: http://movies.org#
+
+classTerms:
+  Movie:
+    displayName: Movie
+    description: A cinema film
+    properties:
+      - title
+      - director
+
+propertyTerms:
+  title:
+    displayName: Title
+    description: Title of a movie
+    range: string
+  director:
+    displayName: Director
+    description: Director of a movie
+    range: string
