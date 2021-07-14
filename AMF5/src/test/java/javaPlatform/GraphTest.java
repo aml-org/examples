@@ -1,3 +1,5 @@
+package javaPlatform;
+
 import amf.apicontract.client.platform.AMFClient;
 import amf.apicontract.client.platform.WebAPIConfiguration;
 import amf.core.client.platform.AMFResult;
@@ -17,7 +19,7 @@ public class GraphTest {
     public void parseAMFGraph() throws ExecutionException, InterruptedException {
         final AMFClient client = WebAPIConfiguration.WebAPI().createClient();
 
-        final AMFResult parseResult = client.parse("file://resources/examples/banking-api.jsonld").get();
+        final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api.flattened.jsonld").get();
 
         final BaseUnit model = parseResult.baseUnit();
         assertNotNull(model);

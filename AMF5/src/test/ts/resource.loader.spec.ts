@@ -19,14 +19,14 @@ describe("Resource Loader test", () => {
       .withResourceLoader(customResourceLoader)
       .createClient();
     const result: AMFDocumentResult = await client.parseDocument(
-      "git://resources/examples/banking-api.raml"
+      "git://src/test/resources/examples/banking-api.raml"
     );
     expect(result.conforms).to.be.true;
   });
 });
 
 class MockGitResourceLoader implements ClientResourceLoader {
-  RESOURCE_TO_FETCH = "git://resources/examples/banking-api.raml";
+  RESOURCE_TO_FETCH = "git://src/test/resources/examples/banking-api.raml";
 
   accepts(resource: string): boolean {
     return resource.startsWith("git://");

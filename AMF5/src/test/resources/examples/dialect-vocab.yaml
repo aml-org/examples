@@ -1,0 +1,19 @@
+#%Dialect 1.0
+dialect: SimpleDialect
+version: "1.0"
+uses:
+  simpleVocab: vocabulary.yaml
+
+nodeMappings:
+  Simple:
+    mapping:
+      a:
+        propertyTerm: simpleVocab.simpleA
+        unique: true
+        range: string
+      b:
+        unique: true
+        range: integer
+documents:
+  root:
+    encodes: Simple

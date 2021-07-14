@@ -24,7 +24,7 @@ describe("Transform RAML APIs", () => {
   describe("RAML 1.0", () => {
     it("applies resource types and traits, applies inheritance, etc", async () => {
       const parseResult: AMFDocumentResult = await client.parseDocument(
-        "file://resources/examples/raml-resource-type.raml"
+        "file://src/test/resources/examples/raml-resource-type.raml"
       );
       const transformed: AMFResult = client.transform(parseResult.baseUnit);
       const doc: Document = transformed.baseUnit as Document;
@@ -34,7 +34,7 @@ describe("Transform RAML APIs", () => {
 
     it("applies overlays to document", async () => {
       const parseResult: AMFDocumentResult = await client.parseDocument(
-        "file://resources/examples/raml-overlay/test-overlay.raml"
+        "file://src/test/resources/examples/raml-overlay/test-overlay.raml"
       );
       const transformed: AMFResult = client.transform(parseResult.baseUnit);
       const doc: Document = transformed.baseUnit as Document;
@@ -50,7 +50,7 @@ describe("Transform RAML APIs", () => {
   describe("OAS 3.0", () => {
     it("transforms the document", async () => {
       const parseResult: AMFDocumentResult = await client.parseDocument(
-        "file://resources/examples/banking-api-oas30.json"
+        "file://src/test/resources/examples/banking-api-oas30.json"
       );
       const transformed: AMFResult = client.transform(parseResult.baseUnit);
       const doc: Document = transformed.baseUnit as Document;

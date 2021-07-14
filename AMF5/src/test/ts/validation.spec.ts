@@ -14,7 +14,7 @@ describe("RAML 1.0 validation", () => {
   it("Validates model and examples", async () => {
     const client: AMFClient = RAMLConfiguration.RAML10().createClient();
     const result: AMFDocumentResult = await client.parseDocument(
-      "file://resources/examples/banking-api-error.raml"
+      "file://src/test/resources/examples/banking-api-error.raml"
     );
     expect(result.conforms).to.be.true;
     const validationResult: AMFValidationReport = await client.validate(result.document);

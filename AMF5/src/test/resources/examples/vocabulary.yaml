@@ -1,0 +1,8 @@
+#%Vocabulary 1.0
+vocabulary: Simple
+base: http://simple.org/vocabulary#
+
+propertyTerms:
+  simpleA:
+    displayName: SimplePropA
+    description: A very simple property called A

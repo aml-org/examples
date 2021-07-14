@@ -1,3 +1,5 @@
+package javaPlatform;
+
 import amf.apicontract.client.platform.AMFClient;
 import amf.apicontract.client.platform.OASConfiguration;
 import amf.apicontract.client.platform.RAMLConfiguration;
@@ -5,7 +7,6 @@ import amf.core.client.platform.AMFResult;
 import amf.core.client.platform.model.document.BaseUnit;
 import amf.core.client.platform.model.document.Document;
 import amf.core.client.platform.model.domain.DomainElement;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
@@ -22,7 +23,7 @@ public class ParsingTest {
         // A BaseUnit is the return type of any parsing
         // The actual object can be many different things, depending on the content of the source file
         // https://github.com/aml-org/amf/blob/develop/documentation/model.md#baseunit
-        final AMFResult parseResult = client.parse("file://resources/examples/banking-api.json").get();
+        final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api.json").get();
         final BaseUnit model = parseResult.baseUnit();
 
         assertNotNull(model);
@@ -64,7 +65,7 @@ public class ParsingTest {
     public void parseOas30() throws ExecutionException, InterruptedException {
         final AMFClient client = OASConfiguration.OAS30().createClient();
 
-        final AMFResult parseResult = client.parse("file://resources/examples/banking-api-oas30.json").get();
+        final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api-oas30.json").get();
         final BaseUnit model = parseResult.baseUnit();
 
         assertNotNull(model);
@@ -77,7 +78,7 @@ public class ParsingTest {
     public void parseRaml10() throws ExecutionException, InterruptedException {
         final AMFClient client = RAMLConfiguration.RAML10().createClient();
 
-        final AMFResult parseResult = client.parse("file://resources/examples/banking-api.raml").get();
+        final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api.raml").get();
         final BaseUnit model = parseResult.baseUnit();
 
         assertNotNull(model);
@@ -113,7 +114,7 @@ public class ParsingTest {
     public void parseRaml08() throws ExecutionException, InterruptedException {
         final AMFClient client = RAMLConfiguration.RAML08().createClient();
 
-        final AMFResult parseResult = client.parse("file://resources/examples/banking-api-08.raml").get();
+        final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api-08.raml").get();
         final BaseUnit model = parseResult.baseUnit();
 
         assertNotNull(model);

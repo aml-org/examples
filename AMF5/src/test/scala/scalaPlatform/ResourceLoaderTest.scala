@@ -1,3 +1,5 @@
+package scalaPlatform
+
 import amf.apicontract.client.scala.WebAPIConfiguration
 import amf.core.client.common.remote.Content
 import amf.core.client.scala.resource.ResourceLoader
@@ -9,7 +11,7 @@ import scala.concurrent.Future
 import scala.io.Source
 
 // TODO: check tests work when interfaces are implemented
-class ResourceLoaderTestScala extends AsyncFlatSpec with should.Matchers {
+class ResourceLoaderTest extends AsyncFlatSpec with should.Matchers with FileReader {
 
   private class CustomResourceLoader extends ResourceLoader {
     private val CUSTOM_PATH_PATTERN = Pattern.compile("^CustomProtocol/")
@@ -18,7 +20,7 @@ class ResourceLoaderTestScala extends AsyncFlatSpec with should.Matchers {
     override def fetch(resource: String): Future[Content] = {
       val normalizedPath =
         resource.substring(CUSTOM_PATH_PATTERN.pattern.length - 1)
-      val content = Source.fromFile(normalizedPath).mkString
+      val content = using(Source.fromFile(normalizedPath)) { source => source.mkString }
       Future.successful(new Content(content, resource))
     }
 
@@ -38,7 +40,7 @@ class ResourceLoaderTestScala extends AsyncFlatSpec with should.Matchers {
       .createClient()
 
     client.parse(
-      "CustomProtocol/resources/examples/banking-api.raml"
+      "CustomProtocol/src/test/resources/examples/banking-api.raml"
     ) map (_.conforms shouldBe true)
   }
 }

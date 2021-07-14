@@ -1,8 +1,6 @@
 import {
     AMFClient,
-    PipelineName,
     WebAPIConfiguration,
-    PipelineId,
     AMFDocumentResult,
     Vendor,
     AMFResult,
@@ -13,8 +11,8 @@ import * as fileSystem from "fs";
 
 describe("Conversion", () => {
   let client: AMFClient;
-  const RAML_10_CONVERTED_GOLDEN = "resources/expected/converted-banking-api.raml";
-  const OAS_20_CONVERTED_GOLDEN = "resources/expected/converted-banking-api.json";
+  const RAML_10_CONVERTED_GOLDEN = "src/test/resources/expected/converted-banking-api.raml";
+  const OAS_20_CONVERTED_GOLDEN = "src/test/resources/expected/converted-banking-api.json";
 
   beforeEach(() => {
     client = WebAPIConfiguration.WebAPI().createClient();
@@ -25,7 +23,7 @@ describe("Conversion", () => {
       encoding: "utf8",
     });
     const parseResult: AMFDocumentResult = await client.parseDocument(
-      "file://resources/examples/banking-api.raml"
+      "file://src/test/resources/examples/banking-api.raml"
     );
     expect(parseResult.results).to.be.empty;
     const transformResult: AMFResult = await client.transformCompatibility(
@@ -33,7 +31,7 @@ describe("Conversion", () => {
       ProvidedMediaType.Oas20
     );
     expect(transformResult.results).to.be.empty;
-    const rendered: string = client.render(transformResult.baseUnit, Vendor.OAS20.mediaType);
+    const rendered: string = client.render(transformResult.baseUnit, ProvidedMediaType.Oas20);
     expect(rendered).to.be.equal(golden, `Rendered: ${rendered} \nGolden: ${golden}`);
   });
 
@@ -42,7 +40,7 @@ describe("Conversion", () => {
       encoding: "utf8",
     });
     const parseResult: AMFDocumentResult = await client.parseDocument(
-      "file://resources/examples/banking-api.json"
+      "file://src/test/resources/examples/banking-api.json"
     );
     expect(parseResult.results).to.be.empty;
     const transformResult: AMFResult = await client.transformCompatibility(
@@ -50,7 +48,7 @@ describe("Conversion", () => {
       ProvidedMediaType.Raml10
     );
     expect(transformResult.results).to.be.empty;
-    const rendered: string = client.render(transformResult.baseUnit, Vendor.RAML10.mediaType);
+    const rendered: string = client.render(transformResult.baseUnit, ProvidedMediaType.Raml10);
     expect(rendered).to.be.equal(golden, `Rendered: ${rendered} \nGolden: ${golden}`);
   });
 });

@@ -1,3 +1,5 @@
+package javaPlatform;
+
 import amf.apicontract.client.common.ProvidedMediaType;
 import amf.apicontract.client.platform.AMFClient;
 import amf.apicontract.client.platform.WebAPIConfiguration;
@@ -19,11 +21,11 @@ public class ConversionTest {
     public void Raml10ToOas20Conversion() throws ExecutionException, InterruptedException, IOException {
         AMFClient client = WebAPIConfiguration.WebAPI().createClient();
 
-        final BaseUnit ramlApi = client.parse("file://resources/examples/banking-api.raml").get().baseUnit();
+        final BaseUnit ramlApi = client.parse("file://src/test/resources/examples/banking-api.raml").get().baseUnit();
         final BaseUnit convertedOas = client.transformCompatibility(ramlApi, ProvidedMediaType.Oas20()).baseUnit();
         final String result = client.render(convertedOas,"application/oas20+json").trim();
 
-        Path path = Paths.get("resources/expected/converted-banking-api.json");
+        Path path = Paths.get("src/test/resources/expected/converted-banking-api.json");
         String read = Files.readAllLines(path).stream().collect(Collectors.joining(System.lineSeparator()));
         assertEquals(read, result);
     }
@@ -32,11 +34,11 @@ public class ConversionTest {
     public void Oas20ToRaml10Conversion() throws ExecutionException, InterruptedException, IOException {
         AMFClient client = WebAPIConfiguration.WebAPI().createClient();
 
-        final BaseUnit oasApi = client.parse("file://resources/examples/banking-api.json").get().baseUnit();
+        final BaseUnit oasApi = client.parse("file://src/test/resources/examples/banking-api.json").get().baseUnit();
         final BaseUnit convertedRaml = client.transformCompatibility(oasApi, ProvidedMediaType.Raml10()).baseUnit();
         final String result = client.render(convertedRaml,"application/raml10+yaml").trim();
 
-        Path path = Paths.get("resources/expected/converted-banking-api.raml");
+        Path path = Paths.get("src/test/resources/expected/converted-banking-api.raml");
         String read = Files.readAllLines(path).stream().collect(Collectors.joining(System.lineSeparator()));
         assertEquals(read, result);
     }

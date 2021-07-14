@@ -38,7 +38,7 @@ describe("Use custom error handler", () => {
       .withErrorHandlerProvider(unhandledProvider)
       .createClient();
     const failedPromise: Promise<AMFDocumentResult> = client.parseDocument(
-      "file://resources/examples/banking-api-oas30-error.json"
+      "file://src/test/resources/examples/banking-api-oas30-error.json"
     );
     await expect(failedPromise).to.not.eventually.be.rejectedWith(new Error("NOT MY ERROR"));
     await expect(failedPromise).to.eventually.be.rejectedWith(error);

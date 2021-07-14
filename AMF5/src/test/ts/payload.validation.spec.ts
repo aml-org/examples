@@ -28,7 +28,7 @@ describe("Shape payload validation", () => {
     const config: AMFConfiguration = WebAPIConfiguration.WebAPI();
     const client: AMFClient = config.createClient();
     const result: AMFDocumentResult = await client.parseDocument(
-      "file://resources/examples/simple-api.raml"
+      "file://src/test/resources/examples/simple-api.raml"
     );
     const transformResult: AMFResult = client.transform(result.document);
     const unit: Document = transformResult.baseUnit as Document;

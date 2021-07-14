@@ -32,7 +32,7 @@ public class ConversionTest {
         final Oas20Resolver resolver = new Oas20Resolver();
         final Oas20Renderer renderer = new Oas20Renderer();
 
-        final BaseUnit ramlApi = parser.parseFileAsync("file://resources/examples/banking-api.raml").get();
+        final BaseUnit ramlApi = parser.parseFileAsync("file://src/test/resources/examples/banking-api.raml").get();
         final BaseUnit convertedOasApi = resolver.resolve(ramlApi, ResolutionPipeline.COMPATIBILITY_PIPELINE());
 
         final String result = renderer.generateString(convertedOasApi).get().trim();
@@ -47,7 +47,7 @@ public class ConversionTest {
         final Raml10Resolver resolver = new Raml10Resolver();
         final Raml10Renderer renderer = new Raml10Renderer();
 
-        final BaseUnit oasApi = parser.parseFileAsync("file://resources/examples/banking-api.json").get();
+        final BaseUnit oasApi = parser.parseFileAsync("file://src/test/resources/examples/banking-api.json").get();
         final BaseUnit convertedRamlApi = resolver.resolve(oasApi, ResolutionPipeline.COMPATIBILITY_PIPELINE());
 
         // has amf-specific fields for cross-spec conversion support

@@ -3,10 +3,9 @@ import {
   Document,
   EndPoint,
   Operation,
-  Parameter,
+  Parameter, ProvidedMediaType,
   RAMLConfiguration,
   Request,
-  Vendor,
   WebApi,
 } from "amf-client-js";
 import { expect } from "chai";
@@ -17,7 +16,7 @@ describe("Model Builder", () => {
   const STRING_DATATYPE = "http://www.w3.org/2001/XMLSchema#string";
   const APPLICATION_JSON = "application/json";
   const HTTP_STATUS_OK = "200";
-  const RENDER_GOLDEN_FILE = "resources/examples/model-render.raml";
+  const RENDER_GOLDEN_FILE = "src/test/resources/examples/model-render.raml";
   const UTF8 = "utf8";
 
   it("builds the model and mutates the instance", async () => {
@@ -34,7 +33,7 @@ describe("Model Builder", () => {
     });
     const model: BaseUnit = buildModel();
     const client = RAMLConfiguration.RAML10().createClient();
-    const rendered = await client.render(model, Vendor.RAML10.mediaType);
+    const rendered = await client.render(model, ProvidedMediaType.Raml10);
     expect(rendered).to.be.equal(golden, `Rendered: ${rendered} \nGolden: ${golden}`);
   });
 

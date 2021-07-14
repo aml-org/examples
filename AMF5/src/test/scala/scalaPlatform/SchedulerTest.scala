@@ -1,3 +1,5 @@
+package scalaPlatform
+
 import amf.apicontract.client.scala.RAMLConfiguration
 import amf.apicontract.client.scala.model.domain.api.WebApi
 import amf.core.client.common.remote.Content
@@ -13,7 +15,7 @@ import java.util.concurrent.{Executors, ThreadFactory}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.io.Source
 
-class SchedulerTestScala extends AsyncFlatSpec with should.Matchers {
+class SchedulerTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF configuration" should "allow defining custom execution context" in {
     /* Instantiating a ScheduledExecutorService with some example arguments. */
@@ -37,13 +39,12 @@ class SchedulerTestScala extends AsyncFlatSpec with should.Matchers {
 
     /* call async interfaces */
     for {
-      parseResult      <- client.parse("file://resources/examples/simple-api.raml")
+      parseResult      <- client.parse("file://src/test/resources/examples/simple-api.raml")
       validationResult <- client.validate(parseResult.bu)
       payloadReport <- config
         .payloadValidatorFactory()
         .createFor(obtainShapeFromUnit(parseResult.bu), "application/json", ValidationMode.StrictValidationMode)
         .validate("{\"name\": \"firstname and lastname\"}")
-//      newConfig <- config.forInstance("")
     } yield {
       /* Shutting down the scheduler which kills the AMF threads created in the thread pool provided by that scheduler. */
       scheduler.shutdownNow();

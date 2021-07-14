@@ -1,3 +1,5 @@
+package javaPlatform;
+
 import amf.apicontract.client.platform.AMFClient;
 import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.apicontract.client.platform.model.domain.EndPoint;
@@ -26,7 +28,7 @@ public class PayloadValidationTest {
     public static void setup() throws ExecutionException, InterruptedException {
         final AMFClient client = RAMLConfiguration.RAML10().createClient();
 
-        final BaseUnit unresolvedModel = client.parse("file://resources/examples/simple-api.raml").get().baseUnit();
+        final BaseUnit unresolvedModel = client.parse("file://src/test/resources/examples/simple-api.raml").get().baseUnit();
         final BaseUnit resolvedModel = client.transform(unresolvedModel).baseUnit();
 
         // get the model.encodes() to isolate the WebApi model

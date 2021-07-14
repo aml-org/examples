@@ -1,3 +1,5 @@
+package javaPlatform;
+
 import amf.apicontract.client.platform.AMFClient;
 import amf.apicontract.client.platform.AMFConfiguration;
 import amf.apicontract.client.platform.RAMLConfiguration;
@@ -7,7 +9,6 @@ import amf.core.client.platform.model.document.BaseUnit;
 import amf.core.client.platform.resource.FileResourceLoader;
 import amf.core.client.platform.resource.ResourceLoader;
 import amf.core.client.platform.validation.AMFValidationReport;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
@@ -46,7 +47,7 @@ public class ResourceLoaderTest {
         final AMFClient client = config.createClient();
 
         // using a custom protocol that our CustomResourceLoader can parse
-        final BaseUnit model = client.parse("CustomProtocol/resources/examples/banking-api.raml").get().baseUnit();
+        final BaseUnit model = client.parse("CustomProtocol/src/test/resources/examples/banking-api.raml").get().baseUnit();
         assertNotNull(model);
 
         // Run RAML default validations on parsed unit (expects no errors).

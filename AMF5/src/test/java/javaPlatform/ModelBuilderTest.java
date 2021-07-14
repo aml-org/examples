@@ -1,3 +1,5 @@
+package javaPlatform;
+
 import amf.apicontract.client.platform.AMFClient;
 import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.apicontract.client.platform.model.domain.EndPoint;
@@ -8,7 +10,6 @@ import amf.apicontract.client.platform.model.domain.api.WebApi;
 import amf.core.client.common.validation.ProfileNames;
 import amf.core.client.platform.model.document.Document;
 import amf.core.client.platform.validation.AMFValidationReport;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Collections;

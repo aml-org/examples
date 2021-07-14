@@ -46,7 +46,7 @@ public class SchedulerTest {
         Raml10Parser parser = new Raml10Parser(environment);
 
         /* Parsing Raml 10 with specified file returning future. */
-        BaseUnit baseUnit = parser.parseFileAsync("file://resources/examples/banking-api.raml").get();
+        BaseUnit baseUnit = parser.parseFileAsync("file://src/test/resources/examples/banking-api.raml").get();
 
         /* Validating the Raml 10 spec. */
         ValidationReport report = parser.reportValidation(ProfileNames.RAML10(), MessageStyles.RAML()).get();
