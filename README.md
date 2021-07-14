@@ -10,13 +10,13 @@ The examples are incremental, from simple to more complex.
 ### Java
 To run the Java examples you must build the project with gradle and then run the unit tests:
 ```bash
-gradle :AMF4:clean build
-gradle :AMF4:test
+./gradlew :AMF4:clean build
+./gradlew :AMF4:test
 ```
 
 You can also run a specific file. For example, you can run only the parsing examples:
 ```bash
-gradle :AMF4:test --tests "ParsingTest"
+./gradlew :AMF4:test --tests "ParsingTest"
 ```
 
 ### JavaScript
@@ -35,15 +35,15 @@ jest parsing.test.js
 ### Java
 To run the Java examples you must build the project with gradle and then run the unit tests:
 ```bash
-gradle :AMF4:clean build
-gradle :AMF5:test
+./gradlew :AMF4:clean build
+./gradlew :AMF5:test
 ```
 
 ### Scala
 To run the Scala examples you must build the project with gradle and then run the scalatest unit tests:
 ```bash
-gradle :AMF5:clean build
-gradle :AMF5:scalatest
+./gradlew :AMF5:clean build
+./gradlew :AMF5:scalatest
 ```
 
 ### TypeScript
@@ -56,5 +56,5 @@ npm run test-amf5
 ### All tests
 You can run all AMF 5 tests (Scala, Java and TypeScript) by running the following task:
 ```bash
-gradle :AMF5:testAll
+./gradlew :AMF5:testAll
 ```
