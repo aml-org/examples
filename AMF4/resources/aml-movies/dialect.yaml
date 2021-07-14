@@ -1,0 +1,21 @@
+#%Dialect 1.0
+dialect: Movie
+version: 1.0
+
+uses:
+  movies: vocabulary.yaml
+
+nodeMappings:
+  MovieNode:
+    classTerm: movies.Movie
+    mapping:
+      title:
+        propertyTerm: movies.title
+        range: string
+      director:
+        propertyTerm: movies.director
+        range: string
+
+documents:
+  root:
+    encodes: MovieNode
