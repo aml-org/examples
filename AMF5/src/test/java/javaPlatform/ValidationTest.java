@@ -16,7 +16,7 @@ public class ValidationTest {
     public void validateRaml() throws ExecutionException, InterruptedException {
         final AMFClient client = RAMLConfiguration.RAML10().createClient();
 
-        final BaseUnit model = client.parse("file://resources/examples/banking-api-error.raml").get().baseUnit();
+        final BaseUnit model = client.parse("file://src/test/resources/examples/banking-api-error.raml").get().baseUnit();
         assertNotNull(model);
 
         // Run RAML default validations on parsed unit (expects one error -> invalid protocols value)

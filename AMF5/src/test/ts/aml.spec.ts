@@ -10,11 +10,11 @@ import {
 import { expect } from "chai";
 
 describe("AML Operations", () => {
-  const simpleDialectWithVocab: string = "file://resources/examples/dialect-vocab.yaml";
-  const simpleDialect: string = "file://resources/examples/dialect.yaml";
-  const simpleVocabulary: string = "file://resources/examples/vocabulary.yaml";
-  const simpleDialectInstance: string = "file://resources/examples/dialect-instance.yaml";
-  const simpleNodeTypeUri: string = "file://resources/examples/dialect.yaml#/declarations/Simple";
+  const simpleDialectWithVocab: string = "file://src/test/resources/examples/dialect-vocab.yaml";
+  const simpleDialect: string = "file://src/test/resources/examples/dialect.yaml";
+  const simpleVocabulary: string = "file://src/test/resources/examples/vocabulary.yaml";
+  const simpleDialectInstance: string = "file://src/test/resources/examples/dialect-instance.yaml";
+  const simpleNodeTypeUri: string = "file://src/test/resources/examples/dialect.yaml#/declarations/Simple";
 
   it("parses a dialect", async () => {
     const amlConfig: AMLConfiguration = AMLConfiguration.predefined();
@@ -24,7 +24,7 @@ describe("AML Operations", () => {
     const dialect: Dialect = parseResult.dialect;
     const dialectElementId: string = dialect.documents().root().encoded().value();
     expect(dialectElementId).to.be.equal(
-      "file://resources/examples/dialect.yaml#/declarations/Simple"
+      "file://src/test/resources/examples/dialect.yaml#/declarations/Simple"
     );
   });
 

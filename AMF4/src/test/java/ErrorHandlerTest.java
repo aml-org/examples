@@ -48,7 +48,7 @@ public class ErrorHandlerTest {
         final Raml10Parser parser = new Raml10Parser();
         final Raml10Resolver resolver = new Raml10Resolver();
 
-        final BaseUnit unresolvedModel = parser.parseFileAsync("file://resources/examples/resolution-error.raml").get();
+        final BaseUnit unresolvedModel = parser.parseFileAsync("file://src/test/resources/examples/resolution-error.raml").get();
         assertNotNull(unresolvedModel);
 
         assertThrows(RuntimeException.class,

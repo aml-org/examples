@@ -31,7 +31,7 @@ public class PipelineCreationTest {
                 .build();
 
         final AMFClient client = WebAPIConfiguration.WebAPI().withTransformationPipeline(pipeline).createClient();
-        final AMFResult result = client.parse("file://resources/examples/banking-api.json").get();
+        final AMFResult result = client.parse("file://src/test/resources/examples/banking-api.json").get();
         assert(result.conforms());
         AMFResult transformResult = client.transform(result.baseUnit(), CUSTOM_PIPELINE_NAME);
         assert(transformResult.conforms());

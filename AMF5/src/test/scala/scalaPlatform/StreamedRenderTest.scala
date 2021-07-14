@@ -16,7 +16,7 @@ class StreamedRenderTest extends AsyncFlatSpec with should.Matchers with FileRea
   "AMF" should "stream the rendering of Json-LD" in {
     val client = OASConfiguration.OAS20().createClient()
     val tmpFile = File.createTempFile("banking-api.json", new Date().getTime.toString)
-    client.parse("file://resources/examples/banking-api.json") map { result =>
+    client.parse("file://src/test/resources/examples/banking-api.json") map { result =>
       result.bu mustBe a[Document]
       val writer = new OutputStreamWriter(new FileOutputStream(tmpFile))
       val builder = JsonOutputBuilder(writer, prettyPrint = true)

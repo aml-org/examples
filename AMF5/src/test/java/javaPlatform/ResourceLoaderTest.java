@@ -47,7 +47,7 @@ public class ResourceLoaderTest {
         final AMFClient client = config.createClient();
 
         // using a custom protocol that our CustomResourceLoader can parse
-        final BaseUnit model = client.parse("CustomProtocol/resources/examples/banking-api.raml").get().baseUnit();
+        final BaseUnit model = client.parse("CustomProtocol/src/test/resources/examples/banking-api.raml").get().baseUnit();
         assertNotNull(model);
 
         // Run RAML default validations on parsed unit (expects no errors).

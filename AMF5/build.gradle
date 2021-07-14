@@ -34,12 +34,6 @@ dependencies {
     testRuntime 'com.vladsch.flexmark:flexmark-all:0.35.10'
 }
 
-sourceSets {
-    test {
-        output.resourcesDir = "build/classes/resources"
-    }
-}
-
 task testAll {
     dependsOn test
     dependsOn scalatest

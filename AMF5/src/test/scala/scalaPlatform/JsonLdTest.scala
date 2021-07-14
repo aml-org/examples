@@ -11,7 +11,7 @@ class JsonLdTest extends AsyncFlatSpec with should.Matchers {
   "An embedded json-ld" should "give the corresponding in-memory model" in {
     val client = WebAPIConfiguration.WebAPI().createClient()
     client.parse(
-      "file://resources/examples/banking-api.embedded.jsonld"
+      "file://src/test/resources/examples/banking-api.embedded.jsonld"
     ) map { result =>
       result.bu mustBe a[Document]
       result.conforms shouldBe true
@@ -21,7 +21,7 @@ class JsonLdTest extends AsyncFlatSpec with should.Matchers {
   "A flattened json-ld" should "give the corresponding in-memory model" in {
     val client = WebAPIConfiguration.WebAPI().createClient()
     client.parse(
-      "file://resources/examples/banking-api.flattened.jsonld"
+      "file://src/test/resources/examples/banking-api.flattened.jsonld"
     ) map { result =>
       result.bu mustBe a[Document]
       result.conforms shouldBe true

@@ -16,7 +16,7 @@ describe("Model Builder", () => {
   const STRING_DATATYPE = "http://www.w3.org/2001/XMLSchema#string";
   const APPLICATION_JSON = "application/json";
   const HTTP_STATUS_OK = "200";
-  const RENDER_GOLDEN_FILE = "resources/examples/model-render.raml";
+  const RENDER_GOLDEN_FILE = "src/test/resources/examples/model-render.raml";
   const UTF8 = "utf8";
 
   it("builds the model and mutates the instance", async () => {

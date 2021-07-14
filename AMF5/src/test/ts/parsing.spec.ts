@@ -19,7 +19,7 @@ describe("Parsing", () => {
 
     it("parse document from file", async () => {
       const parsingResult: AMFDocumentResult = await client.parseDocument(
-        "file://resources/examples/banking-api.json"
+        "file://src/test/resources/examples/banking-api.json"
       );
       expect(parsingResult.results).to.be.empty;
       expect(parsingResult.conforms).to.be.true;
@@ -50,7 +50,7 @@ describe("Parsing", () => {
 
     it("parse document from file", async () => {
       const parsingResult: AMFDocumentResult = await client.parseDocument(
-        "file://resources/examples/banking-api-oas30.json"
+        "file://src/test/resources/examples/banking-api-oas30.json"
       );
       expect(parsingResult.results).to.be.empty;
       expect(parsingResult.conforms).to.be.true;
@@ -63,7 +63,7 @@ describe("Parsing", () => {
 
     it("parse document from file", async () => {
       const parsingResult: AMFDocumentResult = await client.parseDocument(
-        "file://resources/examples/banking-api.raml"
+        "file://src/test/resources/examples/banking-api.raml"
       );
       expect(parsingResult.results).to.be.empty;
       expect(parsingResult.conforms).to.be.true;
@@ -89,7 +89,7 @@ describe("Parsing", () => {
 
     it("parse document from file", async () => {
       const parsingResult: AMFDocumentResult = await client.parseDocument(
-        "file://resources/examples/banking-api-08.raml"
+        "file://src/test/resources/examples/banking-api-08.raml"
       );
       expect(parsingResult.results).to.be.empty;
       expect(parsingResult.conforms).to.be.true;

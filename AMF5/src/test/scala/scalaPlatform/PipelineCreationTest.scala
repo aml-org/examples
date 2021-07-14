@@ -20,7 +20,7 @@ class PipelineCreationTest extends AsyncFlatSpec with should.Matchers with FileR
       .append(new MyTransformationStep(WEB_API_NAME))
       .build
     val client = WebAPIConfiguration.WebAPI.withTransformationPipeline(pipeline).createClient
-    client.parse("file://resources/examples/banking-api.json").map { result =>
+    client.parse("file://src/test/resources/examples/banking-api.json").map { result =>
       result.conforms shouldBe true
       val transformResult = client.transform(result.bu, CUSTOM_PIPELINE_NAME)
       transformResult.conforms shouldBe true

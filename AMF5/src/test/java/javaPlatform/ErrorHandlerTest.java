@@ -37,7 +37,7 @@ public class ErrorHandlerTest {
                 .withErrorHandlerProvider(() -> eh)
                 .createClient();
 
-        final AMFResult parseResult = client.parse("file://resources/examples/resolution-error.raml").get();
+        final AMFResult parseResult = client.parse("file://src/test/resources/examples/resolution-error.raml").get();
 
         assertNotNull(parseResult.baseUnit());
 

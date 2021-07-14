@@ -28,7 +28,7 @@ public class EventListenerTest {
                 .withEventListener(spy)
                 .createClient();
 
-        final AMFResult parseResult = client.parse("file://resources/examples/banking-api.raml").get();
+        final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api.raml").get();
 
         final BaseUnit model = parseResult.baseUnit();
         assertNotNull(model);

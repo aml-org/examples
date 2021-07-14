@@ -23,7 +23,7 @@ public class TransformationTest {
     public void resolveRaml10() throws ExecutionException, InterruptedException {
         final AMFClient client = RAMLConfiguration.RAML10().createClient();
 
-        final BaseUnit unresolvedModel = client.parse("file://resources/examples/raml-resource-type.raml").get().baseUnit();
+        final BaseUnit unresolvedModel = client.parse("file://src/test/resources/examples/raml-resource-type.raml").get().baseUnit();
         assertNotNull(unresolvedModel);
 
         final BaseUnit resolvedModel = client.transform(unresolvedModel).baseUnit();
@@ -36,7 +36,7 @@ public class TransformationTest {
     public void resolveOas30() throws ExecutionException, InterruptedException {
         final AMFClient client = OASConfiguration.OAS30().createClient();
 
-        final BaseUnit unresolvedModel = client.parse("file://resources/examples/banking-api-oas30.json").get().baseUnit();
+        final BaseUnit unresolvedModel = client.parse("file://src/test/resources/examples/banking-api-oas30.json").get().baseUnit();
         assertNotNull(unresolvedModel);
 
         final BaseUnit resolvedModel = client.transform(unresolvedModel).baseUnit();
@@ -54,7 +54,7 @@ public class TransformationTest {
     public void resolveRamlOverlay() throws ExecutionException, InterruptedException {
         final AMFClient client = RAMLConfiguration.RAML10().createClient();
 
-        final Document unresolvedModel = client.parseDocument("file://resources/examples/raml-overlay/test-overlay.raml").get().document();
+        final Document unresolvedModel = client.parseDocument("file://src/test/resources/examples/raml-overlay/test-overlay.raml").get().document();
         assertEquals("unresolved overlay should reference main API", 1, unresolvedModel.references().size());
 
         final Document resolvedModel = (Document) client.transform(unresolvedModel).baseUnit();

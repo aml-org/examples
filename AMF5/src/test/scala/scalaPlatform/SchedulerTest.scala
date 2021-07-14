@@ -39,7 +39,7 @@ class SchedulerTest extends AsyncFlatSpec with should.Matchers {
 
     /* call async interfaces */
     for {
-      parseResult      <- client.parse("file://resources/examples/simple-api.raml")
+      parseResult      <- client.parse("file://src/test/resources/examples/simple-api.raml")
       validationResult <- client.validate(parseResult.bu)
       payloadReport <- config
         .payloadValidatorFactory()

@@ -50,7 +50,7 @@ public class SchedulerTest {
 
         /* call async interfaces */
 
-        final AMFResult parseResult = client.parse("file://resources/examples/simple-api.raml").get();
+        final AMFResult parseResult = client.parse("file://src/test/resources/examples/simple-api.raml").get();
         AMFValidationReport report = client.validate(parseResult.baseUnit()).get();
         AMFValidationReport payloadReport = config.payloadValidatorFactory()
                 .createFor(obtainShapeFromUnit(parseResult.baseUnit()), "application/json", ValidationMode.StrictValidationMode())

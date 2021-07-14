@@ -10,11 +10,11 @@ import org.scalatest.matchers.should
 import scala.concurrent.Future.successful
 
 class AMLTest extends AsyncFlatSpec with should.Matchers {
-  val simpleDialectWithVocabulary = "file://resources/examples/dialect-vocab.yaml"
-  val simpleVocabulary = "file://resources/examples/vocabulary.yaml"
-  val simpleDialect = "file://resources/examples/dialect.yaml"
-  val simpleDialectInstance = "file://resources/examples/dialect-instance.yaml"
-  val simpleNodeTypeUri = "file://resources/examples/dialect.yaml#/declarations/Simple"
+  val simpleDialectWithVocabulary = "file://src/test/resources/examples/dialect-vocab.yaml"
+  val simpleVocabulary = "file://src/test/resources/examples/vocabulary.yaml"
+  val simpleDialect = "file://src/test/resources/examples/dialect.yaml"
+  val simpleDialectInstance = "file://src/test/resources/examples/dialect-instance.yaml"
+  val simpleNodeTypeUri = "file://src/test/resources/examples/dialect.yaml#/declarations/Simple"
 
   "AML" should "parse a dialect" in {
     val client = AMLConfiguration.predefined().createClient()
@@ -22,7 +22,7 @@ class AMLTest extends AsyncFlatSpec with should.Matchers {
       parseResult.conforms shouldBe true
       val dialect = parseResult.bu.asInstanceOf[Dialect]
       val dialectElementId = dialect.documents().root().encoded().value()
-      dialectElementId shouldEqual "file://resources/examples/dialect.yaml#/declarations/Simple"
+      dialectElementId shouldEqual "file://src/test/resources/examples/dialect.yaml#/declarations/Simple"
     }
   }
 

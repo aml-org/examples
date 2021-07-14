@@ -1,7 +1,7 @@
 import { AMFClient, AMFDocumentResult, OASConfiguration, WebApi } from "amf-client-js";
 import { expect } from "chai";
 
-const BANKING_API = "file://resources/examples/banking-api.flattened.jsonld";
+const BANKING_API = "file://src/test/resources/examples/banking-api.flattened.jsonld";
 
 describe("AMF Graph", () => {
   let client: AMFClient;

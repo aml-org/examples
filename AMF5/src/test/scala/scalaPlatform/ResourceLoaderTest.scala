@@ -40,7 +40,7 @@ class ResourceLoaderTest extends AsyncFlatSpec with should.Matchers with FileRea
       .createClient()
 
     client.parse(
-      "CustomProtocol/resources/examples/banking-api.raml"
+      "CustomProtocol/src/test/resources/examples/banking-api.raml"
     ) map (_.conforms shouldBe true)
   }
 }

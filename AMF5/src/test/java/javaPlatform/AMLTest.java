@@ -13,11 +13,11 @@ import static junit.framework.TestCase.assertTrue;
 
 public class AMLTest {
 
-    private final static String simpleDialectWithVocabulary = "file://resources/examples/dialect-vocab.yaml";
-    private final static String simpleVocabulary = "file://resources/examples/vocabulary.yaml";
-    private final static String simpleDialect = "file://resources/examples/dialect.yaml";
-    private final static String simpleDialectInstance = "file://resources/examples/dialect-instance.yaml";
-    private final static String simpleNodeTypeUri = "file://resources/examples/dialect.yaml#/declarations/Simple";
+    private final static String simpleDialectWithVocabulary = "file://src/test/resources/examples/dialect-vocab.yaml";
+    private final static String simpleVocabulary = "file://src/test/resources/examples/vocabulary.yaml";
+    private final static String simpleDialect = "file://src/test/resources/examples/dialect.yaml";
+    private final static String simpleDialectInstance = "file://src/test/resources/examples/dialect-instance.yaml";
+    private final static String simpleNodeTypeUri = "file://src/test/resources/examples/dialect.yaml#/declarations/Simple";
 
     @Test
     public void parseDialect() throws ExecutionException, InterruptedException {
@@ -26,7 +26,7 @@ public class AMLTest {
         assertTrue(parseResult.conforms());
         final Dialect dialect = (Dialect) parseResult.baseUnit();
         final String dialectElementId = dialect.documents().root().encoded().value();
-        assertEquals("file://resources/examples/dialect.yaml#/declarations/Simple", dialectElementId);
+        assertEquals("file://src/test/resources/examples/dialect.yaml#/declarations/Simple", dialectElementId);
     }
 
     @Test
