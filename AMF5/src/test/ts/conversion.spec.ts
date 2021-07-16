@@ -1,21 +1,19 @@
 import {
-    AMFClient,
-    WebAPIConfiguration,
-    AMFDocumentResult,
-    Vendor,
-    AMFResult,
-    ProvidedMediaType,
+  WebAPIConfiguration,
+  AMFDocumentResult,
+  AMFResult,
+  ProvidedMediaType, AMFBaseUnitClient,
 } from "amf-client-js";
 import { expect } from "chai";
 import * as fileSystem from "fs";
 
 describe("Conversion", () => {
-  let client: AMFClient;
+  let client: AMFBaseUnitClient;
   const RAML_10_CONVERTED_GOLDEN = "src/test/resources/expected/converted-banking-api.raml";
   const OAS_20_CONVERTED_GOLDEN = "src/test/resources/expected/converted-banking-api.json";
 
   beforeEach(() => {
-    client = WebAPIConfiguration.WebAPI().createClient();
+    client = WebAPIConfiguration.WebAPI().baseUnitClient();
   });
 
   it("Convert RAML 1.0 to OAS 2.0", async () => {

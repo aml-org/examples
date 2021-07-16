@@ -8,7 +8,7 @@ import amf.apicontract.client.platform.model.domain.Request;
 import amf.apicontract.client.platform.model.domain.api.WebApi;
 import amf.core.client.common.remote.Content;
 import amf.core.client.common.validation.ValidationMode;
-import amf.core.client.platform.AMFGraphClient;
+import amf.core.client.platform.AMFGraphBaseUnitClient;
 import amf.core.client.platform.AMFGraphConfiguration;
 import amf.core.client.platform.AMFResult;
 import amf.core.client.platform.execution.ExecutionEnvironment;
@@ -46,7 +46,7 @@ public class SchedulerTest {
         final AMFGraphConfiguration config = RAMLConfiguration.RAML10()
                 .withResourceLoaders(Collections.singletonList(new CustomResourceLoader())) // adds custom loader that uses execution context
                 .withExecutionEnvironment(executionEnvironment); // execution context is defined, resource loader is adjusted.
-        final AMFGraphClient client = config.createClient();
+        final AMFGraphBaseUnitClient client = config.baseUnitClient();
 
         /* call async interfaces */
 

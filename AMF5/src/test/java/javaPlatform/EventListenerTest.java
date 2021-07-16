@@ -1,6 +1,6 @@
 package javaPlatform;
 
-import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.AMFBaseUnitClient;
 import amf.apicontract.client.platform.WebAPIConfiguration;
 import amf.core.client.platform.AMFResult;
 import amf.core.client.platform.config.AMFEvent;
@@ -24,9 +24,9 @@ public class EventListenerTest {
     @Test
     public void parseAMFGraph() throws ExecutionException, InterruptedException {
         final SpyEventListener spy = new SpyEventListener();
-        final AMFClient client = WebAPIConfiguration.WebAPI()
+        final AMFBaseUnitClient client = WebAPIConfiguration.WebAPI()
                 .withEventListener(spy)
-                .createClient();
+                .baseUnitClient();
 
         final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api.raml").get();
 

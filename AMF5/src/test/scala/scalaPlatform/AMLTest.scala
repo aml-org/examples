@@ -17,10 +17,10 @@ class AMLTest extends AsyncFlatSpec with should.Matchers {
   val simpleNodeTypeUri = "file://src/test/resources/examples/dialect.yaml#/declarations/Simple"
 
   "AML" should "parse a dialect" in {
-    val client = AMLConfiguration.predefined().createClient()
+    val client = AMLConfiguration.predefined().baseUnitClient()
     client.parseDialect(simpleDialect) map { parseResult =>
       parseResult.conforms shouldBe true
-      val dialect = parseResult.bu.asInstanceOf[Dialect]
+      val dialect = parseResult.baseUnit.asInstanceOf[Dialect]
       val dialectElementId = dialect.documents().root().encoded().value()
       dialectElementId shouldEqual "file://src/test/resources/examples/dialect.yaml#/declarations/Simple"
     }
@@ -28,7 +28,7 @@ class AMLTest extends AsyncFlatSpec with should.Matchers {
 
   it should "parse a dialect instance" in {
     AMLConfiguration.predefined().withDialect(simpleDialect) flatMap { amlConfig =>
-      val client = amlConfig.createClient()
+      val client = amlConfig.baseUnitClient()
       client.parseDialectInstance(simpleDialectInstance)
     } map { parseResult =>
       parseResult.conforms shouldBe true
@@ -38,7 +38,7 @@ class AMLTest extends AsyncFlatSpec with should.Matchers {
   }
 
   it should "parse a vocabulary" in {
-    val client = AMLConfiguration.predefined.createClient
+    val client = AMLConfiguration.predefined.baseUnitClient
     for {
       parseResult <- client.parseVocabulary(simpleVocabulary)
     } yield {
@@ -51,7 +51,7 @@ class AMLTest extends AsyncFlatSpec with should.Matchers {
   it should "parse a instance with loaded dialect and vocabulary" in {
     for {
       config <- AMLConfiguration.predefined.withDialect(simpleDialectWithVocabulary)
-      client <- successful(config.createClient())
+      client <- successful(config.baseUnitClient())
       parseResult <- client.parseDialectInstance(simpleDialectInstance)
     } yield {
       assertTrue(parseResult.conforms)

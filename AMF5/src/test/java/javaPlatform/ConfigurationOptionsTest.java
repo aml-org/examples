@@ -1,7 +1,7 @@
 package javaPlatform;
 
 import amf.apicontract.client.common.ProvidedMediaType;
-import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.AMFBaseUnitClient;
 import amf.apicontract.client.platform.OASConfiguration;
 import amf.apicontract.client.platform.WebAPIConfiguration;
 import amf.core.client.platform.AMFResult;
@@ -23,10 +23,10 @@ public class ConfigurationOptionsTest {
 
     @Test
     public void configurationWithOptions() throws ExecutionException, InterruptedException, IOException {
-        AMFClient client = OASConfiguration.OAS20()
+        AMFBaseUnitClient client = OASConfiguration.OAS20()
                 .withParsingOptions(new ParsingOptions().setMaxYamlReferences(20))
                 .withRenderOptions(new RenderOptions().withSourceMaps())
-                .createClient();
+                .baseUnitClient();
 
         final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api.json").get();
         final String result = client.render(parseResult.baseUnit()).trim();

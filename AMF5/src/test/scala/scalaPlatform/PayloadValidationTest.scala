@@ -11,12 +11,12 @@ class PayloadValidationTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF payload validation" should "create and use a user schema payload validator" in {
     val configuration = WebAPIConfiguration.WebAPI()
-    val client = configuration.createClient()
+    val client = configuration.baseUnitClient()
     client.parse("file://src/test/resources/examples/simple-api.raml") map { parseResult =>
-      val transformationResult = client.transform(parseResult.bu)
+      val transformationResult = client.transform(parseResult.baseUnit)
 
       // get the model.encodes() to isolate the WebApi model
-      val webApi = transformationResult.bu
+      val webApi = transformationResult.baseUnit
         .asInstanceOf[Document]
         .encodes
         .asInstanceOf[WebApi]

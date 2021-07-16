@@ -21,7 +21,7 @@ public class AMLTest {
 
     @Test
     public void parseDialect() throws ExecutionException, InterruptedException {
-        final AMLClient client = AMLConfiguration.predefined().createClient();
+        final AMLBaseUnitClient client = AMLConfiguration.predefined().baseUnitClient();
         final AMLDialectResult parseResult = client.parseDialect(simpleDialect).get();
         assertTrue(parseResult.conforms());
         final Dialect dialect = (Dialect) parseResult.baseUnit();
@@ -31,7 +31,7 @@ public class AMLTest {
 
     @Test
     public void parseDialectInstance() throws ExecutionException, InterruptedException {
-        final AMLClient client = AMLConfiguration.predefined().withDialect(simpleDialect).get().createClient();
+        final AMLBaseUnitClient client = AMLConfiguration.predefined().withDialect(simpleDialect).get().baseUnitClient();
         final AMLDialectInstanceResult parseResult = client.parseDialectInstance(simpleDialectInstance).get();
         assertTrue(parseResult.conforms());
         final DialectDomainElement instanceElement = parseResult.dialectInstance().encodes();
@@ -40,7 +40,7 @@ public class AMLTest {
 
     @Test
     public void parseVocabulary() throws ExecutionException, InterruptedException {
-        final AMLClient client = AMLConfiguration.predefined().createClient();
+        final AMLBaseUnitClient client = AMLConfiguration.predefined().baseUnitClient();
         final AMLVocabularyResult parseResult = client.parseVocabulary(simpleVocabulary).get();
         assertTrue(parseResult.conforms());
         final String vocabularyBase = parseResult.vocabulary().base().value();
@@ -49,7 +49,7 @@ public class AMLTest {
 
     @Test
     public void parseDialectInstanceWithDialectAndVocabulary() throws ExecutionException, InterruptedException {
-        final AMLClient client = AMLConfiguration.predefined().withDialect(simpleDialectWithVocabulary).get().createClient();
+        final AMLBaseUnitClient client = AMLConfiguration.predefined().withDialect(simpleDialectWithVocabulary).get().baseUnitClient();
         final AMLDialectInstanceResult parseResult = client.parseDialectInstance(simpleDialectInstance).get();
         assertTrue(parseResult.conforms());
         final List<String> propertyUris = parseResult.dialectInstance().encodes().getPropertyUris();

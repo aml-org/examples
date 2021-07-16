@@ -1,13 +1,13 @@
-import { AMFClient, AMFDocumentResult, OASConfiguration, WebApi } from "amf-client-js";
+import {AMFBaseUnitClient, AMFDocumentResult, OASConfiguration, WebApi} from "amf-client-js";
 import { expect } from "chai";
 
 const BANKING_API = "file://src/test/resources/examples/banking-api.flattened.jsonld";
 
 describe("AMF Graph", () => {
-  let client: AMFClient;
+  let client: AMFBaseUnitClient;
 
   beforeEach(() => {
-    client = OASConfiguration.OAS20().createClient();
+    client = OASConfiguration.OAS20().baseUnitClient();
   });
 
   it("parse document from file", async () => {

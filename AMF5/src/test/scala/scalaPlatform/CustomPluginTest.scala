@@ -26,10 +26,10 @@ class CustomPluginTest extends AsyncFlatSpec with should.Matchers {
     val expectedWebApiName = "CoolWebAPI"
     val client = WebAPIConfiguration.WebAPI()
       .withPlugin(new MyCustomPlugin(expectedWebApiName))
-      .createClient()
+      .baseUnitClient()
     client.parseContent(documentToParseInJson).map { contentResult =>
       contentResult.conforms shouldBe true
-      contentResult.bu
+      contentResult.baseUnit
         .asInstanceOf[Document]
         .encodes
         .asInstanceOf[WebApi]

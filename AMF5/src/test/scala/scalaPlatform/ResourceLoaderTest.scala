@@ -15,7 +15,7 @@ class ResourceLoaderTest extends AsyncFlatSpec with should.Matchers {
     val client = WebAPIConfiguration
       .WebAPI()
       .withResourceLoader(rl)
-      .createClient()
+      .baseUnitClient()
 
     client.parse(
       "CustomProtocol/src/test/resources/examples/banking-api.raml"

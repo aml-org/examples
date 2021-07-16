@@ -35,15 +35,15 @@ class SchedulerTest extends AsyncFlatSpec with should.Matchers {
     val config = RAMLConfiguration.RAML10()
       .withResourceLoaders(List(CustomResourceLoader(scala.concurrent.ExecutionContext.Implicits.global)))
       .withExecutionEnvironment(executionEnvironment); // execution context of loader is adjusted
-    val client = config.createClient();
+    val client = config.baseUnitClient();
 
     /* call async interfaces */
     for {
       parseResult      <- client.parse("file://src/test/resources/examples/simple-api.raml")
-      validationResult <- client.validate(parseResult.bu)
+      validationResult <- client.validate(parseResult.baseUnit)
       payloadReport <- config
         .payloadValidatorFactory()
-        .createFor(obtainShapeFromUnit(parseResult.bu), "application/json", ValidationMode.StrictValidationMode)
+        .createFor(obtainShapeFromUnit(parseResult.baseUnit), "application/json", ValidationMode.StrictValidationMode)
         .validate("{\"name\": \"firstname and lastname\"}")
     } yield {
       /* Shutting down the scheduler which kills the AMF threads created in the thread pool provided by that scheduler. */

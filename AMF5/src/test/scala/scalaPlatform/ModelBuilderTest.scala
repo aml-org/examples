@@ -12,7 +12,7 @@ class ModelBuilderTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF" should "create a valid model in memory" in {
     val stringDataType = "http://www.w3.org/2001/XMLSchema#string"
-    val client = RAMLConfiguration.RAML().createClient()
+    val client = RAMLConfiguration.RAML().baseUnitClient()
     val api = WebApi()
       .withName("Music Service API")
       .withVersion("v1")

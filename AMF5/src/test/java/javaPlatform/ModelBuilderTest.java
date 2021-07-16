@@ -1,6 +1,6 @@
 package javaPlatform;
 
-import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.AMFBaseUnitClient;
 import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.apicontract.client.platform.model.domain.EndPoint;
 import amf.apicontract.client.platform.model.domain.Operation;
@@ -22,7 +22,7 @@ public class ModelBuilderTest {
 
     @Test
     public void buildWebApiTest() throws ExecutionException, InterruptedException {
-        final AMFClient client = RAMLConfiguration.RAML().createClient();
+        final AMFBaseUnitClient client = RAMLConfiguration.RAML().baseUnitClient();
 
         final String stringDataType = "http://www.w3.org/2001/XMLSchema#string";
 

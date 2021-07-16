@@ -1,6 +1,6 @@
 package javaPlatform;
 
-import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.AMFBaseUnitClient;
 import amf.apicontract.client.platform.OASConfiguration;
 import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.apicontract.client.platform.model.domain.EndPoint;
@@ -21,7 +21,7 @@ public class TransformationTest {
 
     @Test
     public void resolveRaml10() throws ExecutionException, InterruptedException {
-        final AMFClient client = RAMLConfiguration.RAML10().createClient();
+        final AMFBaseUnitClient client = RAMLConfiguration.RAML10().baseUnitClient();
 
         final BaseUnit unresolvedModel = client.parse("file://src/test/resources/examples/raml-resource-type.raml").get().baseUnit();
         assertNotNull(unresolvedModel);
@@ -34,7 +34,7 @@ public class TransformationTest {
 
     @Test
     public void resolveOas30() throws ExecutionException, InterruptedException {
-        final AMFClient client = OASConfiguration.OAS30().createClient();
+        final AMFBaseUnitClient client = OASConfiguration.OAS30().baseUnitClient();
 
         final BaseUnit unresolvedModel = client.parse("file://src/test/resources/examples/banking-api-oas30.json").get().baseUnit();
         assertNotNull(unresolvedModel);
@@ -52,7 +52,7 @@ public class TransformationTest {
 
     @Test
     public void resolveRamlOverlay() throws ExecutionException, InterruptedException {
-        final AMFClient client = RAMLConfiguration.RAML10().createClient();
+        final AMFBaseUnitClient client = RAMLConfiguration.RAML10().baseUnitClient();
 
         final Document unresolvedModel = client.parseDocument("file://src/test/resources/examples/raml-overlay/test-overlay.raml").get().document();
         assertEquals("unresolved overlay should reference main API", 1, unresolvedModel.references().size());

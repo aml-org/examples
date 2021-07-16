@@ -4,8 +4,7 @@ import amf.apicontract.client.scala.WebAPIConfiguration
 import amf.apicontract.client.scala.model.domain.api.WebApi
 import amf.core.client.scala.errorhandling.AMFErrorHandler
 import amf.core.client.scala.model.document.{BaseUnit, Document}
-import amf.core.client.scala.transform.TransformationPipelineBuilder
-import amf.core.client.scala.transform.stages.TransformationStep
+import amf.core.client.scala.transform.{TransformationPipelineBuilder, TransformationStep}
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
@@ -19,12 +18,12 @@ class PipelineCreationTest extends AsyncFlatSpec with should.Matchers with FileR
       .empty(CUSTOM_PIPELINE_NAME)
       .append(new MyTransformationStep(WEB_API_NAME))
       .build
-    val client = WebAPIConfiguration.WebAPI.withTransformationPipeline(pipeline).createClient
+    val client = WebAPIConfiguration.WebAPI.withTransformationPipeline(pipeline).baseUnitClient
     client.parse("file://src/test/resources/examples/banking-api.json").map { result =>
       result.conforms shouldBe true
-      val transformResult = client.transform(result.bu, CUSTOM_PIPELINE_NAME)
+      val transformResult = client.transform(result.baseUnit, CUSTOM_PIPELINE_NAME)
       transformResult.conforms shouldBe true
-      val doc = transformResult.bu.asInstanceOf[Document]
+      val doc = transformResult.baseUnit.asInstanceOf[Document]
       val webapi = doc.encodes.asInstanceOf[WebApi]
       webapi.name.value() should equal(WEB_API_NAME)
     }

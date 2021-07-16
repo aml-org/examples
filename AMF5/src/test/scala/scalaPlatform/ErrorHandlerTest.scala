@@ -14,11 +14,11 @@ class ErrorHandlerTest extends AsyncFlatSpec with should.Matchers {
         .withErrorHandlerProvider(() =>
           UnhandledErrorHandler
         ) // throws an exception when an error is found
-        .createClient()
+        .baseUnitClient()
 
     client.parse("file://src/test/resources/examples/resolution-error.raml") map { parseResult =>
       assertThrows[java.lang.Exception] {
-        client.transform(parseResult.bu)
+        client.transform(parseResult.baseUnit)
       }
     }
   }

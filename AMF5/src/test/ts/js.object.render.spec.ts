@@ -1,16 +1,16 @@
 import {
-    AMFClient,
-    OASConfiguration, org
+    AMFBaseUnitClient, org,
+    OASConfiguration
 
 } from "amf-client-js";
 import { expect } from "chai";
 
 describe("Parsing", () => {
-    let client: AMFClient;
+    let client: AMFBaseUnitClient;
 
     describe("OAS 2.0", () => {
         beforeEach(() => {
-            client = OASConfiguration.OAS20().createClient();
+            client = OASConfiguration.OAS20().baseUnitClient();
         });
 
         it("should output json-ld as json object", async () => {

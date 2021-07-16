@@ -1,6 +1,6 @@
 package javaPlatform;
 
-import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.AMFBaseUnitClient;
 import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.apicontract.client.platform.model.domain.EndPoint;
 import amf.apicontract.client.platform.model.domain.Operation;
@@ -26,7 +26,7 @@ public class PayloadValidationTest {
 
     @BeforeClass
     public static void setup() throws ExecutionException, InterruptedException {
-        final AMFClient client = RAMLConfiguration.RAML10().createClient();
+        final AMFBaseUnitClient client = RAMLConfiguration.RAML10().baseUnitClient();
 
         final BaseUnit unresolvedModel = client.parse("file://src/test/resources/examples/simple-api.raml").get().baseUnit();
         final BaseUnit resolvedModel = client.transform(unresolvedModel).baseUnit();
