@@ -14,13 +14,13 @@ import scala.io.Source
 class StreamedRenderTest extends AsyncFlatSpec with should.Matchers with FileReader {
 
   "AMF" should "stream the rendering of Json-LD" in {
-    val client = OASConfiguration.OAS20().createClient()
+    val client = OASConfiguration.OAS20().baseUnitClient()
     val tmpFile = File.createTempFile("banking-api.json", new Date().getTime.toString)
     client.parse("file://src/test/resources/examples/banking-api.json") map { result =>
-      result.bu mustBe a[Document]
+      result.baseUnit mustBe a[Document]
       val writer = new OutputStreamWriter(new FileOutputStream(tmpFile))
       val builder = JsonOutputBuilder(writer, prettyPrint = true)
-      client.renderGraphToBuilder(result.bu, builder)
+      client.renderGraphToBuilder(result.baseUnit, builder)
       writer.flush()
       writer.close()
       val goldenContent = readResource("/examples/banking-api.flattened.jsonld")

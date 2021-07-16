@@ -1,5 +1,5 @@
 import {
-  AMFClient,
+  AMFBaseUnitClient,
   AMFDocumentResult,
   AMFResult,
   Document,
@@ -15,10 +15,10 @@ import {
 import { expect } from "chai";
 
 describe("Transform RAML APIs", () => {
-  let client: AMFClient;
+  let client: AMFBaseUnitClient;
 
   beforeEach(() => {
-    client = WebAPIConfiguration.WebAPI().createClient();
+    client = WebAPIConfiguration.WebAPI().baseUnitClient();
   });
 
   describe("RAML 1.0", () => {

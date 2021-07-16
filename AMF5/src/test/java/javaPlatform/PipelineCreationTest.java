@@ -1,6 +1,6 @@
 package javaPlatform;
 
-import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.AMFBaseUnitClient;
 import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.apicontract.client.platform.WebAPIConfiguration;
 import amf.apicontract.client.platform.model.domain.api.WebApi;
@@ -30,7 +30,7 @@ public class PipelineCreationTest {
                 .append(new MyTransformationStep(WEB_API_NAME))
                 .build();
 
-        final AMFClient client = WebAPIConfiguration.WebAPI().withTransformationPipeline(pipeline).createClient();
+        final AMFBaseUnitClient client = WebAPIConfiguration.WebAPI().withTransformationPipeline(pipeline).baseUnitClient();
         final AMFResult result = client.parse("file://src/test/resources/examples/banking-api.json").get();
         assert(result.conforms());
         AMFResult transformResult = client.transform(result.baseUnit(), CUSTOM_PIPELINE_NAME);

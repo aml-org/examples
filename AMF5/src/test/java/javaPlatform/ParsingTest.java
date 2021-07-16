@@ -1,6 +1,6 @@
 package javaPlatform;
 
-import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.AMFBaseUnitClient;
 import amf.apicontract.client.platform.OASConfiguration;
 import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.core.client.platform.AMFResult;
@@ -18,7 +18,7 @@ public class ParsingTest {
 
     @Test
     public void parseOas20() throws ExecutionException, InterruptedException {
-        final AMFClient client = OASConfiguration.OAS20().createClient();
+        final AMFBaseUnitClient client = OASConfiguration.OAS20().baseUnitClient();
 
         // A BaseUnit is the return type of any parsing
         // The actual object can be many different things, depending on the content of the source file
@@ -36,7 +36,7 @@ public class ParsingTest {
 
     @Test
     public void parseOas20String() throws ExecutionException, InterruptedException {
-        final AMFClient client = OASConfiguration.OAS20().createClient();
+        final AMFBaseUnitClient client = OASConfiguration.OAS20().baseUnitClient();
 
         final String api =
                 "{\n" +
@@ -63,7 +63,7 @@ public class ParsingTest {
 
     @Test
     public void parseOas30() throws ExecutionException, InterruptedException {
-        final AMFClient client = OASConfiguration.OAS30().createClient();
+        final AMFBaseUnitClient client = OASConfiguration.OAS30().baseUnitClient();
 
         final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api-oas30.json").get();
         final BaseUnit model = parseResult.baseUnit();
@@ -76,7 +76,7 @@ public class ParsingTest {
 
     @Test
     public void parseRaml10() throws ExecutionException, InterruptedException {
-        final AMFClient client = RAMLConfiguration.RAML10().createClient();
+        final AMFBaseUnitClient client = RAMLConfiguration.RAML10().baseUnitClient();
 
         final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api.raml").get();
         final BaseUnit model = parseResult.baseUnit();
@@ -90,7 +90,7 @@ public class ParsingTest {
 
     @Test
     public void parseRaml10String() throws ExecutionException, InterruptedException {
-        final AMFClient client = RAMLConfiguration.RAML10().createClient();
+        final AMFBaseUnitClient client = RAMLConfiguration.RAML10().baseUnitClient();
 
         final String api =
                 "#%RAML 1.0\n" +
@@ -112,7 +112,7 @@ public class ParsingTest {
 
     @Test
     public void parseRaml08() throws ExecutionException, InterruptedException {
-        final AMFClient client = RAMLConfiguration.RAML08().createClient();
+        final AMFBaseUnitClient client = RAMLConfiguration.RAML08().baseUnitClient();
 
         final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api-08.raml").get();
         final BaseUnit model = parseResult.baseUnit();
@@ -126,7 +126,7 @@ public class ParsingTest {
 
     @Test
     public void parseRaml08String() throws ExecutionException, InterruptedException {
-        final AMFClient client = RAMLConfiguration.RAML08().createClient();
+        final AMFBaseUnitClient client = RAMLConfiguration.RAML08().baseUnitClient();
 
         final String api =
                 "#%RAML 0.8\n" +

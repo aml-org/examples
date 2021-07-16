@@ -1,6 +1,6 @@
 package javaPlatform;
 
-import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.AMFBaseUnitClient;
 import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.core.client.platform.model.document.BaseUnit;
 import amf.core.client.platform.validation.AMFValidationReport;
@@ -14,7 +14,7 @@ public class ValidationTest {
 
     @Test
     public void validateRaml() throws ExecutionException, InterruptedException {
-        final AMFClient client = RAMLConfiguration.RAML10().createClient();
+        final AMFBaseUnitClient client = RAMLConfiguration.RAML10().baseUnitClient();
 
         final BaseUnit model = client.parse("file://src/test/resources/examples/banking-api-error.raml").get().baseUnit();
         assertNotNull(model);

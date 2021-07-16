@@ -9,43 +9,43 @@ import org.scalatest.matchers.should
 class TransformationTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF transformation" should "transform a RAML 1.0 applying resource types with default pipeline" in {
-    val client = RAMLConfiguration.RAML10().createClient()
+    val client = RAMLConfiguration.RAML10().baseUnitClient()
     client.parse("file://src/test/resources/examples/raml-resource-type.raml") map { parseResult =>
-      val transformed = client.transform(parseResult.bu)
-      val document = transformed.bu.asInstanceOf[Document]
+      val transformed = client.transform(parseResult.baseUnit)
+      val document = transformed.baseUnit.asInstanceOf[Document]
       val allOperations = document.encodes.asInstanceOf[WebApi].endPoints.flatMap(_.operations)
       assert(allOperations.nonEmpty,"resource type should be resolved defining new operation")
     }
   }
 
   it should "transform an OAS 3.0 api with default pipeline" in {
-    val client = OASConfiguration.OAS30().createClient()
+    val client = OASConfiguration.OAS30().baseUnitClient()
     client.parse("file://src/test/resources/examples/banking-api-oas30.json") map { parseResult =>
       val transformed =
-        client.transform(parseResult.bu)
-      val document = transformed.bu.asInstanceOf[Document]
+        client.transform(parseResult.baseUnit)
+      val document = transformed.baseUnit.asInstanceOf[Document]
       val allOperations = document.encodes.asInstanceOf[WebApi].endPoints.flatMap(_.operations)
       assert(allOperations.forall(_.servers.nonEmpty),"servers should be resolved to operations")
     }
   }
 
   it should "apply a RAML 1.0 Overlay to an api" in {
-    val client = RAMLConfiguration.RAML10().createClient()
+    val client = RAMLConfiguration.RAML10().baseUnitClient()
     client.parse(
       "file://src/test/resources/examples/raml-overlay/test-overlay.raml"
     ) map { parseResult =>
       assert(
-        parseResult.bu.references.size == 1,
+        parseResult.baseUnit.references.size == 1,
         "unresolved overlay should reference main API"
       )
       val transformed =
-        client.transform(parseResult.bu)
+        client.transform(parseResult.baseUnit)
 
       assert(
-        transformed.bu.references.isEmpty,
+        transformed.baseUnit.references.isEmpty,
         "transformed model shouldn't reference anything"
       )
-      val webapi = transformed.bu.asInstanceOf[Document].encodes.asInstanceOf[WebApi]
+      val webapi = transformed.baseUnit.asInstanceOf[Document].encodes.asInstanceOf[WebApi]
       assert(webapi.endPoints.size > 1)
     }
   }

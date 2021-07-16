@@ -1,6 +1,6 @@
 package javaPlatform;
 
-import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.AMFBaseUnitClient;
 import amf.apicontract.client.platform.AMFConfiguration;
 import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.core.client.common.remote.Content;
@@ -44,7 +44,7 @@ public class ResourceLoaderTest {
     public void validateRamlWithResourceLoader() throws ExecutionException, InterruptedException {
         // add custom resource loader to the configuration
         final AMFConfiguration config = RAMLConfiguration.RAML().withResourceLoader(new CustomResourceLoader());
-        final AMFClient client = config.createClient();
+        final AMFBaseUnitClient client = config.baseUnitClient();
 
         // using a custom protocol that our CustomResourceLoader can parse
         final BaseUnit model = client.parse("CustomProtocol/src/test/resources/examples/banking-api.raml").get().baseUnit();

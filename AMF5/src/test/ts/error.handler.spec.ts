@@ -1,11 +1,10 @@
 import {
   OASConfiguration,
   ErrorHandler,
-  AMFClient,
+  AMFBaseUnitClient,
   JsErrorHandler,
-  ValidationResult,
   ErrorHandlerProvider,
-  AMFDocumentResult,
+  AMFDocumentResult, AMFValidationResult,
 } from "amf-client-js";
 import * as chaiAsPromised from "chai-as-promised";
 import { expect, use as useChai } from "chai";
@@ -19,11 +18,11 @@ class MyErrorHandler implements JsErrorHandler {
     this.err = err;
   }
 
-  report(result: ValidationResult): void {
+  report(result: AMFValidationResult): void {
     throw this.err;
   }
 
-  getResults(): Array<ValidationResult> {
+  getResults(): Array<AMFValidationResult> {
     return [];
   }
 }
@@ -34,9 +33,9 @@ describe("Use custom error handler", () => {
   const unhandledProvider: ErrorHandlerProvider = ErrorHandler.provider(new MyErrorHandler(error));
 
   it("throws exception on violation", async () => {
-    const client: AMFClient = OASConfiguration.OAS30()
+    const client: AMFBaseUnitClient = OASConfiguration.OAS30()
       .withErrorHandlerProvider(unhandledProvider)
-      .createClient();
+      .baseUnitClient();
     const failedPromise: Promise<AMFDocumentResult> = client.parseDocument(
       "file://src/test/resources/examples/banking-api-oas30-error.json"
     );

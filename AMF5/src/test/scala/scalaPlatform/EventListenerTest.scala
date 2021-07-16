@@ -11,7 +11,7 @@ class EventListenerTest extends AsyncFlatSpec with should.Matchers {
 //    val expectedWebApiName = "CoolWebAPI"
 //    val client = WebAPIConfiguration.WebAPI()
 //      .withEventListener()
-//      .createClient()
+//      .baseUnitClient()
 //  }
 //
 //  class SpyEventListener extends AMFEventListener {

@@ -1,5 +1,5 @@
 import {
-  amf,
+  BaseUnit,
   Document,
   EndPoint,
   Operation,
@@ -10,7 +10,6 @@ import {
 } from "amf-client-js";
 import { expect } from "chai";
 import * as fileSystem from "fs";
-import BaseUnit = amf.core.client.platform.model.document.BaseUnit;
 
 describe("Model Builder", () => {
   const STRING_DATATYPE = "http://www.w3.org/2001/XMLSchema#string";
@@ -21,7 +20,7 @@ describe("Model Builder", () => {
 
   it("builds the model and mutates the instance", async () => {
     const model: BaseUnit = buildModel();
-    const client = RAMLConfiguration.RAML10().createClient();
+    const client = RAMLConfiguration.RAML10().baseUnitClient();
     const report = await client.validate(model);
     expect(report.conforms).to.be.true;
     expect(report.results).to.be.empty;
@@ -32,7 +31,7 @@ describe("Model Builder", () => {
       encoding: UTF8,
     });
     const model: BaseUnit = buildModel();
-    const client = RAMLConfiguration.RAML10().createClient();
+    const client = RAMLConfiguration.RAML10().baseUnitClient();
     const rendered = await client.render(model, ProvidedMediaType.Raml10);
     expect(rendered).to.be.equal(golden, `Rendered: ${rendered} \nGolden: ${golden}`);
   });

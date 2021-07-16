@@ -1,5 +1,5 @@
 import {
-  AMFClient,
+  AMFBaseUnitClient,
   AMFDocumentResult,
   ClientResourceLoader,
   Content,
@@ -15,9 +15,9 @@ describe("Resource Loader test", () => {
     const customResourceLoader: ResourceLoader = ResourceLoaderFactory.create(
       new MockGitResourceLoader()
     );
-    const client: AMFClient = WebAPIConfiguration.WebAPI()
+    const client: AMFBaseUnitClient = WebAPIConfiguration.WebAPI()
       .withResourceLoader(customResourceLoader)
-      .createClient();
+      .baseUnitClient();
     const result: AMFDocumentResult = await client.parseDocument(
       "git://src/test/resources/examples/banking-api.raml"
     );

@@ -1,5 +1,5 @@
 import {
-  AMFClient,
+  AMFBaseUnitClient,
   AMFDocumentResult,
   AMFResult,
   Document,
@@ -10,11 +10,11 @@ import {
 import { expect } from "chai";
 
 describe("Parsing", () => {
-  let client: AMFClient;
+  let client: AMFBaseUnitClient;
 
   describe("OAS 2.0", () => {
     beforeEach(() => {
-      client = OASConfiguration.OAS20().createClient();
+      client = OASConfiguration.OAS20().baseUnitClient();
     });
 
     it("parse document from file", async () => {
@@ -45,7 +45,7 @@ describe("Parsing", () => {
   });
   describe("OAS 3.0", () => {
     beforeEach(() => {
-      client = OASConfiguration.OAS30().createClient();
+      client = OASConfiguration.OAS30().baseUnitClient();
     });
 
     it("parse document from file", async () => {
@@ -58,7 +58,7 @@ describe("Parsing", () => {
   });
   describe("RAML 1.0", () => {
     beforeEach(() => {
-      client = RAMLConfiguration.RAML10().createClient();
+      client = RAMLConfiguration.RAML10().baseUnitClient();
     });
 
     it("parse document from file", async () => {
@@ -84,7 +84,7 @@ describe("Parsing", () => {
   });
   describe("RAML 0.8", () => {
     beforeEach(() => {
-      client = RAMLConfiguration.RAML08().createClient();
+      client = RAMLConfiguration.RAML08().baseUnitClient();
     });
 
     it("parse document from file", async () => {

@@ -1,5 +1,5 @@
 import {
-  AMLClient,
+  AMLBaseUnitClient,
   AMLConfiguration,
   AMLDialectInstanceResult,
   AMLDialectResult, AMLVocabularyResult,
@@ -18,7 +18,7 @@ describe("AML Operations", () => {
 
   it("parses a dialect", async () => {
     const amlConfig: AMLConfiguration = AMLConfiguration.predefined();
-    const client: AMLClient = amlConfig.createClient();
+    const client: AMLBaseUnitClient = amlConfig.baseUnitClient();
     const parseResult: AMLDialectResult = await client.parseDialect(simpleDialect);
     expect(parseResult.conforms).to.be.true;
     const dialect: Dialect = parseResult.dialect;
@@ -32,7 +32,7 @@ describe("AML Operations", () => {
     const amlConfig: AMLConfiguration = await AMLConfiguration.predefined().withDialect(
       simpleDialect
     );
-    const client: AMLClient = amlConfig.createClient();
+    const client: AMLBaseUnitClient = amlConfig.baseUnitClient();
     const parseResult: AMLDialectInstanceResult = await client.parseDialectInstance(
       simpleDialectInstance
     );
@@ -44,7 +44,7 @@ describe("AML Operations", () => {
 
   it("parses a vocabulary", async () => {
     const amlConfig: AMLConfiguration = AMLConfiguration.predefined();
-    const client: AMLClient = amlConfig.createClient();
+    const client: AMLBaseUnitClient = amlConfig.baseUnitClient();
     const parseResult: AMLVocabularyResult = await client.parseVocabulary(simpleVocabulary);
     expect(parseResult.conforms).to.be.true;
     const vocabulary: Vocabulary = parseResult.vocabulary;
@@ -54,7 +54,7 @@ describe("AML Operations", () => {
 
   it("parses an instance with dialect and vocabulary", async () => {
     const amlConfig: AMLConfiguration = await AMLConfiguration.predefined().withDialect(simpleDialectWithVocab);
-    const client: AMLClient = amlConfig.createClient();
+    const client: AMLBaseUnitClient = amlConfig.baseUnitClient();
     const parseResult: AMLDialectInstanceResult = await client.parseDialectInstance(simpleDialectInstance);
     expect(parseResult.conforms).to.be.true;
     const instance: DialectInstance = parseResult.dialectInstance;

@@ -1,18 +1,13 @@
 import {
-  AMFClient,
   AMFValidationReport,
-  AMFConfiguration,
-  ValidationProfile,
   AMFDocumentResult,
-  ProfileName,
-  ProfileNames,
-  RAMLConfiguration,
+  RAMLConfiguration, AMFBaseUnitClient,
 } from "amf-client-js";
 import { expect } from "chai";
 
 describe("RAML 1.0 validation", () => {
   it("Validates model and examples", async () => {
-    const client: AMFClient = RAMLConfiguration.RAML10().createClient();
+    const client: AMFBaseUnitClient = RAMLConfiguration.RAML10().baseUnitClient();
     const result: AMFDocumentResult = await client.parseDocument(
       "file://src/test/resources/examples/banking-api-error.raml"
     );

@@ -1,7 +1,7 @@
 package javaPlatform;
 
 import amf.apicontract.client.common.ProvidedMediaType;
-import amf.apicontract.client.platform.AMFClient;
+import amf.apicontract.client.platform.AMFBaseUnitClient;
 import amf.apicontract.client.platform.WebAPIConfiguration;
 import amf.core.client.platform.model.document.BaseUnit;
 import org.junit.Test;
@@ -19,7 +19,7 @@ public class ConversionTest {
 
     @Test
     public void Raml10ToOas20Conversion() throws ExecutionException, InterruptedException, IOException {
-        AMFClient client = WebAPIConfiguration.WebAPI().createClient();
+        AMFBaseUnitClient client = WebAPIConfiguration.WebAPI().baseUnitClient();
 
         final BaseUnit ramlApi = client.parse("file://src/test/resources/examples/banking-api.raml").get().baseUnit();
         final BaseUnit convertedOas = client.transformCompatibility(ramlApi, ProvidedMediaType.Oas20()).baseUnit();
@@ -32,7 +32,7 @@ public class ConversionTest {
 
     @Test
     public void Oas20ToRaml10Conversion() throws ExecutionException, InterruptedException, IOException {
-        AMFClient client = WebAPIConfiguration.WebAPI().createClient();
+        AMFBaseUnitClient client = WebAPIConfiguration.WebAPI().baseUnitClient();
 
         final BaseUnit oasApi = client.parse("file://src/test/resources/examples/banking-api.json").get().baseUnit();
         final BaseUnit convertedRaml = client.transformCompatibility(oasApi, ProvidedMediaType.Raml10()).baseUnit();
