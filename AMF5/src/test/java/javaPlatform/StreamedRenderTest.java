@@ -14,7 +14,7 @@ import java.nio.file.Files;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
-import static org.junit.Assert.assertEquals;
+import static javaPlatform.StringEquals.assertIgnoringWhitespace;
 
 public class StreamedRenderTest implements FileReader{
 
@@ -31,10 +31,6 @@ public class StreamedRenderTest implements FileReader{
         writer.close();
         String goldenContent = readResource("/examples/banking-api.flattened.jsonld");
         String writtenContent = String.join("", Files.readAllLines(tmpFile.toPath()));
-        assertEquals(removeWhiteSpaces(writtenContent), removeWhiteSpaces(goldenContent));
-    }
-
-    private String removeWhiteSpaces(String input) {
-        return input.replaceAll("\\s+", "");
+        assertIgnoringWhitespace(writtenContent, goldenContent);
     }
 }

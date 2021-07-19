@@ -1,0 +1,10 @@
+{
+  "description": "An example response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  }
+}
