@@ -3,10 +3,9 @@ import {
   AMFConfiguration,
   AMFDocumentResult,
   AMFResult,
-  Document,
+  Document, RAMLConfiguration,
   ValidationMode,
   WebApi,
-  WebAPIConfiguration,
 } from "amf-client-js";
 import { expect } from "chai";
 
@@ -24,7 +23,7 @@ describe("Shape payload validation", () => {
   };
 
   it("validates shape correctly", async () => {
-    const config: AMFConfiguration = WebAPIConfiguration.WebAPI();
+    const config: AMFConfiguration = RAMLConfiguration.RAML10();
     const client: AMFBaseUnitClient = config.baseUnitClient();
     const result: AMFDocumentResult = await client.parseDocument(
       "file://src/test/resources/examples/simple-api.raml"

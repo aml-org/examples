@@ -1,6 +1,6 @@
 package scalaPlatform
 
-import amf.apicontract.client.scala.WebAPIConfiguration
+import amf.apicontract.client.scala.RAMLConfiguration
 import amf.core.client.platform.config.AMFEventNames
 import amf.core.client.scala.config.{AMFEvent, AMFEventListener, StartingParsingEvent}
 import org.junit.Assert.{assertNotNull, assertTrue}
@@ -13,7 +13,7 @@ class EventListenerTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF" should "notify about certain events" in {
     val spy = new SpyEventListener()
-    val client = WebAPIConfiguration.WebAPI()
+    val client = RAMLConfiguration.RAML10()
       .withEventListener(spy)
       .baseUnitClient()
 

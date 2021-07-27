@@ -1,23 +1,15 @@
 package javaPlatform;
 
-import amf.apicontract.client.common.ProvidedMediaType;
 import amf.apicontract.client.platform.AMFBaseUnitClient;
 import amf.apicontract.client.platform.OASConfiguration;
-import amf.apicontract.client.platform.WebAPIConfiguration;
 import amf.core.client.platform.AMFResult;
 import amf.core.client.platform.config.ParsingOptions;
 import amf.core.client.platform.config.RenderOptions;
-import amf.core.client.platform.model.document.BaseUnit;
+import amf.core.internal.remote.Mimes;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
-
-import static org.junit.Assert.assertEquals;
 
 public class ConfigurationOptionsTest {
 
@@ -29,7 +21,7 @@ public class ConfigurationOptionsTest {
                 .baseUnitClient();
 
         final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api.json").get();
-        final String result = client.render(parseResult.baseUnit()).trim();
+        final String result = client.render(parseResult.baseUnit(), "application/ld+json").trim();
         assert(result.contains("[(87,12)-(87,39)]"));
     }
 }

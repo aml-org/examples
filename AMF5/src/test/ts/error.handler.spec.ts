@@ -28,7 +28,7 @@ class MyErrorHandler implements JsErrorHandler {
 }
 
 describe("Use custom error handler", () => {
-  // TODO: check, doesn't work.
+
   const error = new Error("A WILD ERROR APPEARED!");
   const unhandledProvider: ErrorHandlerProvider = ErrorHandler.provider(new MyErrorHandler(error));
 

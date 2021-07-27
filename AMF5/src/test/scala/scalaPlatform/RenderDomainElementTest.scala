@@ -11,7 +11,7 @@ import org.yaml.render.JsonRender
 
 import java.util.Arrays.asList
 
-class EmitDomainElementTest extends AsyncFlatSpec with Matchers with FileReader {
+class RenderDomainElementTest extends AsyncFlatSpec with Matchers with FileReader {
 
   "AMFElementClient" should "emit a domain element" in {
     val payload = Payload()
@@ -28,7 +28,7 @@ class EmitDomainElementTest extends AsyncFlatSpec with Matchers with FileReader 
       .withPayloads(List(payload))
       .withId("someId")
     val client = OASConfiguration.OAS30().elementClient()
-    val emittedNode = client.renderElement(response, "application/openapi30")
+    val emittedNode = client.renderElement(response)
     val writtenString = JsonRender.render(emittedNode)
     val expected = readResource("/expected/emitted-response.json")
     writtenString shouldEqual expected

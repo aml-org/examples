@@ -22,7 +22,7 @@ public class ModelBuilderTest {
 
     @Test
     public void buildWebApiTest() throws ExecutionException, InterruptedException {
-        final AMFBaseUnitClient client = RAMLConfiguration.RAML().baseUnitClient();
+        final AMFBaseUnitClient client = RAMLConfiguration.RAML10().baseUnitClient();
 
         final String stringDataType = "http://www.w3.org/2001/XMLSchema#string";
 
@@ -111,7 +111,7 @@ public class ModelBuilderTest {
 
         // Run RAML default validations on parsed unit (expects one error -> invalid protocols value)
 
-        final AMFValidationReport report = client.validate(model, ProfileNames.RAML10()).get();
+        final AMFValidationReport report = client.validate(model).get();
         assertTrue(report.conforms());
     }
 }

@@ -25,7 +25,7 @@ public class ResourceLoaderTest {
     @Test
     public void validateRamlWithResourceLoader() throws ExecutionException, InterruptedException {
         // add custom resource loader to the configuration
-        final AMFConfiguration config = RAMLConfiguration.RAML().withResourceLoader(new CustomResourceLoader());
+        final AMFConfiguration config = RAMLConfiguration.RAML10().withResourceLoader(new CustomResourceLoader());
         final AMFBaseUnitClient client = config.baseUnitClient();
 
         // using a custom protocol that our CustomResourceLoader can parse
@@ -33,7 +33,7 @@ public class ResourceLoaderTest {
         assertNotNull(model);
 
         // Run RAML default validations on parsed unit (expects no errors).
-        final AMFValidationReport report = client.validate(model, ProfileNames.RAML10()).get();
+        final AMFValidationReport report = client.validate(model).get();
         System.out.println("report.conforms() == " + report.conforms());
         assertTrue(report.conforms());
     }
