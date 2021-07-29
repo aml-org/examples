@@ -11,7 +11,7 @@ beforeAll(() => {
 test('Validate RAML 1.0', () => {
     const parser = new amf.Raml10Parser();
 
-    return parser.parseFileAsync('file://src/test/resources/examples/banking-api-error.raml')
+    return parser.parseFileAsync('file://resources/examples/banking-api-error.raml')
         .then(model => {
             expect(model).not.toBeNull();
             expect(model).toBeDefined();
@@ -28,7 +28,7 @@ test('Validate RAML 1.0', () => {
 test('Validate RAML 1.0 with custom validation', () => {
     const parser = new amf.Raml10Parser();
 
-    return parser.parseFileAsync('file://src/test/resources/examples/banking-api-error.raml')
+    return parser.parseFileAsync('file://resources/examples/banking-api-error.raml')
         .then(model => {
             expect(model).not.toBeNull();
             expect(model).toBeDefined();

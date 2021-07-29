@@ -7,7 +7,7 @@ beforeAll(() => {
     const parser = new amf.Raml10Parser();
     const resolver = new amf.Raml10Resolver();
 
-    return parser.parseFileAsync('file://src/test/resources/examples/simple-api.raml')
+    return parser.parseFileAsync('file://resources/examples/simple-api.raml')
         .then(unresolvedModel => {
             const resolvedModel = resolver.resolve(unresolvedModel)
 

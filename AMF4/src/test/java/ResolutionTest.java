@@ -31,7 +31,7 @@ public class ResolutionTest {
         final Raml10Parser parser = new Raml10Parser();
         final Raml10Resolver resolver = new Raml10Resolver();
 
-        final BaseUnit unresolvedModel = parser.parseFileAsync("file://src/test/resources/examples/banking-api.raml").get();
+        final BaseUnit unresolvedModel = parser.parseFileAsync("file://resources/examples/banking-api.raml").get();
         assertNotNull(unresolvedModel);
 
         final BaseUnit resolvedModel = resolver.resolve(unresolvedModel, ResolutionPipeline.COMPATIBILITY_PIPELINE());
@@ -46,7 +46,7 @@ public class ResolutionTest {
         final Oas30Parser parser = new Oas30Parser();
         final Oas30Resolver resolver = new Oas30Resolver();
 
-        final BaseUnit unresolvedModel = parser.parseFileAsync("file://src/test/resources/examples/banking-api-oas30.json").get();
+        final BaseUnit unresolvedModel = parser.parseFileAsync("file://resources/examples/banking-api-oas30.json").get();
         assertNotNull(unresolvedModel);
 
         final BaseUnit resolvedModel = resolver.resolve(unresolvedModel);
@@ -61,7 +61,7 @@ public class ResolutionTest {
         final Raml10Parser parser = new Raml10Parser();
         final Raml10Resolver resolver = new Raml10Resolver();
 
-        final Document unresolvedModel = (Document) parser.parseFileAsync("file://src/test/resources/examples/raml-overlay/test-overlay.raml").get();
+        final Document unresolvedModel = (Document) parser.parseFileAsync("file://resources/examples/raml-overlay/test-overlay.raml").get();
         assertTrue("unresolved overlay should reference main API", unresolvedModel.references().size() == 1);
 
         final Document resolvedModel = (Document) resolver.resolve(unresolvedModel, ResolutionPipeline.EDITING_PIPELINE());

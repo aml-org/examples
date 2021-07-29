@@ -13,7 +13,7 @@ test('parse OAS 2.0', () => {
     // A BaseUnit is the return type of any parsing
     // The actual object can be many different things, depending on the content of the source file
     // https://github.com/aml-org/amf/blob/develop/documentation/model.md#baseunit
-    return parser.parseFileAsync('file://src/test/resources/examples/banking-api.json').then(model => {
+    return parser.parseFileAsync('file://resources/examples/banking-api.json').then(model => {
         expect(model).not.toBeNull();
         expect(model).toBeDefined();
     });
@@ -41,7 +41,7 @@ test('parse OAS 2.0 from YAML string', () => {
 test('parse OAS 3.0', () => {
     const parser = new amf.Oas30Parser();
 
-    parser.parseFileAsync('file://src/test/resources/examples/banking-api-oas30.json').then(model => {
+    parser.parseFileAsync('file://resources/examples/banking-api-oas30.json').then(model => {
         expect(model).not.toBeNull();
         expect(model).toBeDefined();
     });
@@ -51,7 +51,7 @@ test('parse OAS 3.0', () => {
 test('parse RAML 1.0', () => {
     const parser = new amf.Raml10Parser();
 
-    parser.parseFileAsync('file://src/test/resources/examples/banking-api.raml').then(model => {
+    parser.parseFileAsync('file://resources/examples/banking-api.raml').then(model => {
         expect(model).not.toBeNull();
         expect(model).toBeDefined();
     });
@@ -76,7 +76,7 @@ test('parse RAML 1.0 from string', () => {
 test('parse RAML 0.8', () => {
     const parser = new amf.Raml08Parser();
 
-    return parser.parseFileAsync('file://src/test/resources/examples/banking-api-08.raml').then(model => {
+    return parser.parseFileAsync('file://resources/examples/banking-api-08.raml').then(model => {
         expect(model).not.toBeNull();
         expect(model).toBeDefined();
     });
@@ -101,7 +101,7 @@ test('parse RAML 0.8 from string', () => {
 test('parse AMF Graph', () => {
     const parser = new amf.AmfGraphParser();
 
-    return parser.parseFileAsync('file://src/test/resources/examples/banking-api.jsonld').then(model => {
+    return parser.parseFileAsync('file://resources/examples/banking-api.jsonld').then(model => {
         expect(model).not.toBeNull();
         expect(model).toBeDefined();
     });

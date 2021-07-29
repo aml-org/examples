@@ -29,7 +29,7 @@ test('Validate RAML 1.0 with custom resource loader', () => {
     const env = amf.client.DefaultEnvironment.apply().addClientLoader(new CustomResourceLoader());
     const parser = new amf.Raml10Parser(env);
 
-    return parser.parseFileAsync('CustomProtocol/src/test/resources/examples/banking-api.raml')
+    return parser.parseFileAsync('CustomProtocol/resources/examples/banking-api.raml')
         .then(model => {
             expect(model).not.toBeNull();
             expect(model).toBeDefined();

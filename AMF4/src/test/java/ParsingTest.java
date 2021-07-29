@@ -32,7 +32,7 @@ public class ParsingTest {
         // A BaseUnit is the return type of any parsing
         // The actual object can be many different things, depending on the content of the source file
         // https://github.com/aml-org/amf/blob/develop/documentation/model.md#baseunit
-        final BaseUnit model = parser.parseFileAsync("file://src/test/resources/examples/banking-api.json").get();
+        final BaseUnit model = parser.parseFileAsync("file://resources/examples/banking-api.json").get();
         assertNotNull(model);
 
         // DomainElement is the base class for any element describing a domain model
@@ -67,7 +67,7 @@ public class ParsingTest {
     public void parseOas30() throws ExecutionException, InterruptedException {
         final Oas30Parser parser = new Oas30Parser();
 
-        final BaseUnit model = parser.parseFileAsync("file://src/test/resources/examples/banking-api-oas30.json").get();
+        final BaseUnit model = parser.parseFileAsync("file://resources/examples/banking-api-oas30.json").get();
         assertNotNull(model);
 
         final DomainElement webApi = ((Document) model).encodes();
@@ -78,7 +78,7 @@ public class ParsingTest {
     public void parseRaml10() throws ExecutionException, InterruptedException {
         final Raml10Parser parser = new Raml10Parser();
 
-        final BaseUnit model = parser.parseFileAsync("file://src/test/resources/examples/banking-api.raml").get();
+        final BaseUnit model = parser.parseFileAsync("file://resources/examples/banking-api.raml").get();
         assertNotNull(model);
 
         final DomainElement webApi = ((Document) model).encodes();
@@ -108,7 +108,7 @@ public class ParsingTest {
     public void parseRaml08() throws ExecutionException, InterruptedException {
         final Raml08Parser parser = new Raml08Parser();
 
-        final BaseUnit model = parser.parseFileAsync("file://src/test/resources/examples/banking-api-08.raml").get();
+        final BaseUnit model = parser.parseFileAsync("file://resources/examples/banking-api-08.raml").get();
         assertNotNull(model);
 
         final DomainElement webApi = ((Document) model).encodes();
@@ -138,7 +138,7 @@ public class ParsingTest {
     public void parseAMFGraph() throws ExecutionException, InterruptedException {
         final AmfGraphParser parser = new AmfGraphParser();
 
-        final BaseUnit model = parser.parseFileAsync("file://src/test/resources/examples/banking-api.jsonld").get();
+        final BaseUnit model = parser.parseFileAsync("file://resources/examples/banking-api.jsonld").get();
         assertNotNull(model);
 
         final DomainElement webApi = ((Document) model).encodes();
