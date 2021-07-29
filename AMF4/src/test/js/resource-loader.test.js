@@ -1,4 +1,5 @@
 const amf = require('amf-client-js');
+const path = require('path');
 
 beforeAll(() => {
     amf.AMF.init();
@@ -14,7 +15,8 @@ class CustomResourceLoader {
 
     // has the logic for fetching in a custom way
     fetch(resource) {
-        const customLogicResult = resource.toString().replace(CustomResourceLoader.CUSTOM_PATTERN, 'file:/');
+        const relativePath = `../../..${resource.toString().replace(CustomResourceLoader.CUSTOM_PATTERN, '')}`;
+        const customLogicResult = `file://${path.resolve(__dirname, relativePath)}`;
         return this.resourceLoader.fetch(customLogicResult);
     }
 
@@ -29,7 +31,7 @@ test('Validate RAML 1.0 with custom resource loader', () => {
     const env = amf.client.DefaultEnvironment.apply().addClientLoader(new CustomResourceLoader());
     const parser = new amf.Raml10Parser(env);
 
-    return parser.parseFileAsync('CustomProtocol/src/test/resources/examples/banking-api.raml')
+    return parser.parseFileAsync('CustomProtocol/resources/examples/banking-api.raml')
         .then(model => {
             expect(model).not.toBeNull();
             expect(model).toBeDefined();

@@ -1,17 +1,19 @@
 const amf = require('amf-client-js');
+const path = require('path');
+
 const AMF = amf.AMF;
 const ProfileNames = amf.ProfileNames;
 const MessageStyles = amf.MessageStyles;
 
 beforeAll(() => {
+    amf.plugins.features.AMFValidation.register();
     amf.AMF.init();
-
 });
 
 test('Validate RAML 1.0', () => {
     const parser = new amf.Raml10Parser();
 
-    return parser.parseFileAsync('file://src/test/resources/examples/banking-api-error.raml')
+    return parser.parseFileAsync(`file://${path.resolve(__dirname, '../../../resources/examples/banking-api-error.raml')}`)
         .then(model => {
             expect(model).not.toBeNull();
             expect(model).toBeDefined();
@@ -28,14 +30,26 @@ test('Validate RAML 1.0', () => {
 test('Validate RAML 1.0 with custom validation', () => {
     const parser = new amf.Raml10Parser();
 
-    return parser.parseFileAsync('file://src/test/resources/examples/banking-api-error.raml')
+    return parser.parseFileAsync(`file://${path.resolve(__dirname, '../../../resources/examples/banking-api-error.raml')}`)
         .then(model => {
             expect(model).not.toBeNull();
             expect(model).toBeDefined();
 
+            const customValidationProfilePath = `file://${path.resolve(__dirname, '../../../resources/validation_profile.raml')}`;
+
             // Run RAML custom validations with a validation profile that accepts the previously invalid protocol value
-            return AMF.loadValidationProfile('file://resources/validation_profile.raml')
+            // TODO: Fix
+            // Failed: bc {
+            //   "Hg": null,
+            //   "SJa": true,
+            //   "Xs": "Cannot load a custom validation profile for this",
+            //   "ZX": null,
+            //   "stackdata": [Circular],
+            // }
+            return AMF.loadValidationProfile(customValidationProfilePath)
                 .then(customProfile => {
+
+                    console.log(JSON.stringify(customProfile));
 
                     return AMF.validate(model, customProfile, MessageStyles.RAML)
                         .then(report => {
