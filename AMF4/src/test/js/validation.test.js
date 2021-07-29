@@ -48,9 +48,6 @@ test('Validate RAML 1.0 with custom validation', () => {
             // }
             return AMF.loadValidationProfile(customValidationProfilePath)
                 .then(customProfile => {
-
-                    console.log(JSON.stringify(customProfile));
-
                     return AMF.validate(model, customProfile, MessageStyles.RAML)
                         .then(report => {
                             console.log(`report.conforms() == ${report.conforms}`)
