@@ -12,7 +12,7 @@ test('Resolve RAML 1.0', () => {
     const resolver = new amf.Raml10Resolver();
     const renderer = new amf.Raml10Renderer(); // to console.log the resolved model
 
-    return parser.parseFileAsync('file://src/test/resources/examples/banking-api.raml').then(unresolvedModel => {
+    return parser.parseFileAsync('file://resources/examples/banking-api.raml').then(unresolvedModel => {
         expect(unresolvedModel).not.toBeNull();
         expect(unresolvedModel).toBeDefined();
 
@@ -30,7 +30,7 @@ test('Resolve OAS 3.0', () => {
     const resolver = new amf.Oas20Resolver()
     const renderer = new amf.Oas30Renderer(); // to console.log the resolved model
 
-    return parser.parseFileAsync('file://src/test/resources/examples/banking-api-oas30.json').then(unresolvedModel => {
+    return parser.parseFileAsync('file://resources/examples/banking-api-oas30.json').then(unresolvedModel => {
         expect(unresolvedModel).not.toBeNull();
         expect(unresolvedModel).toBeDefined();
 

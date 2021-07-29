@@ -54,7 +54,7 @@ public class ResourceLoaderTest {
         final Raml10Parser parser = new Raml10Parser(env);
 
         // using a custom protocol that our CustomResourceLoader can parse
-        final BaseUnit model = parser.parseFileAsync("CustomProtocol/src/test/resources/examples/banking-api.raml").get();
+        final BaseUnit model = parser.parseFileAsync("CustomProtocol/resources/examples/banking-api.raml").get();
         assertNotNull(model);
 
         // Run RAML default validations on parsed unit (expects no errors).

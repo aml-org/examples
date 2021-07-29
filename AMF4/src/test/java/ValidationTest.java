@@ -24,7 +24,7 @@ public class ValidationTest {
     public void validateRaml() throws ExecutionException, InterruptedException {
         final Raml10Parser parser = new Raml10Parser();
 
-        final BaseUnit model = parser.parseFileAsync("file://src/test/resources/examples/banking-api-error.raml").get();
+        final BaseUnit model = parser.parseFileAsync("file://resources/examples/banking-api-error.raml").get();
         assertNotNull(model);
 
         // Run RAML default validations on parsed unit (expects one error -> invalid protocols value)
@@ -37,7 +37,7 @@ public class ValidationTest {
     public void validateRamlWithCustomValidation() throws ExecutionException, InterruptedException {
         final Raml10Parser parser = new Raml10Parser();
 
-        final BaseUnit model = parser.parseFileAsync("file://src/test/resources/examples/banking-api-error.raml").get();
+        final BaseUnit model = parser.parseFileAsync("file://resources/examples/banking-api-error.raml").get();
         assertNotNull(model);
 
         // Run RAML custom validations with a validation profile that accepts the previously invalid protocol value

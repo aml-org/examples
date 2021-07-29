@@ -24,7 +24,7 @@ public class PayloadValidationTest {
         final Raml10Parser parser = new Raml10Parser();
         final Raml10Resolver resolver = new Raml10Resolver();
 
-        final BaseUnit unresolvedModel = parser.parseFileAsync("file://src/test/resources/examples/simple-api.raml").get();
+        final BaseUnit unresolvedModel = parser.parseFileAsync("file://resources/examples/simple-api.raml").get();
         final BaseUnit resolvedModel = resolver.resolve(unresolvedModel);
 
         // get the model.encodes() to isolate the WebApi model
