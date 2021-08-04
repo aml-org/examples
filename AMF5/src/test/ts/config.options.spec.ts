@@ -13,7 +13,7 @@ describe("Configuration", () => {
             .withParsingOptions(new ParsingOptions().setMaxYamlReferences(20))
             .withRenderOptions(new RenderOptions().withSourceMaps()).baseUnitClient();
         const parsingResult: AMFResult = await client.parse("file://src/test/resources/examples/banking-api.json");
-        const jsonld: string = client.render(parsingResult.baseUnit);
-        expect(jsonld.includes("[(87,12)-(87,39)]"));
+        const jsonld: string = client.render(parsingResult.baseUnit, "application/ld+json");
+        expect(jsonld.includes("[(87,12)-(87,39)]")).to.be.true;
     });
 })

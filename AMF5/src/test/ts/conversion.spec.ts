@@ -1,7 +1,6 @@
 import {
-  AMFDocumentResult,
-  AMFResult,
-  ProvidedMediaType, AMFBaseUnitClient, RAMLConfiguration, OASConfiguration,
+    AMFDocumentResult,
+    AMFResult,AMFBaseUnitClient, RAMLConfiguration, OASConfiguration, PipelineId,
 } from "amf-client-js";
 import { expect } from "chai";
 import * as fileSystem from "fs";
@@ -25,9 +24,9 @@ describe("Conversion", () => {
       "file://src/test/resources/examples/banking-api.raml"
     );
     expect(parseResult.results).to.be.empty;
-    const transformResult: AMFResult = await oas20Client.transformCompatibility(
+    const transformResult: AMFResult = await oas20Client.transform(
       parseResult.baseUnit,
-      ProvidedMediaType.Oas20
+      PipelineId.Compatibility
     );
     expect(transformResult.results).to.be.empty;
     const rendered: string = oas20Client.render(transformResult.baseUnit, "application/json");
@@ -42,9 +41,9 @@ describe("Conversion", () => {
       "file://src/test/resources/examples/banking-api.json"
     );
     expect(parseResult.results).to.be.empty;
-    const transformResult: AMFResult = await raml10Client.transformCompatibility(
+    const transformResult: AMFResult = await raml10Client.transform(
       parseResult.baseUnit,
-      ProvidedMediaType.Raml10
+      PipelineId.Compatibility
     );
     expect(transformResult.results).to.be.empty;
     const rendered: string = raml10Client.render(transformResult.baseUnit, "application/yaml");

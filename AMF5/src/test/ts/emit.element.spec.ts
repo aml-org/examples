@@ -20,7 +20,7 @@ describe("DomainElement emission", () => {
             .withId("someId");
         const client = OASConfiguration.OAS30().elementClient();
         const builder = new org.yaml.builder.JsOutputBuilder();
-        client.renderToBuilder(response, "application/openapi30", builder)
+        client.renderToBuilder(response, builder)
         const responseNode = builder.result as any
         const responseAsString = JSON.stringify(responseNode, null, 2).trim()
         const expected = fs.readFileSync(RENDERED_RESPONSE, { encoding: 'utf8'}).trim();
