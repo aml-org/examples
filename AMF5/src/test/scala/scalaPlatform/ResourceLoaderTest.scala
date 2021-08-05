@@ -1,6 +1,6 @@
 package scalaPlatform
 
-import amf.apicontract.client.scala.WebAPIConfiguration
+import amf.apicontract.client.scala.{RAMLConfiguration, WebAPIConfiguration}
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
@@ -12,8 +12,8 @@ class ResourceLoaderTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF custom resource loader" should "be created and used in the configuration" in {
     val rl = new CustomResourceLoader(CUSTOM_PATH_PATTERN)
-    val client = WebAPIConfiguration
-      .WebAPI()
+    val client = RAMLConfiguration
+      .RAML10()
       .withResourceLoader(rl)
       .baseUnitClient()
 

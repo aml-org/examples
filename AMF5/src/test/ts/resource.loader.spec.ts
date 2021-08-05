@@ -3,10 +3,10 @@ import {
   AMFDocumentResult,
   ClientResourceLoader,
   Content,
-  JsServerFileResourceLoader,
+  JsServerFileResourceLoader, RAMLConfiguration,
   ResourceLoader,
   ResourceLoaderFactory,
-  WebAPIConfiguration,
+
 } from "amf-client-js";
 import { expect } from "chai";
 
@@ -15,7 +15,7 @@ describe("Resource Loader test", () => {
     const customResourceLoader: ResourceLoader = ResourceLoaderFactory.create(
       new MockGitResourceLoader()
     );
-    const client: AMFBaseUnitClient = WebAPIConfiguration.WebAPI()
+    const client: AMFBaseUnitClient = RAMLConfiguration.RAML10()
       .withResourceLoader(customResourceLoader)
       .baseUnitClient();
     const result: AMFDocumentResult = await client.parseDocument(

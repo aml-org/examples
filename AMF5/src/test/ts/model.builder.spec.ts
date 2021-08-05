@@ -3,7 +3,7 @@ import {
   Document,
   EndPoint,
   Operation,
-  Parameter, ProvidedMediaType,
+  Parameter,
   RAMLConfiguration,
   Request,
   WebApi,
@@ -32,7 +32,7 @@ describe("Model Builder", () => {
     });
     const model: BaseUnit = buildModel();
     const client = RAMLConfiguration.RAML10().baseUnitClient();
-    const rendered = await client.render(model, ProvidedMediaType.Raml10);
+    const rendered = await client.render(model);
     expect(rendered).to.be.equal(golden, `Rendered: ${rendered} \nGolden: ${golden}`);
   });
 

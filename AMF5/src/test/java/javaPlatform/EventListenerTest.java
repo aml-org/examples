@@ -1,15 +1,13 @@
 package javaPlatform;
 
 import amf.apicontract.client.platform.AMFBaseUnitClient;
-import amf.apicontract.client.platform.WebAPIConfiguration;
+import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.core.client.platform.AMFResult;
 import amf.core.client.platform.config.AMFEvent;
 import amf.core.client.platform.config.AMFEventListener;
 import amf.core.client.platform.config.AMFEventNames;
 import amf.core.client.platform.config.StartingParsingEvent;
 import amf.core.client.platform.model.document.BaseUnit;
-import amf.core.client.platform.model.document.Document;
-import amf.core.client.platform.model.domain.DomainElement;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -24,7 +22,7 @@ public class EventListenerTest {
     @Test
     public void parseAMFGraph() throws ExecutionException, InterruptedException {
         final SpyEventListener spy = new SpyEventListener();
-        final AMFBaseUnitClient client = WebAPIConfiguration.WebAPI()
+        final AMFBaseUnitClient client = RAMLConfiguration.RAML10()
                 .withEventListener(spy)
                 .baseUnitClient();
 

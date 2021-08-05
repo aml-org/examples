@@ -1,6 +1,6 @@
 package scalaPlatform
 
-import amf.apicontract.client.scala.WebAPIConfiguration
+import amf.apicontract.client.scala.RAMLConfiguration
 import amf.apicontract.client.scala.model.domain.api.WebApi
 import amf.core.client.common.validation.ValidationMode
 import amf.core.client.scala.model.document.Document
@@ -10,7 +10,7 @@ import org.scalatest.matchers.should
 class PayloadValidationTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF payload validation" should "create and use a user schema payload validator" in {
-    val configuration = WebAPIConfiguration.WebAPI()
+    val configuration = RAMLConfiguration.RAML10()
     val client = configuration.baseUnitClient()
     client.parse("file://src/test/resources/examples/simple-api.raml") map { parseResult =>
       val transformationResult = client.transform(parseResult.baseUnit)

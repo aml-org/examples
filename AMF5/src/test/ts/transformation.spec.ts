@@ -3,25 +3,25 @@ import {
   AMFDocumentResult,
   AMFResult,
   Document,
-  EndPoint,
+  EndPoint, OASConfiguration,
   Operation,
-  PipelineId,
-  PipelineName,
+  RAMLConfiguration,
   Server,
-  Vendor,
   WebApi,
-  WebAPIConfiguration,
+
 } from "amf-client-js";
 import { expect } from "chai";
 
 describe("Transform RAML APIs", () => {
-  let client: AMFBaseUnitClient;
-
-  beforeEach(() => {
-    client = WebAPIConfiguration.WebAPI().baseUnitClient();
-  });
 
   describe("RAML 1.0", () => {
+
+    let client: AMFBaseUnitClient;
+
+    beforeEach(() => {
+      client = RAMLConfiguration.RAML10().baseUnitClient();
+    });
+
     it("applies resource types and traits, applies inheritance, etc", async () => {
       const parseResult: AMFDocumentResult = await client.parseDocument(
         "file://src/test/resources/examples/raml-resource-type.raml"
@@ -48,6 +48,13 @@ describe("Transform RAML APIs", () => {
   });
 
   describe("OAS 3.0", () => {
+
+    let client: AMFBaseUnitClient;
+
+    beforeEach(() => {
+      client = OASConfiguration.OAS30().baseUnitClient();
+    });
+
     it("transforms the document", async () => {
       const parseResult: AMFDocumentResult = await client.parseDocument(
         "file://src/test/resources/examples/banking-api-oas30.json"

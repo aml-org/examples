@@ -8,6 +8,7 @@ import amf.core.client.scala.model.document.{BaseUnit, Document}
 import amf.core.client.scala.parse.AMFParsePlugin
 import amf.core.client.scala.parse.document.{ParserContext, ReferenceHandler, SimpleReferenceHandler}
 import amf.core.internal.parser.Root
+import amf.core.internal.remote.Spec
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
@@ -50,7 +51,10 @@ class CustomPluginTest extends AsyncFlatSpec with should.Matchers {
 
     override def mediaTypes: Seq[String] = Seq(CUSTOM_MEDIATYPE)
 
-    override def validMediaTypesToReference: Seq[String] = Seq.empty
+    override def spec: Spec = new Spec {
+      override val id: String = "MyCustomSpec"
+      override val mediaType: String = "something"
+    }
 
     override def referenceHandler(eh: AMFErrorHandler): ReferenceHandler = SimpleReferenceHandler
 
