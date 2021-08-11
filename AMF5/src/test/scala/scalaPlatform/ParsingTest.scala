@@ -44,6 +44,24 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
     }
   }
 
+  it should "parse an OAS 3.0 API from a string" in {
+    val client = OASConfiguration.OAS30().createClient()
+    val api =
+      """{
+        |  "openapi": "3.0.0",
+        |  "info": {
+        |    "title": "Basic content",
+        |    "version": "0.1"
+        |  },
+        |  "paths": {}
+        |}""".stripMargin
+    client.parseContent(api) map { result =>
+      result.bu mustBe a[Document]
+      println(result.results)
+      result.conforms shouldBe true
+    }
+  }
+
   it should "parse an RAML 1.0 API" in {
     val client = RAMLConfiguration.RAML10().baseUnitClient()
     client.parse("file://src/test/resources/examples/banking-api.raml") map { result =>

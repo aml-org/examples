@@ -75,6 +75,31 @@ public class ParsingTest {
     }
 
     @Test
+    public void parseOas30String() throws ExecutionException, InterruptedException {
+        final AMFClient client = OASConfiguration.OAS30().createClient();
+
+        final String api = "{\n" +
+                "  \"openapi\": \"3.0.0\",\n" +
+                "  \"info\": {\n" +
+                "    \"title\": \"Basic content\",\n" +
+                "    \"version\": \"0.1\"\n" +
+                "  },\n" +
+                "  \"paths\": {}\n" +
+                "}";
+
+        final AMFResult parseResult = client.parseContent(api).get();
+        final BaseUnit model = parseResult.baseUnit();
+
+        assertNotNull(model);
+        assertTrue(parseResult.conforms());
+        assertTrue(model.raw().isPresent());
+        assertEquals(model.raw().get(), api);
+
+        final DomainElement webApi = ((Document) model).encodes();
+        assertNotNull(webApi);
+    }
+
+    @Test
     public void parseRaml10() throws ExecutionException, InterruptedException {
         final AMFBaseUnitClient client = RAMLConfiguration.RAML10().baseUnitClient();
 
