@@ -45,7 +45,7 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
   }
 
   it should "parse an OAS 3.0 API from a string" in {
-    val client = OASConfiguration.OAS30().createClient()
+    val client = OASConfiguration.OAS30().baseUnitClient()
     val api =
       """{
         |  "openapi": "3.0.0",
@@ -56,7 +56,7 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
         |  "paths": {}
         |}""".stripMargin
     client.parseContent(api) map { result =>
-      result.bu mustBe a[Document]
+      result.baseUnit mustBe a[Document]
       println(result.results)
       result.conforms shouldBe true
     }

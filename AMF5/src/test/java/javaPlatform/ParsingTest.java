@@ -76,7 +76,7 @@ public class ParsingTest {
 
     @Test
     public void parseOas30String() throws ExecutionException, InterruptedException {
-        final AMFClient client = OASConfiguration.OAS30().createClient();
+        final AMFBaseUnitClient client = OASConfiguration.OAS30().baseUnitClient();
 
         final String api = "{\n" +
                 "  \"openapi\": \"3.0.0\",\n" +
