@@ -3,16 +3,17 @@ package javaPlatform;
 import amf.apicontract.client.platform.AMFBaseUnitClient;
 import amf.apicontract.client.platform.OASConfiguration;
 import amf.apicontract.client.platform.RAMLConfiguration;
-import amf.core.client.platform.AMFResult;
+import amf.apicontract.client.platform.WebAPIConfiguration;
+import amf.core.client.platform.AMFParseResult;
 import amf.core.client.platform.model.document.BaseUnit;
 import amf.core.client.platform.model.document.Document;
 import amf.core.client.platform.model.domain.DomainElement;
+import amf.core.internal.remote.Spec;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
 
 public class ParsingTest {
 
@@ -23,7 +24,7 @@ public class ParsingTest {
         // A BaseUnit is the return type of any parsing
         // The actual object can be many different things, depending on the content of the source file
         // https://github.com/aml-org/amf/blob/develop/documentation/model.md#baseunit
-        final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api.json").get();
+        final AMFParseResult parseResult = client.parse("file://src/test/resources/examples/banking-api.json").get();
         final BaseUnit model = parseResult.baseUnit();
 
         assertNotNull(model);
@@ -49,7 +50,7 @@ public class ParsingTest {
                         "  \"paths\": {}\n" +
                         "}";
 
-        final AMFResult parseResult = client.parseContent(api).get();
+        final AMFParseResult parseResult = client.parseContent(api).get();
         final BaseUnit model = parseResult.baseUnit();
 
         assertNotNull(model);
@@ -65,13 +66,29 @@ public class ParsingTest {
     public void parseOas30() throws ExecutionException, InterruptedException {
         final AMFBaseUnitClient client = OASConfiguration.OAS30().baseUnitClient();
 
-        final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api-oas30.json").get();
+        final AMFParseResult parseResult = client.parse("file://src/test/resources/examples/banking-api-oas30.json").get();
         final BaseUnit model = parseResult.baseUnit();
 
         assertNotNull(model);
         assertTrue(parseResult.conforms());
         final DomainElement webApi = ((Document) model).encodes();
         assertNotNull(webApi);
+    }
+
+    @Test
+    public void parseUnknown() throws ExecutionException, InterruptedException {
+        final AMFBaseUnitClient client = WebAPIConfiguration.WebAPI().baseUnitClient();
+
+        final AMFParseResult parseResult = client.parse("file://src/test/resources/examples/banking-api-oas30.json").get();
+        final BaseUnit model = parseResult.baseUnit();
+        final Spec spec = parseResult.sourceSpec();
+
+        assertNotNull(model);
+        assertTrue(parseResult.conforms());
+        final DomainElement webApi = ((Document) model).encodes();
+        assertNotNull(webApi);
+        assertTrue(spec.isOas());
+        assertEquals(spec.id(), Spec.OAS30().id());
     }
 
     @Test
@@ -87,7 +104,7 @@ public class ParsingTest {
                 "  \"paths\": {}\n" +
                 "}";
 
-        final AMFResult parseResult = client.parseContent(api).get();
+        final AMFParseResult parseResult = client.parseContent(api).get();
         final BaseUnit model = parseResult.baseUnit();
 
         assertNotNull(model);
@@ -103,7 +120,7 @@ public class ParsingTest {
     public void parseRaml10() throws ExecutionException, InterruptedException {
         final AMFBaseUnitClient client = RAMLConfiguration.RAML10().baseUnitClient();
 
-        final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api.raml").get();
+        final AMFParseResult parseResult = client.parse("file://src/test/resources/examples/banking-api.raml").get();
         final BaseUnit model = parseResult.baseUnit();
 
         assertNotNull(model);
@@ -123,7 +140,7 @@ public class ParsingTest {
                         "title: ACME Banking HTTP API\n" +
                         "version: 1.0";
 
-        final AMFResult parseResult = client.parseContent(api).get();
+        final AMFParseResult parseResult = client.parseContent(api).get();
         final BaseUnit model = parseResult.baseUnit();
 
         assertNotNull(model);
@@ -139,7 +156,7 @@ public class ParsingTest {
     public void parseRaml08() throws ExecutionException, InterruptedException {
         final AMFBaseUnitClient client = RAMLConfiguration.RAML08().baseUnitClient();
 
-        final AMFResult parseResult = client.parse("file://src/test/resources/examples/banking-api-08.raml").get();
+        final AMFParseResult parseResult = client.parse("file://src/test/resources/examples/banking-api-08.raml").get();
         final BaseUnit model = parseResult.baseUnit();
 
         assertNotNull(model);
@@ -159,13 +176,38 @@ public class ParsingTest {
                         "title: ACME Banking HTTP API\n" +
                         "version: 1.0";
 
-        final AMFResult parseResult = client.parseContent(api).get();
+        final AMFParseResult parseResult = client.parseContent(api).get();
         final BaseUnit model = parseResult.baseUnit();
 
         assertNotNull(model);
         assertTrue(parseResult.conforms());
         assertTrue(model.raw().isPresent());
         assertEquals(model.raw().get(), api);
+
+        final DomainElement webApi = ((Document) model).encodes();
+        assertNotNull(webApi);
+    }
+
+    @Test
+    public void parseUnknownString() throws ExecutionException, InterruptedException {
+        final AMFBaseUnitClient client = WebAPIConfiguration.WebAPI().baseUnitClient();
+
+        final String api =
+                "#%RAML 0.8\n" +
+                        "\n" +
+                        "title: ACME Banking HTTP API\n" +
+                        "version: 1.0";
+
+        final AMFParseResult parseResult = client.parseContent(api).get();
+        final BaseUnit model = parseResult.baseUnit();
+        final Spec spec = parseResult.sourceSpec();
+
+        assertNotNull(model);
+        assertTrue(parseResult.conforms());
+        assertTrue(model.raw().isPresent());
+        assertEquals(model.raw().get(), api);
+        assertTrue(spec.isRaml());
+        assertEquals(spec.id(), Spec.RAML08().id());
 
         final DomainElement webApi = ((Document) model).encodes();
         assertNotNull(webApi);

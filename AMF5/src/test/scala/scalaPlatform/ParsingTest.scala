@@ -1,7 +1,8 @@
 package scalaPlatform
 
-import amf.apicontract.client.scala.{OASConfiguration, RAMLConfiguration}
+import amf.apicontract.client.scala.{OASConfiguration, RAMLConfiguration, WebAPIConfiguration}
 import amf.core.client.scala.model.document.Document
+import amf.core.internal.remote.Spec
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.must.Matchers.convertToAnyMustWrapper
 import org.scalatest.matchers.should
@@ -103,6 +104,36 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
     client.parseContent(api) map { result =>
       result.baseUnit mustBe a[Document]
       result.conforms shouldBe true
+    }
+  }
+
+  it should "parse an unknown API" in {
+    val client = WebAPIConfiguration.WebAPI().baseUnitClient()
+    client.parse("file://src/test/resources/examples/banking-api.raml") map { result =>
+      result.baseUnit mustBe a[Document]
+      result.conforms shouldBe true
+      result.sourceSpec.isRaml shouldBe true
+      result.sourceSpec.id mustBe Spec.RAML10.id
+    }
+  }
+
+  it should "parse an unknown API from a string" in {
+    val client = WebAPIConfiguration.WebAPI().baseUnitClient()
+    val api =
+      """{
+        |  "openapi": "3.0.0",
+        |  "info": {
+        |    "title": "Basic content",
+        |    "version": "0.1"
+        |  },
+        |  "paths": {}
+        |}""".stripMargin
+    client.parseContent(api) map { result =>
+      result.baseUnit mustBe a[Document]
+      println(result.results)
+      result.conforms shouldBe true
+      result.sourceSpec.isOas shouldBe true
+      result.sourceSpec.id mustBe Spec.OAS30.id
     }
   }
 }
