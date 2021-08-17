@@ -6,8 +6,9 @@ import {
     OASConfiguration,
     RAMLConfiguration,
     WebAPIConfiguration,
+    APIConfiguration,
     WebApi,
-    Spec
+    Spec, AsyncApi
 } from "amf-client-js";
 import {expect} from "chai";
 
@@ -127,7 +128,7 @@ describe("Parsing", () => {
             expect(webApi.name.value()).to.be.equal("ACME Banking HTTP API");
         });
     });
-    describe("Unknown Spec", () => {
+    describe("Unknown WebAPI", () => {
         beforeEach(() => {
             client = WebAPIConfiguration.WebAPI().baseUnitClient();
         });
@@ -155,6 +156,42 @@ describe("Parsing", () => {
             expect(webApi.name.value()).to.be.equal("ACME Banking HTTP API");
             expect(result.sourceSpec.isRaml).to.be.true;
             expect(result.sourceSpec.id).to.be.equal(Spec.RAML08.id)
+        });
+    });
+    describe("Unknown API", () => {
+        beforeEach(() => {
+            client = APIConfiguration.API().baseUnitClient();
+        });
+
+        it("parse document from file", async () => {
+            const parsingResult: AMFParseResult = await client.parse(
+                "file://src/test/resources/examples/async.yaml"
+            );
+            expect(parsingResult.results).to.be.empty;
+            expect(parsingResult.conforms).to.be.true;
+            expect(parsingResult.sourceSpec.isAsync).to.be.true;
+            expect(parsingResult.sourceSpec.id).to.be.equal(Spec.ASYNC20.id)
+        });
+
+        it("parse document from string", async () => {
+            const api: string = `{
+                "asyncapi": "2.0.0",
+                "info": {
+                    "title": "Something",
+                    "version": "1.0"
+                },
+                "channels": {},
+            }`;
+
+            const result: AMFParseResult = await client.parseContent(api);
+            console.log(result.results)
+            expect(result.results).to.be.empty;
+            expect(result.conforms).to.be.true;
+            const document: Document = result.baseUnit as Document;
+            const asyncApi: AsyncApi = document.encodes as AsyncApi;
+            expect(asyncApi.name.value()).to.be.equal("Something");
+            expect(result.sourceSpec.isAsync).to.be.true;
+            expect(result.sourceSpec.id).to.be.equal(Spec.ASYNC20.id)
         });
     });
 });

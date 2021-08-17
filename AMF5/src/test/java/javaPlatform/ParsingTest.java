@@ -1,9 +1,6 @@
 package javaPlatform;
 
-import amf.apicontract.client.platform.AMFBaseUnitClient;
-import amf.apicontract.client.platform.OASConfiguration;
-import amf.apicontract.client.platform.RAMLConfiguration;
-import amf.apicontract.client.platform.WebAPIConfiguration;
+import amf.apicontract.client.platform.*;
 import amf.core.client.platform.AMFParseResult;
 import amf.core.client.platform.model.document.BaseUnit;
 import amf.core.client.platform.model.document.Document;
@@ -76,7 +73,7 @@ public class ParsingTest {
     }
 
     @Test
-    public void parseUnknown() throws ExecutionException, InterruptedException {
+    public void parseUnknownWebAPI() throws ExecutionException, InterruptedException {
         final AMFBaseUnitClient client = WebAPIConfiguration.WebAPI().baseUnitClient();
 
         final AMFParseResult parseResult = client.parse("file://src/test/resources/examples/banking-api-oas30.json").get();
@@ -89,6 +86,22 @@ public class ParsingTest {
         assertNotNull(webApi);
         assertTrue(spec.isOas());
         assertEquals(spec.id(), Spec.OAS30().id());
+    }
+
+    @Test
+    public void parseUnknownAPI() throws ExecutionException, InterruptedException {
+        final AMFBaseUnitClient client = APIConfiguration.API().baseUnitClient();
+
+        final AMFParseResult parseResult = client.parse("file://src/test/resources/examples/async.yaml").get();
+        final BaseUnit model = parseResult.baseUnit();
+        final Spec spec = parseResult.sourceSpec();
+
+        assertNotNull(model);
+        assertTrue(parseResult.conforms());
+        final DomainElement asyncApi = ((Document) model).encodes();
+        assertNotNull(asyncApi);
+        assertTrue(spec.isAsync());
+        assertEquals(spec.id(), Spec.ASYNC20().id());
     }
 
     @Test
@@ -189,7 +202,7 @@ public class ParsingTest {
     }
 
     @Test
-    public void parseUnknownString() throws ExecutionException, InterruptedException {
+    public void parseUnknownWebAPIString() throws ExecutionException, InterruptedException {
         final AMFBaseUnitClient client = WebAPIConfiguration.WebAPI().baseUnitClient();
 
         final String api =
@@ -211,5 +224,31 @@ public class ParsingTest {
 
         final DomainElement webApi = ((Document) model).encodes();
         assertNotNull(webApi);
+    }
+
+    @Test
+    public void parseUnknownAPIString() throws ExecutionException, InterruptedException {
+        final AMFBaseUnitClient client = APIConfiguration.API().baseUnitClient();
+
+        final String api =
+                "asyncapi: \"2.0.0\"\n" +
+                        "info:\n" +
+                        "  title: \"Something\"\n" +
+                        "  version: \"1.0\"\n" +
+                        "channels: {}";
+
+        final AMFParseResult parseResult = client.parseContent(api).get();
+        final BaseUnit model = parseResult.baseUnit();
+        final Spec spec = parseResult.sourceSpec();
+
+        assertNotNull(model);
+        assertTrue(parseResult.conforms());
+        assertTrue(model.raw().isPresent());
+        assertEquals(model.raw().get(), api);
+        assertTrue(spec.isAsync());
+        assertEquals(spec.id(), Spec.ASYNC20().id());
+
+        final DomainElement asyncApi = ((Document) model).encodes();
+        assertNotNull(asyncApi);
     }
 }
