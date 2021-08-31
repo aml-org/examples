@@ -15,9 +15,8 @@ describe("Custom Payload Validation", () => {
     it("uses my custom validator", async () => {
         const myPayloadPlugin = AMFPayloadValidationPluginConverter.toAMF(new MyPayloadValidationPlugin(CUSTOM_MEDIATYPE))
         const config = OASConfiguration.OAS30().withShapePayloadPlugin(myPayloadPlugin);
-        const factory = config.payloadValidatorFactory();
         const shape = new ScalarShape().withDataType(DataTypes.Boolean);
-        const validator = factory.createFor(shape, CUSTOM_MEDIATYPE, ValidationMode.StrictValidationMode);
+        const validator = config.elementClient().payloadValidatorFor(shape, CUSTOM_MEDIATYPE, ValidationMode.StrictValidationMode);
         const report = await validator.validate("somePayload");
 
         expect(report.conforms).to.be.true
