@@ -40,7 +40,7 @@ public class PayloadValidationTest {
         final AnyShape userSchema = (AnyShape) userPayload.schema();
 
         payloadValidator = client.getConfiguration()
-                .payloadValidatorFactory().createFor(userSchema, "application/json", ValidationMode.StrictValidationMode());
+                .elementClient().payloadValidatorFor(userSchema, "application/json", ValidationMode.StrictValidationMode());
     }
 
     @Test

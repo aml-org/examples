@@ -58,7 +58,6 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
         |}""".stripMargin
     client.parseContent(api) map { result =>
       result.baseUnit mustBe a[Document]
-      println(result.results)
       result.conforms shouldBe true
     }
   }
@@ -130,7 +129,6 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
         |}""".stripMargin
     client.parseContent(api) map { result =>
       result.baseUnit mustBe a[Document]
-      println(result.results)
       result.conforms shouldBe true
       result.sourceSpec.isOas shouldBe true
       result.sourceSpec.id mustBe Spec.OAS30.id
@@ -138,7 +136,7 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
   }
 
   it should "parse an unknown API" in {
-    val client = WebAPIConfiguration.WebAPI().baseUnitClient()
+    val client = APIConfiguration.API().baseUnitClient()
     client.parse("file://src/test/resources/examples/async.yaml") map { result =>
       result.baseUnit mustBe a[Document]
       result.conforms shouldBe true
@@ -158,7 +156,6 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
         |""".stripMargin
     client.parseContent(api) map { result =>
       result.baseUnit mustBe a[Document]
-      println(result.results)
       result.conforms shouldBe true
       result.sourceSpec.isAsync shouldBe true
       result.sourceSpec.id mustBe Spec.ASYNC20.id
