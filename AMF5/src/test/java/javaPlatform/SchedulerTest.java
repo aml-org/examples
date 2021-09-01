@@ -52,8 +52,8 @@ public class SchedulerTest {
 
         final AMFResult parseResult = client.parse("file://src/test/resources/examples/simple-api.raml").get();
         AMFValidationReport report = client.validate(parseResult.baseUnit()).get();
-        AMFValidationReport payloadReport = config.payloadValidatorFactory()
-                .createFor(obtainShapeFromUnit(parseResult.baseUnit()), "application/json", ValidationMode.StrictValidationMode())
+        AMFValidationReport payloadReport = config.elementClient()
+                .payloadValidatorFor(obtainShapeFromUnit(parseResult.baseUnit()), "application/json", ValidationMode.StrictValidationMode())
                 .validate("{\"name\": \"firstname and lastname\"}").get();
 //        config.forInstance
 

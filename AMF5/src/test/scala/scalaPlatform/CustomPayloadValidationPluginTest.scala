@@ -15,8 +15,7 @@ class CustomPayloadValidationPluginTest extends AsyncFlatSpec with Matchers {
 
     val config = OASConfiguration.OAS30().withPlugin(new CustomShapePayloadPlugin(CUSTOM_MEDIATYPE))
     val booleanOnlyShape = ScalarShape().withDataType(DataTypes.Boolean);
-    val factory = config.payloadValidatorFactory();
-    val validator = factory.createFor(booleanOnlyShape, CUSTOM_MEDIATYPE, StrictValidationMode);
+    val validator = config.elementClient().payloadValidatorFor(booleanOnlyShape, CUSTOM_MEDIATYPE, StrictValidationMode);
     validator.validate("somethingNotRelevant").map { report =>
       report.conforms shouldBe true
       validator shouldBe a[MySpyShapeValidator]

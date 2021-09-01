@@ -55,8 +55,8 @@ class AMLTest extends AsyncFlatSpec with should.Matchers {
       parseResult <- client.parseDialectInstance(simpleDialectInstance)
     } yield {
       assertTrue(parseResult.conforms)
-      val simplePropA = parseResult.dialectInstance.encodes.asInstanceOf[DialectDomainElement].findPropertyMappingByTermPropertyId("http://simple.org/vocabulary#simpleA")
-      simplePropA should be (defined)
+      val simplePropA = parseResult.dialectInstance.encodes.asInstanceOf[DialectDomainElement].getScalarByProperty("http://simple.org/vocabulary#simpleA").head
+      simplePropA shouldBe "simpleInstance"
     }
   }
 }

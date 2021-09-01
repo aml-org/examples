@@ -42,8 +42,8 @@ class SchedulerTest extends AsyncFlatSpec with should.Matchers {
       parseResult      <- client.parse("file://src/test/resources/examples/simple-api.raml")
       validationResult <- client.validate(parseResult.baseUnit)
       payloadReport <- config
-        .payloadValidatorFactory()
-        .createFor(obtainShapeFromUnit(parseResult.baseUnit), "application/json", ValidationMode.StrictValidationMode)
+        .elementClient()
+        .payloadValidatorFor(obtainShapeFromUnit(parseResult.baseUnit), "application/json", ValidationMode.StrictValidationMode)
         .validate("{\"name\": \"firstname and lastname\"}")
     } yield {
       /* Shutting down the scheduler which kills the AMF threads created in the thread pool provided by that scheduler. */

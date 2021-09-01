@@ -28,7 +28,7 @@ class PayloadValidationTest extends AsyncFlatSpec with should.Matchers {
 
       // create payload validator
       val payloadValidator =
-        configuration.payloadValidatorFactory().createFor(
+        configuration.elementClient().payloadValidatorFor(
           userSchema,
           "application/json",
           ValidationMode.StrictValidationMode

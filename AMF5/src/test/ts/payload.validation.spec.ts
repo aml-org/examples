@@ -32,8 +32,7 @@ describe("Shape payload validation", () => {
     const unit: Document = transformResult.baseUnit as Document;
     const api: WebApi = unit.encodes as WebApi;
     const userSchema = api.endPoints[0].operations[0].request.payloads[0].schema;
-    const validatorFactory = config.payloadValidatorFactory();
-    const validator = validatorFactory.createFor(
+    const validator = config.elementClient().payloadValidatorFor(
       userSchema,
       APPLICATION_JSON,
       ValidationMode.StrictValidationMode
