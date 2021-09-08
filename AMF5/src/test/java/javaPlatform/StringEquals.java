@@ -8,11 +8,11 @@ import static org.junit.Assert.assertEquals;
 public class StringEquals {
 
     public static void assertIgnoringWhitespace(String toTest, String expected){
-        assertEquals(removeWhiteSpaces(toTest), removeWhiteSpaces(expected));
+        assertEquals(removeWhiteSpaces(expected), removeWhiteSpaces(toTest));
     }
 
     public static void assertIgnoringWhitespaceAndSortingLines(String toTest, String expected){
-        assertEquals(removeWhiteSpaces(sortLines(toTest)), removeWhiteSpaces(sortLines(expected)));
+        assertEquals(removeWhiteSpaces(sortLines(expected)), removeWhiteSpaces(sortLines(toTest)));
     }
 
     private static String removeWhiteSpaces(String input) {
