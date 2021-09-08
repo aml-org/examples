@@ -35,7 +35,7 @@ jest parsing.test.js
 ### Java
 To run the Java examples you must build the project with gradle and then run the unit tests:
 ```bash
-./gradlew :AMF4:clean build
+./gradlew :AMF5:clean build
 ./gradlew :AMF5:test
 ```
 
