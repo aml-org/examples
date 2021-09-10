@@ -5,9 +5,9 @@ import * as path from "path"
 
 describe("DomainElement emission", () => {
 
-    const RENDERED_RESPONSE = path.join(__dirname, "../resources/expected/emitted-response.json")
+    const RENDERED_RESPONSE = path.join(__dirname, "../resources/expected/rendered-response.json")
 
-    it("emits a Response", () => {
+    it("renders a Response", () => {
         const payload = new Payload()
             .withMediaType("application/json")
             .withSchema(new ScalarShape().withDataType(DataTypes.Boolean).withId("aScalar"))

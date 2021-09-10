@@ -13,7 +13,7 @@ import java.util.Arrays.asList
 
 class RenderDomainElementTest extends AsyncFlatSpec with Matchers with FileReader {
 
-  "AMFElementClient" should "emit a domain element" in {
+  "AMFElementClient" should "render a domain element" in {
     val payload = Payload()
       .withMediaType("application/json")
       .withSchema(
@@ -28,9 +28,9 @@ class RenderDomainElementTest extends AsyncFlatSpec with Matchers with FileReade
       .withPayloads(List(payload))
       .withId("someId")
     val client = OASConfiguration.OAS30().elementClient()
-    val emittedNode = client.renderElement(response)
-    val writtenString = JsonRender.render(emittedNode)
-    val expected = readResource("/expected/emitted-response.json")
+    val renderedNode = client.renderElement(response)
+    val writtenString = JsonRender.render(renderedNode)
+    val expected = readResource("/expected/rendered-response.json")
     writtenString shouldEqual expected
   }
 }
