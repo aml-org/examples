@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 public class ConversionTest {
 
     AMFBaseUnitClient oas20Client = OASConfiguration.OAS20().baseUnitClient();
+    AMFBaseUnitClient oas30Client = OASConfiguration.OAS30().baseUnitClient();
     AMFBaseUnitClient raml10Client = RAMLConfiguration.RAML10().baseUnitClient();
 
     @Test
@@ -40,6 +41,17 @@ public class ConversionTest {
         final String result = raml10Client.render(convertedRaml).trim();
 
         Path path = Paths.get("src/test/resources/expected/converted-banking-api.raml");
+        String read = Files.readAllLines(path).stream().collect(Collectors.joining(System.lineSeparator()));
+        assertEquals(read, result);
+    }
+
+    @Test
+    public void Oas30ToRaml10Conversion() throws ExecutionException, InterruptedException, IOException {
+        final BaseUnit oasApi = oas30Client.parse("file://src/test/resources/examples/sample-api.yaml").get().baseUnit();
+        final BaseUnit convertedRaml = raml10Client.transform(oasApi, PipelineId.Compatibility()).baseUnit();
+        final String result = raml10Client.render(convertedRaml).trim();
+
+        Path path = Paths.get("src/test/resources/expected/converted-sample-api.raml");
         String read = Files.readAllLines(path).stream().collect(Collectors.joining(System.lineSeparator()));
         assertEquals(read, result);
     }
