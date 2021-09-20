@@ -27,9 +27,9 @@ public class RenderDomainElementTest implements FileReader{
         Writer writer = new FileWriter(tmpFile);
         JsonOutputBuilder<Writer> jsonBuilder = JsonOutputBuilder.apply(writer, false);
         AMFElementClient client = OASConfiguration.OAS30().elementClient();
-        Payload payload = new Payload()
+        Payload payload = (Payload) new Payload()
                 .withMediaType("application/json")
-                .withSchema(new ScalarShape().withDataType(DataTypes.Boolean()).withId("aScalar"))
+                .withSchema((ScalarShape) new ScalarShape().withDataType(DataTypes.Boolean()).withId("aScalar"))
                 .withId("somethingElse");
         Response response = (Response) new Response()
                 .withStatusCode("401")
