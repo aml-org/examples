@@ -103,6 +103,11 @@ class ModelBuilderTest extends AsyncFlatSpec with should.Matchers {
     val model = Document()
     model.withEncodes(api)
 
+    val id = "file://defaut-uri"
+    client.setBaseUri(model, id) // optional call which adopts the ids of all nested elements
+
+    model.id shouldBe id
+
     // Run RAML default validations on parsed unit (expects one error -> invalid protocols value)
     client.validate(model).map { validationReport =>
       validationReport.conforms shouldBe true

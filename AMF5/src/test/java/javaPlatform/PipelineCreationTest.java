@@ -4,6 +4,7 @@ import amf.apicontract.client.platform.AMFBaseUnitClient;
 import amf.apicontract.client.platform.RAMLConfiguration;
 import amf.apicontract.client.platform.WebAPIConfiguration;
 import amf.apicontract.client.platform.model.domain.api.WebApi;
+import amf.core.client.platform.AMFGraphConfiguration;
 import amf.core.client.platform.AMFResult;
 import amf.core.client.platform.errorhandling.ClientErrorHandler;
 import amf.core.client.platform.model.document.BaseUnit;
@@ -49,7 +50,7 @@ public class PipelineCreationTest {
         }
 
         @Override
-        public BaseUnit transform(BaseUnit model, ClientErrorHandler errorHandler) {
+        public BaseUnit transform(BaseUnit model, ClientErrorHandler errorHandler, AMFGraphConfiguration config) {
             if (model instanceof Document) {
                 Document document = (Document) model;
                 WebApi api = (WebApi) document.encodes();

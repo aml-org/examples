@@ -15,7 +15,9 @@ import org.junit.Test;
 import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
+import static junit.framework.TestCase.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public class ModelBuilderTest {
@@ -108,6 +110,11 @@ public class ModelBuilderTest {
 
         final Document model = new Document();
         model.withEncodes(api);
+
+        String id = "file://defaut-uri";
+        client.setBaseUri(model, id); // optional call which adopts the ids of all nested elements
+
+        assertEquals(id, model.id());
 
         // Run RAML default validations on parsed unit (expects one error -> invalid protocols value)
 

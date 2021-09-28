@@ -39,7 +39,7 @@ describe("AML Operations", () => {
     expect(parseResult.conforms).to.be.true;
     const instance: DialectInstance = parseResult.dialectInstance;
     const instanceElement: DialectDomainElement = instance.encodes;
-    expect(instanceElement.getTypeUris()).to.contain(simpleNodeTypeUri);
+    expect(instanceElement.getTypeIris()).to.contain(simpleNodeTypeUri);
   });
 
   it("parses a vocabulary", async () => {
@@ -58,7 +58,7 @@ describe("AML Operations", () => {
     const parseResult: AMLDialectInstanceResult = await client.parseDialectInstance(simpleDialectInstance);
     expect(parseResult.conforms).to.be.true;
     const instance: DialectInstance = parseResult.dialectInstance;
-    const propertyUris: string[] = instance.encodes.getPropertyUris()
+    const propertyUris: string[] = instance.encodes.getPropertyIris()
     expect(propertyUris).to.contain("http://simple.org/vocabulary#simpleA")
   })
 });

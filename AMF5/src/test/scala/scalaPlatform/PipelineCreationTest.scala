@@ -2,6 +2,7 @@ package scalaPlatform
 
 import amf.apicontract.client.scala.WebAPIConfiguration
 import amf.apicontract.client.scala.model.domain.api.WebApi
+import amf.core.client.scala.AMFGraphConfiguration
 import amf.core.client.scala.errorhandling.AMFErrorHandler
 import amf.core.client.scala.model.document.{BaseUnit, Document}
 import amf.core.client.scala.transform.{TransformationPipelineBuilder, TransformationStep}
@@ -30,7 +31,7 @@ class PipelineCreationTest extends AsyncFlatSpec with should.Matchers with FileR
   }
 
   class MyTransformationStep(val webApiName: String) extends TransformationStep {
-    override def transform(model: BaseUnit, errorHandler: AMFErrorHandler): BaseUnit = model match {
+    override def transform(model: BaseUnit, errorHandler: AMFErrorHandler, config: AMFGraphConfiguration): BaseUnit = model match {
       case document: Document =>
         val api = document.encodes.asInstanceOf[WebApi]
         api.withName(webApiName)
