@@ -27,8 +27,8 @@ repositories {
 dependencies {
     implementation 'org.scala-lang:scala-library:2.12.12'
     implementation 'com.jsuereth:scala-arm_2.12:2.0'
-    implementation 'com.github.amlorg:amf-api-contract_2.12:5.0.0-beta.4'
-    implementation 'com.github.amlorg:amf-rdf_2.12:6.0.0-beta.4'
+    implementation 'com.github.amlorg:amf-api-contract_2.12:5.0.0-RC.0'
+    implementation 'com.github.amlorg:amf-rdf_2.12:6.0.0-RC.0'
     testImplementation 'org.assertj:assertj-core:3.18.1'
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.scalatest:scalatest_2.12:3.2.9'

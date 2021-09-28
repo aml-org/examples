@@ -21,9 +21,14 @@ describe("Model Builder", () => {
   it("builds the model and mutates the instance", async () => {
     const model: BaseUnit = buildModel();
     const client = RAMLConfiguration.RAML10().baseUnitClient();
+
+    const id = "file://defaut-uri";
+    client.setBaseUri(model, id) // optional call which adopts the ids of all nested elements
+
     const report = await client.validate(model);
     expect(report.conforms).to.be.true;
     expect(report.results).to.be.empty;
+    expect(model.id).to.be.equal(id);
   });
 
   it("renders built model", async () => {

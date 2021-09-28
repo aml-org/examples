@@ -19,7 +19,7 @@ describe("Parsing", () => {
             const unit = result.baseUnit
             const builder = new org.yaml.builder.JsOutputBuilder()
             const obj: any = client.renderGraphToBuilder(unit, builder)
-            expect(obj["@graph"][0]["@id"]).to.equal("file://src/test/resources/examples/banking-api.json#/web-api")
+            expect(obj["@graph"][1]["@id"]).to.equal("file://src/test/resources/examples/banking-api.json#/web-api")
         })
     });
 });

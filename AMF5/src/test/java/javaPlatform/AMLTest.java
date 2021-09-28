@@ -35,7 +35,7 @@ public class AMLTest {
         final AMLDialectInstanceResult parseResult = client.parseDialectInstance(simpleDialectInstance).get();
         assertTrue(parseResult.conforms());
         final DialectDomainElement instanceElement = parseResult.dialectInstance().encodes();
-        assertTrue(instanceElement.getTypeUris().contains(simpleNodeTypeUri));
+        assertTrue(instanceElement.getTypeIris().contains(simpleNodeTypeUri));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class AMLTest {
         final AMLBaseUnitClient client = AMLConfiguration.predefined().withDialect(simpleDialectWithVocabulary).get().baseUnitClient();
         final AMLDialectInstanceResult parseResult = client.parseDialectInstance(simpleDialectInstance).get();
         assertTrue(parseResult.conforms());
-        final List<String> propertyUris = parseResult.dialectInstance().encodes().getPropertyUris();
+        final List<String> propertyUris = parseResult.dialectInstance().encodes().getPropertyIris();
         assertTrue(propertyUris.contains("http://simple.org/vocabulary#simpleA"));
     }
 }
