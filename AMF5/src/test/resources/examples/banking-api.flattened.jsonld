@@ -6,7 +6,7 @@
         "http://a.ml/vocabularies/document#APIContractProcessingData"
       ],
       "http://a.ml/vocabularies/apiContract#modelVersion": "3.2.0",
-      "http://a.ml/vocabularies/apiContract#sourceSpec": "OAS 2.0"
+      "http://a.ml/vocabularies/document#sourceSpec": "OAS 2.0"
     },
     {
       "@id": "file://src/test/resources/examples/banking-api.json#/web-api",
