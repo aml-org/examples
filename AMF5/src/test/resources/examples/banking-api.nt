@@ -45,6 +45,7 @@
 <file://src/test/resources/examples/banking-api.json#/web-api/server/acme-banking.com%2Fapis> <http://a.ml/vocabularies/core#urlTemplate> "acme-banking.com/apis" .
 <file://src/test/resources/examples/banking-api.json#/web-api/server/acme-banking.com%2Fapis> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://a.ml/vocabularies/document#DomainElement> .
 <file://src/test/resources/examples/banking-api.json#/web-api/server/acme-banking.com%2Fapis> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://a.ml/vocabularies/apiContract#Server> .
+<file://src/test/resources/examples/banking-api.json> <http://a.ml/vocabularies/document#sourceInformation> <file://src/test/resources/examples/banking-api.json/BaseUnitSourceInformation> .
 <file://src/test/resources/examples/banking-api.json> <http://a.ml/vocabularies/document#processingData> <file://src/test/resources/examples/banking-api.json#/BaseUnitProcessingData> .
 <file://src/test/resources/examples/banking-api.json> <http://a.ml/vocabularies/document#root> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <file://src/test/resources/examples/banking-api.json> <http://a.ml/vocabularies/document#encodes> <file://src/test/resources/examples/banking-api.json#/web-api> .
@@ -109,6 +110,8 @@
 <file://src/test/resources/examples/banking-api.json#/web-api/endpoint/%2Fcustomers%2F%7Bcustomer_id%7D/supportedOperation/get> <http://a.ml/vocabularies/apiContract#method> "get" .
 <file://src/test/resources/examples/banking-api.json#/web-api/endpoint/%2Fcustomers%2F%7Bcustomer_id%7D/supportedOperation/get> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://a.ml/vocabularies/document#DomainElement> .
 <file://src/test/resources/examples/banking-api.json#/web-api/endpoint/%2Fcustomers%2F%7Bcustomer_id%7D/supportedOperation/get> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://a.ml/vocabularies/apiContract#Operation> .
+<file://src/test/resources/examples/banking-api.json/BaseUnitSourceInformation> <http://a.ml/vocabularies/document#rootLocation> "file://src/test/resources/examples/banking-api.json" .
+<file://src/test/resources/examples/banking-api.json/BaseUnitSourceInformation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://a.ml/vocabularies/document#BaseUnitSourceInformation> .
 <file://src/test/resources/examples/banking-api.json#/web-api/endpoint/%2Fcustomers%2F%7Bcustomer_id%7D/supportedOperation/delete> <http://a.ml/vocabularies/apiContract#returns> <file://src/test/resources/examples/banking-api.json#/web-api/endpoint/%2Fcustomers%2F%7Bcustomer_id%7D/supportedOperation/delete/returns/resp/200> .
 <file://src/test/resources/examples/banking-api.json#/web-api/endpoint/%2Fcustomers%2F%7Bcustomer_id%7D/supportedOperation/delete> <http://a.ml/vocabularies/core#description> "Removes a Customer from the system" .
 <file://src/test/resources/examples/banking-api.json#/web-api/endpoint/%2Fcustomers%2F%7Bcustomer_id%7D/supportedOperation/delete> <http://a.ml/vocabularies/apiContract#method> "delete" .
