@@ -1,16 +1,16 @@
-import {AMFBaseUnitClient, AMFDocumentResult, OASConfiguration, WebApi} from "amf-client-js";
-import { expect } from "chai";
+import { AMFBaseUnitClient, AMFDocumentResult, OASConfiguration, WebApi } from 'amf-client-js';
+import { expect } from 'chai';
 
-const BANKING_API = "file://src/test/resources/examples/banking-api.flattened.jsonld";
+const BANKING_API = 'file://src/test/resources/examples/banking-api.flattened.jsonld';
 
-describe("AMF Graph", () => {
+describe('AMF Graph', () => {
   let client: AMFBaseUnitClient;
 
   beforeEach(() => {
     client = OASConfiguration.OAS20().baseUnitClient();
   });
 
-  it("parse document from file", async () => {
+  it('parse document from file', async () => {
     const parsingResult: AMFDocumentResult = await client.parseDocument(BANKING_API);
     expect(parsingResult.results).to.be.empty;
     expect(parsingResult.conforms).to.be.true;

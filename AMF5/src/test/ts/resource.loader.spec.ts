@@ -3,15 +3,15 @@ import {
   AMFDocumentResult,
   ClientResourceLoader,
   Content,
-  JsServerFileResourceLoader, RAMLConfiguration,
+  JsServerFileResourceLoader,
+  RAMLConfiguration,
   ResourceLoader,
-  ResourceLoaderFactory,
+  ResourceLoaderFactory
+} from 'amf-client-js';
+import { expect } from 'chai';
 
-} from "amf-client-js";
-import { expect } from "chai";
-
-describe("Resource Loader test", () => {
-  it("Fetches file accessed with Mock Git Protocol", async () => {
+describe('Resource Loader test', () => {
+  it('Fetches file accessed with Mock Git Protocol', async () => {
     const customResourceLoader: ResourceLoader = ResourceLoaderFactory.create(
       new MockGitResourceLoader()
     );
@@ -19,21 +19,21 @@ describe("Resource Loader test", () => {
       .withResourceLoader(customResourceLoader)
       .baseUnitClient();
     const result: AMFDocumentResult = await client.parseDocument(
-      "git://src/test/resources/examples/banking-api.raml"
+      'git://src/test/resources/examples/banking-api.raml'
     );
     expect(result.conforms).to.be.true;
   });
 });
 
 class MockGitResourceLoader implements ClientResourceLoader {
-  RESOURCE_TO_FETCH = "git://src/test/resources/examples/banking-api.raml";
+  RESOURCE_TO_FETCH = 'git://src/test/resources/examples/banking-api.raml';
 
   accepts(resource: string): boolean {
-    return resource.startsWith("git://");
+    return resource.startsWith('git://');
   }
 
   fetch(resource: string): Promise<Content> {
-    const replacedResource = this.RESOURCE_TO_FETCH.replace("git://", "file://");
+    const replacedResource = this.RESOURCE_TO_FETCH.replace('git://', 'file://');
     return new JsServerFileResourceLoader().fetch(replacedResource);
   }
 }
