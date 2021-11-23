@@ -3,28 +3,26 @@ import {
   AMFDocumentResult,
   AMFResult,
   Document,
-  EndPoint, OASConfiguration,
+  EndPoint,
+  OASConfiguration,
   Operation,
   RAMLConfiguration,
   Server,
-  WebApi,
+  WebApi
+} from 'amf-client-js';
+import { expect } from 'chai';
 
-} from "amf-client-js";
-import { expect } from "chai";
-
-describe("Transform RAML APIs", () => {
-
-  describe("RAML 1.0", () => {
-
+describe('Transform RAML APIs', () => {
+  describe('RAML 1.0', () => {
     let client: AMFBaseUnitClient;
 
     beforeEach(() => {
       client = RAMLConfiguration.RAML10().baseUnitClient();
     });
 
-    it("applies resource types and traits, applies inheritance, etc", async () => {
+    it('applies resource types and traits, applies inheritance, etc', async () => {
       const parseResult: AMFDocumentResult = await client.parseDocument(
-        "file://src/test/resources/examples/raml-resource-type.raml"
+        'file://src/test/resources/examples/raml-resource-type.raml'
       );
       const transformed: AMFResult = client.transform(parseResult.baseUnit);
       const doc: Document = transformed.baseUnit as Document;
@@ -32,32 +30,31 @@ describe("Transform RAML APIs", () => {
       expect(api.endPoints[0].operations).to.not.empty;
     });
 
-    it("applies overlays to document", async () => {
+    it('applies overlays to document', async () => {
       const parseResult: AMFDocumentResult = await client.parseDocument(
-        "file://src/test/resources/examples/raml-overlay/test-overlay.raml"
+        'file://src/test/resources/examples/raml-overlay/test-overlay.raml'
       );
       const transformed: AMFResult = client.transform(parseResult.baseUnit);
       const doc: Document = transformed.baseUnit as Document;
       expect(doc.references()).to.be.empty;
       const api: WebApi = doc.encodes as WebApi;
       const existsEndpointSlashOthers: EndPoint | undefined = api.endPoints.find(
-        (e) => e.path.value() == "/others"
+        (e) => e.path.value() == '/others'
       );
       expect(existsEndpointSlashOthers).to.not.be.undefined;
     });
   });
 
-  describe("OAS 3.0", () => {
-
+  describe('OAS 3.0', () => {
     let client: AMFBaseUnitClient;
 
     beforeEach(() => {
       client = OASConfiguration.OAS30().baseUnitClient();
     });
 
-    it("transforms the document", async () => {
+    it('transforms the document', async () => {
       const parseResult: AMFDocumentResult = await client.parseDocument(
-        "file://src/test/resources/examples/banking-api-oas30.json"
+        'file://src/test/resources/examples/banking-api-oas30.json'
       );
       const transformed: AMFResult = client.transform(parseResult.baseUnit);
       const doc: Document = transformed.baseUnit as Document;
@@ -66,11 +63,11 @@ describe("Transform RAML APIs", () => {
       const firstServerOfEachOperation: Server[] = apiOperations.map((op) => op.servers[0]);
       expect(firstServerOfEachOperation).to.not.contain(
         undefined,
-        "There is an operation without server"
+        'There is an operation without server'
       );
       expect(firstServerOfEachOperation).to.have.length(
         apiOperations.length,
-        "Each operation should have a server"
+        'Each operation should have a server'
       );
     });
   });

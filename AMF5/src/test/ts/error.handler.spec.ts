@@ -1,13 +1,14 @@
 import {
-  OASConfiguration,
-  ErrorHandler,
   AMFBaseUnitClient,
-  JsErrorHandler,
+  AMFDocumentResult,
+  AMFValidationResult,
+  ErrorHandler,
   ErrorHandlerProvider,
-  AMFDocumentResult, AMFValidationResult,
-} from "amf-client-js";
-import * as chaiAsPromised from "chai-as-promised";
-import { expect, use as useChai } from "chai";
+  JsErrorHandler,
+  OASConfiguration
+} from 'amf-client-js';
+import * as chaiAsPromised from 'chai-as-promised';
+import { expect, use as useChai } from 'chai';
 
 useChai(chaiAsPromised);
 
@@ -27,19 +28,18 @@ class MyErrorHandler implements JsErrorHandler {
   }
 }
 
-describe("Use custom error handler", () => {
-
-  const error = new Error("A WILD ERROR APPEARED!");
+describe('Use custom error handler', () => {
+  const error = new Error('A WILD ERROR APPEARED!');
   const unhandledProvider: ErrorHandlerProvider = ErrorHandler.provider(new MyErrorHandler(error));
 
-  it("throws exception on violation", async () => {
+  it('throws exception on violation', async () => {
     const client: AMFBaseUnitClient = OASConfiguration.OAS30()
       .withErrorHandlerProvider(unhandledProvider)
       .baseUnitClient();
     const failedPromise: Promise<AMFDocumentResult> = client.parseDocument(
-      "file://src/test/resources/examples/banking-api-oas30-error.json"
+      'file://src/test/resources/examples/banking-api-oas30-error.json'
     );
-    await expect(failedPromise).to.not.eventually.be.rejectedWith(new Error("NOT MY ERROR"));
+    await expect(failedPromise).to.not.eventually.be.rejectedWith(new Error('NOT MY ERROR'));
     await expect(failedPromise).to.eventually.be.rejectedWith(error);
   });
 });
