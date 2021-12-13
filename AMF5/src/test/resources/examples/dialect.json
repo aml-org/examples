@@ -1,0 +1,24 @@
+{
+  "$dialect": "Dialect 1.0",
+  "dialect": "SimpleDialect",
+  "version": "1.0",
+  "documents": {
+    "root": {
+      "encodes": "Simple"
+    }
+  },
+  "nodeMappings": {
+    "Simple": {
+      "mapping": {
+        "a": {
+          "unique": true,
+          "range": "string"
+        },
+        "b": {
+          "unique": true,
+          "range": "integer"
+        }
+      }
+    }
+  }
+}
