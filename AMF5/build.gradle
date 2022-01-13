@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.amlorg:amf-api-contract_2.12:5.0.2'
+    implementation 'com.github.amlorg:amf-api-contract_2.12:5.0.3'
     implementation 'com.github.amlorg:amf-rdf_2.12:6.0.2'
 
     implementation 'org.scala-lang:scala-library:2.12.12'
