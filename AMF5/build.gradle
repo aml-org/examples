@@ -25,8 +25,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.amlorg:amf-api-contract_2.12:5.0.3'
-    implementation 'com.github.amlorg:amf-rdf_2.12:6.0.2'
+    implementation 'com.github.amlorg:amf-api-contract_2.12:5.0.0-SEMANTIC-JSON-INTERNAL.0'
+    implementation ('com.github.amlorg:amf-rdf_2.12:6.0.2') {
+        exclude group: 'com.github.amlorg', module: 'amf-core_2.12'
+    }
 
     implementation 'org.scala-lang:scala-library:2.12.12'
     implementation 'com.jsuereth:scala-arm_2.12:2.0'

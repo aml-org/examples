@@ -5,7 +5,7 @@ import amf.core.client.common.transform.PipelineId
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
 
-class ConversionTest extends AsyncFlatSpec with should.Matchers {
+class ConversionTest extends AsyncFlatSpec with should.Matchers with FileUtils {
 
   val raml10Client: AMFBaseUnitClient = RAMLConfiguration.RAML10().baseUnitClient()
   val oas20Client: AMFBaseUnitClient = OASConfiguration.OAS20().baseUnitClient()
@@ -38,11 +38,4 @@ class ConversionTest extends AsyncFlatSpec with should.Matchers {
     }
   }
 
-  private def getStrFromFile(path: String): String = {
-    val source = scala.io.Source.fromFile(path)
-    val read =
-      try source.mkString
-      finally source.close()
-    read
-  }
 }

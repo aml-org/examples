@@ -1,0 +1,15 @@
+#%Vocabulary 1.0
+external:
+  somethingElse: https://test.com/somethingElse#
+  security: https://test.com/security#
+base: https://a.ml/semantic-json-schema#
+vocabulary: Semantic JSON Schema Vocabulary
+propertyTerms:
+  info_1:
+    extends: somethingElse.anything
+  info_2:
+    extends: somethingElse.anything
+  key_1:
+    extends: security.sensitive
+  key_2:
+    extends: security.sensitive
