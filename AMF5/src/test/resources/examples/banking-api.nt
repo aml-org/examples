@@ -121,7 +121,7 @@
 <file://src/test/resources/examples/banking-api.json#/web-api/endpoint/%2Fcustomers%2F%7Bcustomer_id%7D/supportedOperation/get/returns/resp/200> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://a.ml/vocabularies/apiContract#Message> .
 <file://src/test/resources/examples/banking-api.json#/web-api/endpoint/%2Fcustomers%2F%7Bcustomer_id%7D/supportedOperation/get/returns/resp/200> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://a.ml/vocabularies/apiContract#Response> .
 <file://src/test/resources/examples/banking-api.json#/BaseUnitProcessingData> <http://a.ml/vocabularies/document#sourceSpec> "OAS 2.0" .
-<file://src/test/resources/examples/banking-api.json#/BaseUnitProcessingData> <http://a.ml/vocabularies/apiContract#modelVersion> "3.2.0" .
+<file://src/test/resources/examples/banking-api.json#/BaseUnitProcessingData> <http://a.ml/vocabularies/apiContract#modelVersion> "3.4.0" .
 <file://src/test/resources/examples/banking-api.json#/BaseUnitProcessingData> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://a.ml/vocabularies/document#APIContractProcessingData> .
 <file://src/test/resources/examples/banking-api.json#/web-api/endpoint/%2Fcustomers%2F%7Bcustomer_id%7D%2Fcards%2Fdebit/parameter/parameter/path/customer_id> <http://a.ml/vocabularies/shapes#schema> <file://src/test/resources/examples/banking-api.json#/web-api/endpoint/%2Fcustomers%2F%7Bcustomer_id%7D%2Fcards%2Fdebit/parameter/parameter/path/customer_id/scalar/schema> .
 <file://src/test/resources/examples/banking-api.json#/web-api/endpoint/%2Fcustomers%2F%7Bcustomer_id%7D%2Fcards%2Fdebit/parameter/parameter/path/customer_id> <http://a.ml/vocabularies/apiContract#binding> "path" .
