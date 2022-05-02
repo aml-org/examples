@@ -11,8 +11,8 @@ version: v1
       album-ids:
         description: A comma-separated list of IDs
         type: string
-    responses:
-      "200":
+    (amf-defaultResponse):
+      default:
         body:
           application/json:
             type: string
@@ -20,8 +20,8 @@ version: v1
   displayName: current-user
   get:
     description: Get Current User's Profile
-    responses:
-      "200":
+    (amf-defaultResponse):
+      default:
         body:
           application/json:
             type: string
@@ -33,8 +33,8 @@ version: v1
       Market?:
         description: " The market (an ISO 3166-1 alpha-2 country code)"
         type: string
-    responses:
-      "200":
+    (amf-defaultResponse):
+      default:
         body:
           application/json:
             type: string
@@ -46,8 +46,8 @@ version: v1
   displayName: current-user-playlists
   get:
     description: Get a List of Current User's Playlists
-    responses:
-      "200":
+    (amf-defaultResponse):
+      default:
         body:
           application/json:
             type: string
