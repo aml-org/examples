@@ -4,13 +4,16 @@ import amf.apicontract.client.scala.model.domain.{Payload, Response}
 import amf.apicontract.client.scala.OASConfiguration
 import amf.core.client.platform.model.DataTypes
 import amf.shapes.client.scala.model.domain.ScalarShape
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should.Matchers
+import org.scalatestplus.junit.JUnitRunner
 import org.yaml.model.YDocument
 import org.yaml.render.JsonRender
 
 import java.util.Arrays.asList
 
+@RunWith(classOf[JUnitRunner])
 class RenderDomainElementTest extends AsyncFlatSpec with Matchers with FileReader {
 
   "AMFElementClient" should "render a domain element" in {

@@ -5,9 +5,12 @@ import amf.apicontract.client.scala.model.domain.Request
 import amf.apicontract.client.scala.model.domain.api.WebApi
 import amf.core.client.scala.model.document.Document
 import org.junit.Assert.assertTrue
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
+import org.scalatestplus.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class ModelBuilderTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF" should "create a valid model in memory" in {

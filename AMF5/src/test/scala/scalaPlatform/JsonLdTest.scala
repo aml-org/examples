@@ -2,10 +2,13 @@ package scalaPlatform
 
 import amf.apicontract.client.scala.WebAPIConfiguration
 import amf.core.client.scala.model.document.Document
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.must.Matchers.convertToAnyMustWrapper
 import org.scalatest.matchers.should
+import org.scalatestplus.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class JsonLdTest extends AsyncFlatSpec with should.Matchers {
 
   "An embedded json-ld" should "give the corresponding in-memory model" in {

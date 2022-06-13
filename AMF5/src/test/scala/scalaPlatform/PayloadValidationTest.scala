@@ -4,9 +4,12 @@ import amf.apicontract.client.scala.RAMLConfiguration
 import amf.apicontract.client.scala.model.domain.api.WebApi
 import amf.core.client.common.validation.ValidationMode
 import amf.core.client.scala.model.document.Document
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
+import org.scalatestplus.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class PayloadValidationTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF payload validation" should "create and use a user schema payload validator" in {

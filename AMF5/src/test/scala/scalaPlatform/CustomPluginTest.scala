@@ -9,9 +9,12 @@ import amf.core.client.scala.parse.AMFParsePlugin
 import amf.core.client.scala.parse.document.{ParserContext, ReferenceHandler, SimpleReferenceHandler}
 import amf.core.internal.parser.Root
 import amf.core.internal.remote.Spec
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
+import org.scalatestplus.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class CustomPluginTest extends AsyncFlatSpec with should.Matchers {
 
   private val CUSTOM_MEDIATYPE = "application/custom+syntax"

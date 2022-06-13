@@ -1,9 +1,12 @@
 package scalaPlatform
 
 import amf.apicontract.client.scala.RAMLConfiguration
+import org.junit.runner.RunWith
 import org.scalatest.flatspec._
 import org.scalatest.matchers._
+import org.scalatestplus.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class ValidationTest extends AsyncFlatSpec with should.Matchers {
 
   "Raml Validation" should "not conform when the api has a validation error" in {

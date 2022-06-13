@@ -4,9 +4,12 @@ import amf.apicontract.client.scala.OASConfiguration
 import amf.core.client.scala.config.{ParsingOptions, RenderOptions}
 import amf.core.internal.remote.Mimes
 import amf.core.internal.remote.Mimes.`application/ld+json`
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
+import org.scalatestplus.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class ConfigurationOptionsTest extends AsyncFlatSpec with should.Matchers {
 
   "Configuration" should "be configurable with options" in {

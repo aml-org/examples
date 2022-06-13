@@ -8,13 +8,16 @@ import amf.core.client.scala.execution.ExecutionEnvironment
 import amf.core.client.scala.model.document.{BaseUnit, Document}
 import amf.core.client.scala.model.domain.Shape
 import amf.core.client.scala.resource.{LoaderWithExecutionContext, ResourceLoader}
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
+import org.scalatestplus.junit.JUnitRunner
 
 import java.util.concurrent.{Executors, ThreadFactory}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.io.Source
 
+@RunWith(classOf[JUnitRunner])
 class SchedulerTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF configuration" should "allow defining custom execution context" in {
