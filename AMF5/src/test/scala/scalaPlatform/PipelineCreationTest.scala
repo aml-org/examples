@@ -6,9 +6,12 @@ import amf.core.client.scala.AMFGraphConfiguration
 import amf.core.client.scala.errorhandling.AMFErrorHandler
 import amf.core.client.scala.model.document.{BaseUnit, Document}
 import amf.core.client.scala.transform.{TransformationPipelineBuilder, TransformationStep}
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
+import org.scalatestplus.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class PipelineCreationTest extends AsyncFlatSpec with should.Matchers with FileReader {
 
   private val CUSTOM_PIPELINE_NAME = "MyPipeline"

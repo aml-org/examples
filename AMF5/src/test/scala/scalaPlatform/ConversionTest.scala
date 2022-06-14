@@ -2,9 +2,12 @@ package scalaPlatform
 
 import amf.apicontract.client.scala.{AMFBaseUnitClient, OASConfiguration, RAMLConfiguration}
 import amf.core.client.common.transform.PipelineId
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
+import org.scalatestplus.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class ConversionTest extends AsyncFlatSpec with should.Matchers {
 
   val raml10Client: AMFBaseUnitClient = RAMLConfiguration.RAML10().baseUnitClient()

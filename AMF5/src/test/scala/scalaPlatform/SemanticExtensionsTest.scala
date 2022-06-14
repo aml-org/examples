@@ -4,11 +4,14 @@ import amf.apicontract.client.scala.OASConfiguration
 import amf.apicontract.client.scala.model.domain.api.{Api, WebApi}
 import amf.core.client.common.transform.PipelineId
 import amf.core.client.scala.model.document.Document
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
+import org.scalatestplus.junit.JUnitRunner
 
 import scala.concurrent.Future
 
+@RunWith(classOf[JUnitRunner])
 class SemanticExtensionsTest extends AsyncFlatSpec with should.Matchers {
 
   val EXTENSION_DIALECT = "file://src/test/resources/examples/semantic/extensions.yaml"

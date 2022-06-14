@@ -3,10 +3,13 @@ package scalaPlatform
 import amf.apicontract.client.scala.OASConfiguration
 import amf.core.client.scala.model.document.Document
 import amf.rdf.client.scala.RdfUnitConverter
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
+import org.scalatestplus.junit.JUnitRunner
 import scalaPlatform.TestUtils.{sortingLines, strippedOfWhitespace}
 
+@RunWith(classOf[JUnitRunner])
 class RdfTest extends AsyncFlatSpec with should.Matchers with FileReader {
 
   "AMF" should "convert BaseUnit to an RdfModel" in {

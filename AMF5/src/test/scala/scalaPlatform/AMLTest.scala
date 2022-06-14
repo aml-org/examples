@@ -4,11 +4,14 @@ import amf.aml.client.scala.AMLConfiguration
 import amf.aml.client.scala.model.document.Dialect
 import amf.aml.client.scala.model.domain.DialectDomainElement
 import junit.framework.TestCase.assertTrue
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
+import org.scalatestplus.junit.JUnitRunner
 
 import scala.concurrent.Future.successful
 
+@RunWith(classOf[JUnitRunner])
 class AMLTest extends AsyncFlatSpec with should.Matchers {
   val simpleDialectWithVocabulary = "file://src/test/resources/examples/dialect-vocab.yaml"
   val simpleVocabulary = "file://src/test/resources/examples/vocabulary.yaml"

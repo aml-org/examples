@@ -3,10 +3,13 @@ package scalaPlatform
 import amf.apicontract.client.scala.{APIConfiguration, OASConfiguration, RAMLConfiguration, WebAPIConfiguration}
 import amf.core.client.scala.model.document.Document
 import amf.core.internal.remote.Spec
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.must.Matchers.convertToAnyMustWrapper
 import org.scalatest.matchers.should
+import org.scalatestplus.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class ParsingTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF client" should "parse an OAS 2.0 API" in {

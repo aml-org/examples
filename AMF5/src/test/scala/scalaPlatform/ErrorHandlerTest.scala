@@ -2,9 +2,12 @@ package scalaPlatform
 
 import amf.apicontract.client.scala.RAMLConfiguration
 import amf.core.client.scala.errorhandling.UnhandledErrorHandler
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should
+import org.scalatestplus.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class ErrorHandlerTest extends AsyncFlatSpec with should.Matchers {
 
   "AMF client" should "use a custom error handler provider" in {

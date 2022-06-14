@@ -2,10 +2,13 @@ package scalaPlatform
 
 import amf.apicontract.client.scala.APIConfiguration
 import amf.core.client.common.validation.ProfileNames
+import org.junit.runner.RunWith
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should.Matchers
+import org.scalatestplus.junit.JUnitRunner
 
-class UnknownConfigCreation extends AsyncFlatSpec with Matchers{
+@RunWith(classOf[JUnitRunner])
+class UnknownConfigCreationTest extends AsyncFlatSpec with Matchers{
 
   it should "be able to create a config from a parsed API result" in {
     val client = APIConfiguration.API().baseUnitClient()
