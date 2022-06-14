@@ -21,8 +21,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'npm install'
-                sh 'npm run test'
+                sh 'cd AMF5 && npm install && npm run test'
             }
         }
     }
