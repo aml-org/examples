@@ -15,6 +15,7 @@ pipeline {
       agent {
         docker {
           image 'gradle:7.4.2-jdk11-alpine'
+          registryCredentialsId 'dockerhub-pro-credentials'
           reuseNode true // Reuses the current node
         }
       }
@@ -30,6 +31,7 @@ pipeline {
       agent {
         docker {
           image 'node:16-alpine'
+          registryCredentialsId 'dockerhub-pro-credentials'
           reuseNode true // Reuses the current node
         }
       }
