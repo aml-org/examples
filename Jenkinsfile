@@ -15,6 +15,7 @@ pipeline {
       agent {
         docker {
           image 'gradle:7.4.2-jdk11-alpine'
+          registryCredentialsId 'dockerhub-pro-credentials'
           reuseNode true // Reuses the current node
         }
       }
@@ -30,6 +31,7 @@ pipeline {
       agent {
         docker {
           image 'node:16-alpine'
+          registryCredentialsId 'dockerhub-pro-credentials'
           reuseNode true // Reuses the current node
         }
       }
@@ -54,11 +56,9 @@ pipeline {
     }
     success {
       script {
-        echo "SUCCESSFULL BUILD"
-        if (isMaster()) {
-          sendSuccessfulSlackMessage(SLACK_CHANNEL, PRODUCT_NAME)
-        } else {
-          echo "Successful build: skipping slack message notification as branch is not master"
+        echo "SUCCESSFUL BUILD"
+        if (lastBuildFailed() && isMaster()) {
+          slackSend color: '#00FF00', channel: SLACK_CHANNEL, message: ":ok_hand: examples: Everything back to normal :ok_hand:"
         }
       }
     }
@@ -67,6 +67,11 @@ pipeline {
 
 Boolean isMaster() {
   env.BRANCH_NAME == "master"
+}
+
+Boolean lastBuildFailed() {
+    def lastBuild = currentBuild.getPreviousBuild()
+    lastBuild != null && lastBuild.result == "FAILURE"
 }
 
 def sendBuildErrorSlackMessage(String lastStage, String slackChannel, String productName) {
