@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "title": "People",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/Person"
+  },
+  "$defs": {
+    "Person": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
