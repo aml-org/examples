@@ -644,7 +644,7 @@
       ],
       "http://www.w3.org/2000/01/rdf-schema#domain": [
         {
-          "@id": "http://a.ml/vocabularies/apiContract#WebAPI"
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/SCHEMA"
         }
       ],
       "http://a.ml/vocabularies/shapes#schema": {
@@ -661,13 +661,7 @@
       ],
       "http://www.w3.org/2000/01/rdf-schema#domain": [
         {
-          "@id": "http://a.ml/vocabularies/shapes#Operation"
-        },
-        {
-          "@id": "http://www.w3.org/ns/shacl#PropertyShape"
-        },
-        {
-          "@id": "http://a.ml/vocabularies/apiContract#EndPoint"
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/FIELD_DEFINITION"
         }
       ],
       "http://a.ml/vocabularies/shapes#schema": {
@@ -684,13 +678,7 @@
       ],
       "http://www.w3.org/2000/01/rdf-schema#domain": [
         {
-          "@id": "http://a.ml/vocabularies/shapes#Operation"
-        },
-        {
-          "@id": "http://www.w3.org/ns/shacl#PropertyShape"
-        },
-        {
-          "@id": "http://a.ml/vocabularies/apiContract#EndPoint"
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/FIELD_DEFINITION"
         }
       ],
       "http://a.ml/vocabularies/shapes#schema": {
@@ -707,7 +695,10 @@
       ],
       "http://www.w3.org/2000/01/rdf-schema#domain": [
         {
-          "@id": "http://www.w3.org/ns/shacl#NodeShape"
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/OBJECT"
+        },
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/INTERFACE"
         }
       ],
       "http://a.ml/vocabularies/shapes#schema": {
