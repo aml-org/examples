@@ -241,7 +241,7 @@
       ],
       "http://www.w3.org/ns/shacl#datatype": [
         {
-          "@id": "http://www.w3.org/2001/XMLSchema#string"
+          "@id": "http://www.w3.org/2001/XMLSchema#anyType"
         }
       ],
       "http://a.ml/vocabularies/shapes#format": "_Any",
@@ -576,10 +576,19 @@
           "@id": "amf://id#52"
         },
         {
-          "@id": "amf://id#57"
+          "@id": "amf://id#55"
         },
         {
-          "@id": "amf://id#62"
+          "@id": "amf://id#58"
+        },
+        {
+          "@id": "amf://id#66"
+        },
+        {
+          "@id": "amf://id#68"
+        },
+        {
+          "@id": "amf://id#70"
         }
       ],
       "@type": [
@@ -629,11 +638,11 @@
       ],
       "http://www.w3.org/ns/shacl#datatype": [
         {
-          "@id": "http://www.w3.org/2001/XMLSchema#string"
+          "@id": "http://www.w3.org/2001/XMLSchema#anyType"
         }
       ],
-      "http://a.ml/vocabularies/shapes#format": "_FieldSet",
-      "http://www.w3.org/ns/shacl#name": "_FieldSet"
+      "http://a.ml/vocabularies/shapes#format": "FieldSet",
+      "http://www.w3.org/ns/shacl#name": "FieldSet"
     },
     {
       "@id": "amf://id#50",
@@ -644,7 +653,7 @@
       ],
       "http://www.w3.org/2000/01/rdf-schema#domain": [
         {
-          "@id": "http://a.ml/vocabularies/graphql#directive/location/SCHEMA"
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/FIELD_DEFINITION"
         }
       ],
       "http://a.ml/vocabularies/shapes#schema": {
@@ -670,7 +679,7 @@
       "http://a.ml/vocabularies/core#name": "requires"
     },
     {
-      "@id": "amf://id#57",
+      "@id": "amf://id#55",
       "@type": [
         "http://a.ml/vocabularies/document#DomainProperty",
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
@@ -682,12 +691,12 @@
         }
       ],
       "http://a.ml/vocabularies/shapes#schema": {
-        "@id": "amf://id#58"
+        "@id": "amf://id#56"
       },
       "http://a.ml/vocabularies/core#name": "provides"
     },
     {
-      "@id": "amf://id#62",
+      "@id": "amf://id#58",
       "@type": [
         "http://a.ml/vocabularies/document#DomainProperty",
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
@@ -702,9 +711,91 @@
         }
       ],
       "http://a.ml/vocabularies/shapes#schema": {
-        "@id": "amf://id#63"
+        "@id": "amf://id#59"
       },
-      "http://a.ml/vocabularies/core#name": "key"
+      "http://a.ml/vocabularies/core#name": "key",
+      "http://a.ml/vocabularies/core#repeatable": true
+    },
+    {
+      "@id": "amf://id#66",
+      "@type": [
+        "http://a.ml/vocabularies/document#DomainProperty",
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+        "http://a.ml/vocabularies/document#DomainElement"
+      ],
+      "http://www.w3.org/2000/01/rdf-schema#domain": [
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/OBJECT"
+        },
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/FIELD_DEFINITION"
+        }
+      ],
+      "http://a.ml/vocabularies/shapes#schema": {
+        "@id": "amf://id#67"
+      },
+      "http://a.ml/vocabularies/core#name": "shareable"
+    },
+    {
+      "@id": "amf://id#68",
+      "@type": [
+        "http://a.ml/vocabularies/document#DomainProperty",
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+        "http://a.ml/vocabularies/document#DomainElement"
+      ],
+      "http://www.w3.org/2000/01/rdf-schema#domain": [
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/FIELD_DEFINITION"
+        },
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/OBJECT"
+        },
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/INTERFACE"
+        },
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/UNION"
+        },
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/ARGUMENT_DEFINITION"
+        },
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/SCALAR"
+        },
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/ENUM"
+        },
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/ENUM_VALUE"
+        },
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/INPUT_OBJECT"
+        },
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/INPUT_FIELD_DEFINITION"
+        }
+      ],
+      "http://a.ml/vocabularies/shapes#schema": {
+        "@id": "amf://id#69"
+      },
+      "http://a.ml/vocabularies/core#name": "inaccessible"
+    },
+    {
+      "@id": "amf://id#70",
+      "@type": [
+        "http://a.ml/vocabularies/document#DomainProperty",
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+        "http://a.ml/vocabularies/document#DomainElement"
+      ],
+      "http://www.w3.org/2000/01/rdf-schema#domain": [
+        {
+          "@id": "http://a.ml/vocabularies/graphql#directive/location/FIELD_DEFINITION"
+        }
+      ],
+      "http://a.ml/vocabularies/shapes#schema": {
+        "@id": "amf://id#71"
+      },
+      "http://a.ml/vocabularies/core#name": "override"
     },
     {
       "@id": "amf://id#43",
@@ -761,33 +852,45 @@
     {
       "@id": "amf://id#53",
       "@type": [
-        "http://a.ml/vocabularies/shapes#UnionShape",
+        "http://www.w3.org/ns/shacl#NodeShape",
         "http://a.ml/vocabularies/shapes#AnyShape",
         "http://www.w3.org/ns/shacl#Shape",
         "http://a.ml/vocabularies/shapes#Shape",
         "http://a.ml/vocabularies/document#DomainElement"
       ],
-      "http://a.ml/vocabularies/shapes#anyOf": [
+      "http://www.w3.org/ns/shacl#property": [
         {
           "@id": "amf://id#54"
-        },
-        {
-          "@id": "amf://id#56"
         }
       ]
     },
     {
-      "@id": "amf://id#58",
+      "@id": "amf://id#56",
       "@type": [
-        "http://a.ml/vocabularies/shapes#UnionShape",
+        "http://www.w3.org/ns/shacl#NodeShape",
         "http://a.ml/vocabularies/shapes#AnyShape",
         "http://www.w3.org/ns/shacl#Shape",
         "http://a.ml/vocabularies/shapes#Shape",
         "http://a.ml/vocabularies/document#DomainElement"
       ],
-      "http://a.ml/vocabularies/shapes#anyOf": [
+      "http://www.w3.org/ns/shacl#property": [
         {
-          "@id": "amf://id#59"
+          "@id": "amf://id#57"
+        }
+      ]
+    },
+    {
+      "@id": "amf://id#59",
+      "@type": [
+        "http://www.w3.org/ns/shacl#NodeShape",
+        "http://a.ml/vocabularies/shapes#AnyShape",
+        "http://www.w3.org/ns/shacl#Shape",
+        "http://a.ml/vocabularies/shapes#Shape",
+        "http://a.ml/vocabularies/document#DomainElement"
+      ],
+      "http://www.w3.org/ns/shacl#property": [
+        {
+          "@id": "amf://id#60"
         },
         {
           "@id": "amf://id#61"
@@ -795,20 +898,37 @@
       ]
     },
     {
-      "@id": "amf://id#63",
+      "@id": "amf://id#67",
       "@type": [
-        "http://a.ml/vocabularies/shapes#UnionShape",
+        "http://www.w3.org/ns/shacl#NodeShape",
+        "http://a.ml/vocabularies/shapes#AnyShape",
+        "http://www.w3.org/ns/shacl#Shape",
+        "http://a.ml/vocabularies/shapes#Shape",
+        "http://a.ml/vocabularies/document#DomainElement"
+      ]
+    },
+    {
+      "@id": "amf://id#69",
+      "@type": [
+        "http://www.w3.org/ns/shacl#NodeShape",
+        "http://a.ml/vocabularies/shapes#AnyShape",
+        "http://www.w3.org/ns/shacl#Shape",
+        "http://a.ml/vocabularies/shapes#Shape",
+        "http://a.ml/vocabularies/document#DomainElement"
+      ]
+    },
+    {
+      "@id": "amf://id#71",
+      "@type": [
+        "http://www.w3.org/ns/shacl#NodeShape",
         "http://a.ml/vocabularies/shapes#AnyShape",
         "http://www.w3.org/ns/shacl#Shape",
         "http://a.ml/vocabularies/shapes#Shape",
         "http://a.ml/vocabularies/document#DomainElement"
       ],
-      "http://a.ml/vocabularies/shapes#anyOf": [
+      "http://www.w3.org/ns/shacl#property": [
         {
-          "@id": "amf://id#64"
-        },
-        {
-          "@id": "amf://id#66"
+          "@id": "amf://id#72"
         }
       ]
     },
@@ -861,77 +981,18 @@
     {
       "@id": "amf://id#54",
       "@type": [
-        "http://www.w3.org/ns/shacl#NodeShape",
-        "http://a.ml/vocabularies/shapes#AnyShape",
+        "http://www.w3.org/ns/shacl#PropertyShape",
         "http://www.w3.org/ns/shacl#Shape",
         "http://a.ml/vocabularies/shapes#Shape",
         "http://a.ml/vocabularies/document#DomainElement"
       ],
-      "http://www.w3.org/ns/shacl#property": [
-        {
-          "@id": "amf://id#55"
-        }
-      ]
+      "http://a.ml/vocabularies/shapes#range": {
+        "@id": "amf://id#49"
+      },
+      "http://www.w3.org/ns/shacl#name": "fieldSet"
     },
     {
-      "@id": "amf://id#56",
-      "@type": [
-        "http://a.ml/vocabularies/shapes#NilShape",
-        "http://www.w3.org/ns/shacl#Shape",
-        "http://a.ml/vocabularies/shapes#Shape",
-        "http://a.ml/vocabularies/document#DomainElement"
-      ]
-    },
-    {
-      "@id": "amf://id#59",
-      "@type": [
-        "http://www.w3.org/ns/shacl#NodeShape",
-        "http://a.ml/vocabularies/shapes#AnyShape",
-        "http://www.w3.org/ns/shacl#Shape",
-        "http://a.ml/vocabularies/shapes#Shape",
-        "http://a.ml/vocabularies/document#DomainElement"
-      ],
-      "http://www.w3.org/ns/shacl#property": [
-        {
-          "@id": "amf://id#60"
-        }
-      ]
-    },
-    {
-      "@id": "amf://id#61",
-      "@type": [
-        "http://a.ml/vocabularies/shapes#NilShape",
-        "http://www.w3.org/ns/shacl#Shape",
-        "http://a.ml/vocabularies/shapes#Shape",
-        "http://a.ml/vocabularies/document#DomainElement"
-      ]
-    },
-    {
-      "@id": "amf://id#64",
-      "@type": [
-        "http://www.w3.org/ns/shacl#NodeShape",
-        "http://a.ml/vocabularies/shapes#AnyShape",
-        "http://www.w3.org/ns/shacl#Shape",
-        "http://a.ml/vocabularies/shapes#Shape",
-        "http://a.ml/vocabularies/document#DomainElement"
-      ],
-      "http://www.w3.org/ns/shacl#property": [
-        {
-          "@id": "amf://id#65"
-        }
-      ]
-    },
-    {
-      "@id": "amf://id#66",
-      "@type": [
-        "http://a.ml/vocabularies/shapes#NilShape",
-        "http://www.w3.org/ns/shacl#Shape",
-        "http://a.ml/vocabularies/shapes#Shape",
-        "http://a.ml/vocabularies/document#DomainElement"
-      ]
-    },
-    {
-      "@id": "amf://id#55",
+      "@id": "amf://id#57",
       "@type": [
         "http://www.w3.org/ns/shacl#PropertyShape",
         "http://www.w3.org/ns/shacl#Shape",
@@ -957,7 +1018,7 @@
       "http://www.w3.org/ns/shacl#name": "fieldSet"
     },
     {
-      "@id": "amf://id#65",
+      "@id": "amf://id#61",
       "@type": [
         "http://www.w3.org/ns/shacl#PropertyShape",
         "http://www.w3.org/ns/shacl#Shape",
@@ -965,9 +1026,96 @@
         "http://a.ml/vocabularies/document#DomainElement"
       ],
       "http://a.ml/vocabularies/shapes#range": {
-        "@id": "amf://id#49"
+        "@id": "amf://id#63"
       },
-      "http://www.w3.org/ns/shacl#name": "fieldSet"
+      "http://www.w3.org/ns/shacl#name": "resolvable",
+      "http://www.w3.org/ns/shacl#defaultValue": {
+        "@id": "amf://id#62"
+      }
+    },
+    {
+      "@id": "amf://id#72",
+      "@type": [
+        "http://www.w3.org/ns/shacl#PropertyShape",
+        "http://www.w3.org/ns/shacl#Shape",
+        "http://a.ml/vocabularies/shapes#Shape",
+        "http://a.ml/vocabularies/document#DomainElement"
+      ],
+      "http://a.ml/vocabularies/shapes#range": {
+        "@id": "amf://id#73"
+      },
+      "http://www.w3.org/ns/shacl#name": "from"
+    },
+    {
+      "@id": "amf://id#63",
+      "@type": [
+        "http://a.ml/vocabularies/shapes#UnionShape",
+        "http://a.ml/vocabularies/shapes#AnyShape",
+        "http://www.w3.org/ns/shacl#Shape",
+        "http://a.ml/vocabularies/shapes#Shape",
+        "http://a.ml/vocabularies/document#DomainElement"
+      ],
+      "http://a.ml/vocabularies/shapes#anyOf": [
+        {
+          "@id": "amf://id#64"
+        },
+        {
+          "@id": "amf://id#65"
+        }
+      ]
+    },
+    {
+      "@id": "amf://id#62",
+      "@type": [
+        "http://a.ml/vocabularies/data#Scalar",
+        "http://a.ml/vocabularies/data#Node",
+        "http://a.ml/vocabularies/document#DomainElement"
+      ],
+      "http://a.ml/vocabularies/data#value": "true",
+      "http://www.w3.org/ns/shacl#datatype": [
+        {
+          "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+        }
+      ]
+    },
+    {
+      "@id": "amf://id#73",
+      "@type": [
+        "http://a.ml/vocabularies/shapes#ScalarShape",
+        "http://a.ml/vocabularies/shapes#AnyShape",
+        "http://www.w3.org/ns/shacl#Shape",
+        "http://a.ml/vocabularies/shapes#Shape",
+        "http://a.ml/vocabularies/document#DomainElement"
+      ],
+      "http://www.w3.org/ns/shacl#datatype": [
+        {
+          "@id": "http://www.w3.org/2001/XMLSchema#string"
+        }
+      ]
+    },
+    {
+      "@id": "amf://id#64",
+      "@type": [
+        "http://a.ml/vocabularies/shapes#ScalarShape",
+        "http://a.ml/vocabularies/shapes#AnyShape",
+        "http://www.w3.org/ns/shacl#Shape",
+        "http://a.ml/vocabularies/shapes#Shape",
+        "http://a.ml/vocabularies/document#DomainElement"
+      ],
+      "http://www.w3.org/ns/shacl#datatype": [
+        {
+          "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+        }
+      ]
+    },
+    {
+      "@id": "amf://id#65",
+      "@type": [
+        "http://a.ml/vocabularies/shapes#NilShape",
+        "http://www.w3.org/ns/shacl#Shape",
+        "http://a.ml/vocabularies/shapes#Shape",
+        "http://a.ml/vocabularies/document#DomainElement"
+      ]
     }
   ]
 }
