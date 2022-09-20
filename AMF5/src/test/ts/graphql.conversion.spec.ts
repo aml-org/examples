@@ -2,7 +2,7 @@ import {
     AMFParseResult,
     AMLBaseUnitClient,
     GraphQLFederationConfiguration,
-    GraphQLConfiguration, AMFResult
+    GraphQLConfiguration, AMFResult, PipelineId
 } from 'amf-client-js';
 import {expect} from 'chai';
 import * as fileSystem from 'fs';
@@ -17,7 +17,8 @@ describe('GraphQL Conversion', () => {
         const graphQLClient: AMLBaseUnitClient = GraphQLConfiguration.GraphQL().baseUnitClient();
         const parseResult: AMFParseResult = await graphQLFedClient.parse(ORIGIN_FEDERATION);
         expect(parseResult.conforms).to.be.true;
-        const transformResult: AMFResult = graphQLFedClient.transform(parseResult.baseUnit, "Introspection");
+        // @ts-ignore TODO: remove ignored
+        const transformResult: AMFResult = graphQLFedClient.transform(parseResult.baseUnit, PipelineId.Introspection);
         expect(transformResult.conforms).to.be.true;
         const renderedGraphQL: string = graphQLClient.render(transformResult.baseUnit, "application/ld+json");
         const goldenGraphQL: string = fileSystem.readFileSync(CONVERTED_NO_FEDERATION, {
