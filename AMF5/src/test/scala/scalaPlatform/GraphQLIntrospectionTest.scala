@@ -1,6 +1,7 @@
 package scalaPlatform
 
 import amf.apicontract.client.scala.AMFBaseUnitClient
+import amf.core.client.common.transform.PipelineId
 import amf.graphql.client.scala.GraphQLConfiguration
 import amf.graphqlfederation.client.scala.GraphQLFederationConfiguration
 import amf.graphqlfederation.internal.spec.transformation.GraphQLFederationIntrospectionPipeline
@@ -10,27 +11,29 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class GraphQLConversionTest extends AsyncFlatSpec with Matchers {
+class GraphQLIntrospectionTest extends AsyncFlatSpec with Matchers {
 
-  private val origin_federation = "file://src/test/resources/examples/federation-origin.graphql"
-  private val converted_no_federation = "src/test/resources/expected/federation-converted.jsonld"
+  private val original = "file://src/test/resources/examples/federation-origin.graphql"
+  private val introspected = "src/test/resources/expected/federation-introspected.graphql"
 
-  val graphQLFedClient: AMFBaseUnitClient =
-    GraphQLFederationConfiguration.GraphQLFederation.baseUnitClient
+  val fedClient: AMFBaseUnitClient = GraphQLFederationConfiguration.GraphQLFederation().baseUnitClient
   val graphQLClient: AMFBaseUnitClient = GraphQLConfiguration.GraphQL().baseUnitClient
 
-  "AMF" should "convert GraphQLFederation to GraphQL" in {
-    graphQLFedClient.parse(origin_federation) map { parseResult =>
+  "AMF" should "generate introspection schema from Federation API" in {
+    fedClient.parse(original) map { parseResult =>
       assert(parseResult.conforms)
-      val transformResult = graphQLFedClient.transform(
-        parseResult.baseUnit,
-        GraphQLFederationIntrospectionPipeline.name
-      )
-      assert(transformResult.conforms)
-      val renderedGraphQL = graphQLClient.render(transformResult.baseUnit, "application/ld+json")
-      val goldenGraphQL = getStrFromFile(converted_no_federation)
 
-      normalized(goldenGraphQL) shouldEqual(normalized(renderedGraphQL))
+      val transformResult = fedClient.transform(
+        parseResult.baseUnit,
+        PipelineId.Introspection
+      )
+
+      assert(transformResult.conforms)
+
+      val renderedGraphQL = graphQLClient.render(transformResult.baseUnit, "application/graphql")
+      val goldenGraphQL = getStrFromFile(introspected)
+
+      normalized(goldenGraphQL) shouldEqual (normalized(renderedGraphQL))
     }
   }
 

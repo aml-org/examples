@@ -7,23 +7,30 @@ import {
 import {expect} from 'chai';
 import * as fileSystem from 'fs';
 
-describe('GraphQL Conversion', () => {
+describe('GraphQL introspection', () => {
 
-    const ORIGIN_FEDERATION = "file://src/test/resources/examples/federation-origin.graphql"
-    const CONVERTED_NO_FEDERATION = "src/test/resources/expected/federation-converted.jsonld"
+    const ORIGINAL = "file://src/test/resources/examples/federation-origin.graphql"
+    const INTROSPECTED = "src/test/resources/expected/federation-introspected.graphql"
 
-    it('Convert GraphQL Federation in GraphQL', async () => {
-        const graphQLFedClient: AMLBaseUnitClient = GraphQLFederationConfiguration.GraphQLFederation().baseUnitClient();
+    it('Introspect Federation API', async () => {
+        const fedClient: AMLBaseUnitClient = GraphQLFederationConfiguration.GraphQLFederation().baseUnitClient();
         const graphQLClient: AMLBaseUnitClient = GraphQLConfiguration.GraphQL().baseUnitClient();
-        const parseResult: AMFParseResult = await graphQLFedClient.parse(ORIGIN_FEDERATION);
+
+        const parseResult: AMFParseResult = await fedClient.parse(ORIGINAL);
+
         expect(parseResult.conforms).to.be.true;
         // @ts-ignore TODO: remove ignored
-        const transformResult: AMFResult = graphQLFedClient.transform(parseResult.baseUnit, PipelineId.Introspection);
+
+        const transformResult: AMFResult = fedClient.transform(parseResult.baseUnit, PipelineId.Introspection);
+
         expect(transformResult.conforms).to.be.true;
-        const renderedGraphQL: string = graphQLClient.render(transformResult.baseUnit, "application/ld+json");
-        const goldenGraphQL: string = fileSystem.readFileSync(CONVERTED_NO_FEDERATION, {
+
+        const renderedGraphQL: string = graphQLClient.render(transformResult.baseUnit, "application/graphql");
+        const goldenGraphQL: string = fileSystem.readFileSync(INTROSPECTED, {
             encoding: 'utf8'
         });
+
+        console.log(renderedGraphQL)
         const normalizedRendered = ignoreSpaces(renderedGraphQL)
         const normalizedGolden = ignoreSpaces(goldenGraphQL)
         expect(normalizedRendered).to.be.equal(normalizedGolden, `Rendered: ${renderedGraphQL} \nGolden: ${goldenGraphQL}`);
