@@ -17,31 +17,31 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
-public class GraphQLConversionTest {
+public class GraphQLIntrospectionTest {
 
-    final String origin_federation = "file://src/test/resources/examples/federation-origin.graphql";
-    final Path converted_no_federation = Paths.get("src/test/resources/expected/federation-converted.jsonld");
+    final String original = "file://src/test/resources/examples/federation-origin.graphql";
+    final Path introspected = Paths.get("src/test/resources/expected/federation-introspected.graphql");
 
     @Test
-    public void transformGraphQLFederationToGraphQL() throws ExecutionException, InterruptedException, IOException {
-        final AMFBaseUnitClient graphQLFedClient = GraphQLFederationConfiguration.GraphQLFederation().baseUnitClient();
+    public void introspectGraphQLFederation() throws ExecutionException, InterruptedException, IOException {
+        final AMFBaseUnitClient fedClient = GraphQLFederationConfiguration.GraphQLFederation().baseUnitClient();
         final AMFBaseUnitClient graphQLClient = GraphQLConfiguration.GraphQL().baseUnitClient();
 
-        final AMFDocumentResult parseResult = graphQLFedClient.parseDocument(origin_federation).get();
+        final AMFDocumentResult parseResult = fedClient.parseDocument(original).get();
 
         assertTrue(parseResult.conforms());
         assertNotNull(parseResult.document());
 
-        final AMFResult transformResult = graphQLFedClient.transform(parseResult.document(), GraphQLFederationIntrospectionPipeline.name());
+        final AMFResult transformResult = fedClient.transform(parseResult.document(), GraphQLFederationIntrospectionPipeline.name());
 
         assertTrue(transformResult.conforms());
         assertNotNull(transformResult.baseUnit());
 
-        final String renderedGraphQL = graphQLClient.render(transformResult.baseUnit(), "application/ld+json");
+        final String renderedGraphQL = graphQLClient.render(transformResult.baseUnit(), "application/graphql");
 
         assertNotNull(renderedGraphQL);
 
-        final String goldenGraphQL = Files.readAllLines(converted_no_federation).stream().collect(Collectors.joining(System.lineSeparator()));
+        final String goldenGraphQL = Files.readAllLines(introspected).stream().collect(Collectors.joining(System.lineSeparator()));
 
         assertEquals(normalized(goldenGraphQL), normalized(renderedGraphQL));
     }
