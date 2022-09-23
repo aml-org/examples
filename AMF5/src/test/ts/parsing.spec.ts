@@ -185,7 +185,6 @@ describe('Parsing', () => {
             }`;
 
       const result: AMFParseResult = await client.parseContent(api);
-      console.log(result.results);
       expect(result.results).to.be.empty;
       expect(result.conforms).to.be.true;
       const document: Document = result.baseUnit as Document;

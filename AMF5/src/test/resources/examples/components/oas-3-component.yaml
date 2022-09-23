@@ -1,0 +1,20 @@
+openapi: 3.0.0
+info:
+  title: An API that uses an OAS Component
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    simple:
+      type: string
+      maxLength: 40
+  examples:
+    simple:
+      value: a string with less than 40 chars
+  responses:
+    simpleResponse:
+      description: "A Simple response that return an int"
+      content:
+        application/json:
+          schema:
+            type: integer
