@@ -19,7 +19,6 @@ describe('GraphQL introspection', () => {
         const parseResult: AMFParseResult = await fedClient.parse(ORIGINAL);
 
         expect(parseResult.conforms).to.be.true;
-        // @ts-ignore TODO: remove ignored
 
         const transformResult: AMFResult = fedClient.transform(parseResult.baseUnit, PipelineId.Introspection);
 
@@ -30,7 +29,6 @@ describe('GraphQL introspection', () => {
             encoding: 'utf8'
         });
 
-        console.log(renderedGraphQL)
         const normalizedRendered = ignoreSpaces(renderedGraphQL)
         const normalizedGolden = ignoreSpaces(goldenGraphQL)
         expect(normalizedRendered).to.be.equal(normalizedGolden, `Rendered: ${renderedGraphQL} \nGolden: ${goldenGraphQL}`);

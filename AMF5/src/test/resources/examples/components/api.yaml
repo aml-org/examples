@@ -1,0 +1,20 @@
+openapi: 3.0.0
+info:
+  title: An API that uses an OAS Component
+  version: 1.0.0
+paths:
+  /anEndpoint:
+    get:
+      description: An example endpoint
+      responses:
+        "200":
+          description: An OK response
+          content:
+            application/json:
+              schema:
+                $ref: myComponents.yaml#/components/schemas/simple
+              examples:
+                simple:
+                  $ref: myComponents.yaml#/components/examples/simple
+        default:
+          $ref: myComponents.yaml#/components/responses/simpleResponse
