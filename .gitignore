@@ -6,3 +6,5 @@ target/
 node_modules/*
 amf-examples.iml
 .DS_Store
+.metals/
+.vscode
