@@ -29,7 +29,7 @@ dependencies {
     implementation 'com.github.amlorg:amf-cli_2.12:5.4.0-SNAPSHOT'
     implementation 'com.github.amlorg:amf-rdf_2.12:6.4.0-SNAPSHOT'
 
-    implementation 'org.scala-lang:scala-library:2.12.12'
+    implementation 'org.scala-lang:scala-library:2.12.15'
 
     implementation 'com.jsuereth:scala-arm_2.12:2.0'
     testImplementation 'org.assertj:assertj-core:3.18.1'
