@@ -14,7 +14,7 @@ pipeline {
     stage('Test Java && Scala') {
       agent {
         docker {
-          image 'gradle:7.4.2-jdk11-alpine'
+          image 'gradle:7.4.2-jdk17-alpine'
           registryCredentialsId 'dockerhub-pro-credentials'
           reuseNode true // Reuses the current node
         }
