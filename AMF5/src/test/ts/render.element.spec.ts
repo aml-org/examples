@@ -1,4 +1,11 @@
-import { DataTypes, OASConfiguration, org, Payload, Response, ScalarShape } from 'amf-client-js';
+import {
+  DataTypes,
+  JsOutputBuilder,
+  OASConfiguration,
+  Payload,
+  Response,
+  ScalarShape
+} from 'amf-client-js';
 import { expect } from 'chai';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -18,7 +25,7 @@ describe('DomainElement emission', () => {
       .withPayloads([payload])
       .withId('someId');
     const client = OASConfiguration.OAS30().elementClient();
-    const builder = new org.yaml.builder.JsOutputBuilder();
+    const builder = new JsOutputBuilder();
     client.renderToBuilder(response, builder);
     const responseNode = builder.result as any;
     const responseAsString = JSON.stringify(responseNode, null, 2).trim();

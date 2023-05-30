@@ -1,4 +1,4 @@
-import { AMFBaseUnitClient, OASConfiguration, org } from 'amf-client-js';
+import { AMFBaseUnitClient, JsOutputBuilder, OASConfiguration } from 'amf-client-js';
 import { expect } from 'chai';
 
 describe('Parsing', () => {
@@ -13,7 +13,7 @@ describe('Parsing', () => {
       const result = await client.parse('file://src/test/resources/examples/banking-api.json');
       expect(result.conforms).to.be.true;
       const unit = result.baseUnit;
-      const builder = new org.yaml.builder.JsOutputBuilder();
+      const builder = new JsOutputBuilder();
       const obj: any = client.renderGraphToBuilder(unit, builder);
       expect(obj['@graph'][1]['@id']).to.equal(
         'file://src/test/resources/examples/banking-api.json#/web-api'
