@@ -1,6 +1,6 @@
 package scalaPlatform
 
-import amf.apicontract.client.scala.{APIConfiguration, OASConfiguration, RAMLConfiguration, WebAPIConfiguration}
+import amf.apicontract.client.scala.{APIConfiguration, AsyncAPIConfiguration, OASConfiguration, RAMLConfiguration, WebAPIConfiguration}
 import amf.core.client.scala.model.document.Document
 import amf.core.internal.remote.Spec
 import org.junit.runner.RunWith
@@ -162,6 +162,66 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
       result.conforms shouldBe true
       result.sourceSpec.isAsync shouldBe true
       result.sourceSpec.id mustBe Spec.ASYNC20.id
+    }
+  }
+
+  it should "parse an AsyncAPI 2.1 API" in {
+    val client = AsyncAPIConfiguration.Async20().baseUnitClient()
+    client.parse("file://src/test/resources/examples/asyncApi-2.1-all.yaml") map { result =>
+      result.baseUnit mustBe a[Document]
+      result.conforms shouldBe true
+      result.sourceSpec.isAsync shouldBe true
+      result.sourceSpec.id mustBe Spec.ASYNC21.id
+    }
+  }
+
+  it should "parse an AsyncAPI 2.2 API" in {
+    val client = AsyncAPIConfiguration.Async20().baseUnitClient()
+    client.parse("file://src/test/resources/examples/asyncApi-2.2-all.yaml") map { result =>
+      result.baseUnit mustBe a[Document]
+      result.conforms shouldBe true
+      result.sourceSpec.isAsync shouldBe true
+      result.sourceSpec.id mustBe Spec.ASYNC22.id
+    }
+  }
+
+  it should "parse an AsyncAPI 2.3 API" in {
+    val client = AsyncAPIConfiguration.Async20().baseUnitClient()
+    client.parse("file://src/test/resources/examples/asyncApi-2.3-all.yaml") map { result =>
+      result.baseUnit mustBe a[Document]
+      result.conforms shouldBe true
+      result.sourceSpec.isAsync shouldBe true
+      result.sourceSpec.id mustBe Spec.ASYNC23.id
+    }
+  }
+
+  it should "parse an AsyncAPI 2.4 API" in {
+    val client = AsyncAPIConfiguration.Async20().baseUnitClient()
+    client.parse("file://src/test/resources/examples/asyncApi-2.4-all.yaml") map { result =>
+      result.baseUnit mustBe a[Document]
+      result.conforms shouldBe true
+      result.sourceSpec.isAsync shouldBe true
+      result.sourceSpec.id mustBe Spec.ASYNC24.id
+    }
+  }
+
+  it should "parse an AsyncAPI 2.5 API" in {
+    val client = AsyncAPIConfiguration.Async20().baseUnitClient()
+    client.parse("file://src/test/resources/examples/asyncApi-2.5-all.yaml") map { result =>
+      result.baseUnit mustBe a[Document]
+      result.conforms shouldBe true
+      result.sourceSpec.isAsync shouldBe true
+      result.sourceSpec.id mustBe Spec.ASYNC25.id
+    }
+  }
+
+  it should "parse an AsyncAPI 2.6 API" in {
+    val client = AsyncAPIConfiguration.Async20().baseUnitClient()
+    client.parse("file://src/test/resources/examples/asyncApi-2.6-all.yaml") map { result =>
+      result.baseUnit mustBe a[Document]
+      result.conforms shouldBe true
+      result.sourceSpec.isAsync shouldBe true
+      result.sourceSpec.id mustBe Spec.ASYNC26.id
     }
   }
 }

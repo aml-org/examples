@@ -251,4 +251,100 @@ public class ParsingTest {
         final DomainElement asyncApi = ((Document) model).encodes();
         assertNotNull(asyncApi);
     }
+
+    @Test
+    public void parseAsyncApi21() throws ExecutionException, InterruptedException {
+        final AMFBaseUnitClient client = AsyncAPIConfiguration.Async20().baseUnitClient();
+
+        final AMFParseResult parseResult = client.parse("file://src/test/resources/examples/asyncApi-2.1-all.yaml").get();
+        final BaseUnit model = parseResult.baseUnit();
+        final Spec spec = parseResult.sourceSpec();
+
+        assertNotNull(model);
+        assertTrue(parseResult.conforms());
+        final DomainElement asyncApi = ((Document) model).encodes();
+        assertNotNull(asyncApi);
+        assertTrue(spec.isAsync());
+        assertEquals(spec.id(), Spec.ASYNC21().id());
+    }
+
+    @Test
+    public void parseAsyncApi22() throws ExecutionException, InterruptedException {
+        final AMFBaseUnitClient client = AsyncAPIConfiguration.Async20().baseUnitClient();
+
+        final AMFParseResult parseResult = client.parse("file://src/test/resources/examples/asyncApi-2.2-all.yaml").get();
+        final BaseUnit model = parseResult.baseUnit();
+        final Spec spec = parseResult.sourceSpec();
+
+        assertNotNull(model);
+        assertTrue(parseResult.conforms());
+        final DomainElement asyncApi = ((Document) model).encodes();
+        assertNotNull(asyncApi);
+        assertTrue(spec.isAsync());
+        assertEquals(spec.id(), Spec.ASYNC22().id());
+    }
+
+    @Test
+    public void parseAsyncApi23() throws ExecutionException, InterruptedException {
+        final AMFBaseUnitClient client = AsyncAPIConfiguration.Async20().baseUnitClient();
+
+        final AMFParseResult parseResult = client.parse("file://src/test/resources/examples/asyncApi-2.3-all.yaml").get();
+        final BaseUnit model = parseResult.baseUnit();
+        final Spec spec = parseResult.sourceSpec();
+
+        assertNotNull(model);
+        assertTrue(parseResult.conforms());
+        final DomainElement asyncApi = ((Document) model).encodes();
+        assertNotNull(asyncApi);
+        assertTrue(spec.isAsync());
+        assertEquals(spec.id(), Spec.ASYNC23().id());
+    }
+
+    @Test
+    public void parseAsyncApi24() throws ExecutionException, InterruptedException {
+        final AMFBaseUnitClient client = AsyncAPIConfiguration.Async20().baseUnitClient();
+
+        final AMFParseResult parseResult = client.parse("file://src/test/resources/examples/asyncApi-2.4-all.yaml").get();
+        final BaseUnit model = parseResult.baseUnit();
+        final Spec spec = parseResult.sourceSpec();
+
+        assertNotNull(model);
+        assertTrue(parseResult.conforms());
+        final DomainElement asyncApi = ((Document) model).encodes();
+        assertNotNull(asyncApi);
+        assertTrue(spec.isAsync());
+        assertEquals(spec.id(), Spec.ASYNC24().id());
+    }
+
+    @Test
+    public void parseAsyncApi25() throws ExecutionException, InterruptedException {
+        final AMFBaseUnitClient client = AsyncAPIConfiguration.Async20().baseUnitClient();
+
+        final AMFParseResult parseResult = client.parse("file://src/test/resources/examples/asyncApi-2.5-all.yaml").get();
+        final BaseUnit model = parseResult.baseUnit();
+        final Spec spec = parseResult.sourceSpec();
+
+        assertNotNull(model);
+        assertTrue(parseResult.conforms());
+        final DomainElement asyncApi = ((Document) model).encodes();
+        assertNotNull(asyncApi);
+        assertTrue(spec.isAsync());
+        assertEquals(spec.id(), Spec.ASYNC25().id());
+    }
+
+    @Test
+    public void parseAsyncApi26() throws ExecutionException, InterruptedException {
+        final AMFBaseUnitClient client = AsyncAPIConfiguration.Async20().baseUnitClient();
+
+        final AMFParseResult parseResult = client.parse("file://src/test/resources/examples/asyncApi-2.6-all.yaml").get();
+        final BaseUnit model = parseResult.baseUnit();
+        final Spec spec = parseResult.sourceSpec();
+
+        assertNotNull(model);
+        assertTrue(parseResult.conforms());
+        final DomainElement asyncApi = ((Document) model).encodes();
+        assertNotNull(asyncApi);
+        assertTrue(spec.isAsync());
+        assertEquals(spec.id(), Spec.ASYNC26().id());
+    }
 }
