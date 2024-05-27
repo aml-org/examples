@@ -157,23 +157,6 @@ components:
           schema:
             name: projects/your-project/schemas/message-avro
             type: avro
-    marketData:
-      name: messageName
-      summary: Message with market data information.
-      messageId: messageName1
-      description: |
-        test
-      payload:
-        $ref: "#/components/schemas/market"
-      examples:
-        -
-          name: updatemessage
-          summary: explain
-          payload:
-            userId: user123
-            status: online
-          headers:
-            exampleHeader: HeaderValue
   schemas:
     market:
       type: object

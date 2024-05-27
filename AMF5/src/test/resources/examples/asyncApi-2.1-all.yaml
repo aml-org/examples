@@ -60,8 +60,6 @@ channels:
         bindingVersion: test
     description: some channel
     publish:
-      bindings:
-        ibmmq: {}
       message:
         bindings:
           ibmmq:

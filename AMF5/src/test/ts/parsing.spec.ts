@@ -3,10 +3,10 @@ import {
     AMFDocumentResult,
     AMFParseResult,
     APIConfiguration,
-    AsyncApi, AsyncAPIConfiguration,
-    Document,
-    OASConfiguration,
-    RAMLConfiguration,
+    AsyncApi, AsyncAPIConfiguration, ChannelBinding,
+    Document, DomainElement, EndPoint, Message, MessageBinding,
+    OASConfiguration, Operation, OperationBinding,
+    RAMLConfiguration, Request, Server, ServerBinding,
     Spec,
     WebApi,
     WebAPIConfiguration
@@ -14,6 +14,8 @@ import {
 import {expect} from 'chai';
 import {describe} from "mocha";
 import doc = Mocha.reporters.doc;
+import List = Mocha.reporters.List;
+import {Channel} from "node:diagnostics_channel";
 
 describe('Parsing', () => {
     let client: AMFBaseUnitClient;
@@ -202,46 +204,95 @@ describe('Parsing', () => {
         });
         it('parse 2.1 API from document', async () => {
             const parsingResult: AMFParseResult = await client.parse("file://src/test/resources/examples/asyncApi-2.1-all.yaml");
-            expect(parsingResult.results).to.be.empty;
-            expect(parsingResult.conforms).to.be.true;
             const document: Document = parsingResult.baseUnit as Document;
             const asyncApi: AsyncApi = document.encodes as AsyncApi;
+            // This version supports Mercure and IBMMQ bindings
+
+            // Server Binding
+            const servers: Array<Server> = asyncApi.servers;
+            const theNameServer: Server = servers.pop();
+            const serverBinding: ServerBinding = theNameServer.bindings.bindings.pop();
+
+            // Channel Binding
+            const channels: Array<EndPoint> = asyncApi.endPoints;
+            const someOtherChannel: EndPoint = channels.at(2);
+            const channelBinding: ChannelBinding = someOtherChannel.bindings.bindings.at(0);
+
+            // Message Binding
+            const publishOperation: Operation = someOtherChannel.operations.at(0);
+            const messageRequest: Request = publishOperation.requests.at(0);
+            const messageBinding = messageRequest.bindings.bindings.at(0);
+
+            expect(parsingResult.results).to.be.empty;
+            expect(parsingResult.conforms).to.be.true;
             expect(asyncApi.name.value()).to.be.equal('Market Data API');
             // Uncomment line when bug fixes are uploaded
             // expect(parsingResult.sourceSpec.isAsync).to.be.true;
             expect(parsingResult.sourceSpec.id).to.be.equal(Spec.ASYNC21.id);
+            expect(serverBinding.id).to.contain("/ibmmq-server")
+            expect(channelBinding.id).to.contain("/ibmmq-channel")
+            expect(messageBinding.id).to.contain("/ibmmq-message")
+
 
         });
         it('parse 2.2 API from document', async () => {
             const parsingResult: AMFParseResult = await client.parse("file://src/test/resources/examples/asyncApi-2.2-all.yaml");
-            expect(parsingResult.results).to.be.empty;
-            expect(parsingResult.conforms).to.be.true;
             const document: Document = parsingResult.baseUnit as Document;
             const asyncApi: AsyncApi = document.encodes as AsyncApi;
+            // This version adds AnypointMQ bindings
+
+            // Channel Binding
+            const channels: Array<EndPoint> = asyncApi.endPoints;
+            const anotherChannel: EndPoint = channels.at(3);
+            const channelBinding = anotherChannel.bindings.bindings.at(0);
+
+            // Message Binding
+            const publishOperation: Operation = anotherChannel.operations.at(0);
+            const messageRequest: Request = publishOperation.requests.at(0);
+            const messageBinding: MessageBinding = messageRequest.bindings.bindings.at(0);
+
+
+            expect(parsingResult.results).to.be.empty;
+            expect(parsingResult.conforms).to.be.true;
             expect(asyncApi.name.value()).to.be.equal("Market Data API");
             // Uncomment line when bug fixes are uploaded
             // expect(parsingResult.sourceSpec.isAsync).to.be.true;
             expect(parsingResult.sourceSpec.id).to.be.equal(Spec.ASYNC22.id);
+            expect(channelBinding.id).to.contain("/anypointmq-channel")
+            expect(messageBinding.id).to.contain("/anypointmq-message")
 
         });
         it('parse 2.3 API from document', async () => {
             const parsingResult: AMFParseResult = await client.parse("file://src/test/resources/examples/asyncApi-2.3-all.yaml");
-            expect(parsingResult.results).to.be.empty;
-            expect(parsingResult.conforms).to.be.true;
             const document: Document = parsingResult.baseUnit as Document;
             const asyncApi: AsyncApi = document.encodes as AsyncApi;
+            // This version adds Solace bindings
+
+            // Operation Binding
+            const channels: Array<EndPoint> = asyncApi.endPoints;
+            const forthChannel: EndPoint = channels.at(3);
+            const publishOperation: Operation = forthChannel.operations.at(0);
+            const operationBinding: OperationBinding = publishOperation.bindings.bindings.at(0);
+
+
+            expect(parsingResult.results).to.be.empty;
+            expect(parsingResult.conforms).to.be.true;
             expect(asyncApi.name.value()).to.be.equal("Market Data API");
             // Uncomment line when bug fixes are uploaded
             // expect(parsingResult.sourceSpec.isAsync).to.be.true;
             expect(parsingResult.sourceSpec.id).to.be.equal(Spec.ASYNC23.id);
+            expect(operationBinding.id).to.contain("/solace-operation")
 
         });
         it('parse 2.4 API from document', async () => {
             const parsingResult: AMFParseResult = await client.parse("file://src/test/resources/examples/asyncApi-2.4-all.yaml");
-            expect(parsingResult.results).to.be.empty;
-            expect(parsingResult.conforms).to.be.true;
             const document: Document = parsingResult.baseUnit as Document;
             const asyncApi: AsyncApi = document.encodes as AsyncApi;
+
+            // No new bindings for this version
+
+            expect(parsingResult.results).to.be.empty;
+            expect(parsingResult.conforms).to.be.true;
             expect(asyncApi.name.value()).to.be.equal("Market Data API");
             // Uncomment line when bug fixes are uploaded
             // expect(parsingResult.sourceSpec.isAsync).to.be.true;
@@ -249,25 +300,57 @@ describe('Parsing', () => {
         });
         it('parse 2.5 API from document', async () => {
             const parsingResult: AMFParseResult = await client.parse("file://src/test/resources/examples/asyncApi-2.5-all.yaml");
-            expect(parsingResult.results).to.be.empty;
-            expect(parsingResult.conforms).to.be.true;
             const document: Document = parsingResult.baseUnit as Document;
             const asyncApi: AsyncApi = document.encodes as AsyncApi;
+            const declares: Array<DomainElement> = document.declares
+            // This version adds GooglePubSub binding.
+
+            // Channel Binding
+            const channels: Array<EndPoint> = asyncApi.endPoints;
+            const topicProtoSchema: EndPoint = channels.at(4);
+            const channelBinding: ChannelBinding = topicProtoSchema.bindings.bindings.at(0);
+
+            //Message Binding
+            const messageComponent: Message = declares.at(2) as Message;
+            const messageBinding: MessageBinding = messageComponent.bindings.bindings.at(0);
+
+            expect(parsingResult.results).to.be.empty;
+            expect(parsingResult.conforms).to.be.true;
             expect(asyncApi.name.value()).to.be.equal("Market Data API");
             // Uncomment line when bug fixes are uploaded
             // expect(parsingResult.sourceSpec.isAsync).to.be.true;
             expect(parsingResult.sourceSpec.id).to.be.equal(Spec.ASYNC25.id);
+            // Uncomment line when bug fixes are uploaded
+            // expect(channelBinding.id).to.contain("/googlepubsub-channel-010")
+            expect(messageBinding.id).to.contain("/googlepubsub-message")
         });
         it('parse 2.6 API from document', async () => {
             const parsingResult: AMFParseResult = await client.parse("file://src/test/resources/examples/asyncApi-2.6-all.yaml");
-            expect(parsingResult.results).to.be.empty;
-            expect(parsingResult.conforms).to.be.true;
             const document: Document = parsingResult.baseUnit as Document;
             const asyncApi: AsyncApi = document.encodes as AsyncApi;
+            // This version adds Pulsar bindings.
+
+            // Server Binding
+            const servers: Array<Server> = asyncApi.servers;
+            const theNameServer: Server = servers.at(2);
+            const serverBinding: ServerBinding = theNameServer.bindings.bindings.at(0);
+
+            // Channel Binding
+            const channels: Array<EndPoint> = asyncApi.endPoints;
+            const sixthChannel: EndPoint = channels.at(5);
+            const channelBinding: ChannelBinding = sixthChannel.bindings.bindings.at(0);
+
+
+            expect(parsingResult.results).to.be.empty;
+            expect(parsingResult.conforms).to.be.true;
             expect(asyncApi.name.value()).to.be.equal("Market Data API");
             // Uncomment line when bug fixes are uploaded
             // expect(parsingResult.sourceSpec.isAsync).to.be.true;
             expect(parsingResult.sourceSpec.id).to.be.equal(Spec.ASYNC26.id);
+            expect(serverBinding.id).to.contain("/pulsar-server")
+            // Uncomment line when bug fixes are uploaded
+            // expect(channelBinding.id).to.contain("/pulsar-channel")
+
         });
     })
 });

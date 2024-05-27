@@ -59,8 +59,6 @@ channels:
         maxMsgLength: 123
         bindingVersion: test
     publish:
-      bindings:
-        ibmmq: {}
       message:
         bindings:
           ibmmq:
@@ -79,8 +77,6 @@ channels:
         bindingVersion: 0.1.0
     description: some channel
     publish:
-      bindings:
-        anypointmq: {}
       message:
         bindings:
           anypointmq:

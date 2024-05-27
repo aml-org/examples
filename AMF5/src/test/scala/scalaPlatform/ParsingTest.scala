@@ -1,6 +1,15 @@
 package scalaPlatform
 
-import amf.apicontract.client.scala.{APIConfiguration, AsyncAPIConfiguration, OASConfiguration, RAMLConfiguration, WebAPIConfiguration}
+import amf.apicontract.client.scala.model.domain.Message
+import amf.apicontract.client.scala.model.domain.api.{AsyncApi, WebApi}
+import amf.apicontract.client.scala.model.domain.bindings.ChannelBindings
+import amf.apicontract.client.scala.{
+  APIConfiguration,
+  AsyncAPIConfiguration,
+  OASConfiguration,
+  RAMLConfiguration,
+  WebAPIConfiguration
+}
 import amf.core.client.scala.model.document.Document
 import amf.core.internal.remote.Spec
 import org.junit.runner.RunWith
@@ -168,36 +177,82 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
   it should "parse an AsyncAPI 2.1 API" in {
     val client = AsyncAPIConfiguration.Async20().baseUnitClient()
     client.parse("file://src/test/resources/examples/asyncApi-2.1-all.yaml") map { result =>
+      val bu = result.baseUnit.asInstanceOf[Document]
+      val encodes = bu.encodes.asInstanceOf[AsyncApi]
+      // This version supports Mercure and IBMMQ bindings
+
+      // Server Binding
+      val server = encodes.servers.head
+      val ibmmqServerBinding = server.bindings.bindings.head
+
+      // Channel Binding
+      val someOtherChannel = encodes.endPoints.last
+      val ibmmqChannelBinding = someOtherChannel.bindings.bindings.head
+
+      // Message Binding
+      val publishOperation = someOtherChannel.operations.head
+      val messageRequest = publishOperation.requests.head
+      val ibmmqMessageBinding = messageRequest.bindings.bindings.head
+
       result.baseUnit mustBe a[Document]
       result.conforms shouldBe true
       result.sourceSpec.isAsync shouldBe true
       result.sourceSpec.id mustBe Spec.ASYNC21.id
+      ibmmqChannelBinding.componentId shouldBe "/ibmmq-channel"
+      ibmmqServerBinding.componentId shouldBe "/ibmmq-server"
+      ibmmqMessageBinding.componentId shouldBe "/ibmmq-message"
     }
   }
 
   it should "parse an AsyncAPI 2.2 API" in {
     val client = AsyncAPIConfiguration.Async20().baseUnitClient()
     client.parse("file://src/test/resources/examples/asyncApi-2.2-all.yaml") map { result =>
+      val baseUnit = result.baseUnit.asInstanceOf[Document]
+      val encodes = baseUnit.encodes.asInstanceOf[AsyncApi]
+      // This version adds AnypointMQ bindings
+
+      // Channel Binding
+      val anotherChannel = encodes.endPoints.last
+      val anypointMQChannelBinding = anotherChannel.bindings.bindings.head
+
+      // Message Binding
+      val publishOperation = anotherChannel.operations.head
+      val messageRequest = publishOperation.requests.head
+      val anypointMQMessageBinding = messageRequest.bindings.bindings.head
+
       result.baseUnit mustBe a[Document]
       result.conforms shouldBe true
       result.sourceSpec.isAsync shouldBe true
       result.sourceSpec.id mustBe Spec.ASYNC22.id
+      anypointMQChannelBinding.componentId shouldBe "/anypointmq-channel"
+      anypointMQMessageBinding.componentId shouldBe "/anypointmq-message"
     }
   }
 
   it should "parse an AsyncAPI 2.3 API" in {
     val client = AsyncAPIConfiguration.Async20().baseUnitClient()
     client.parse("file://src/test/resources/examples/asyncApi-2.3-all.yaml") map { result =>
+      val baseUnit = result.baseUnit.asInstanceOf[Document]
+      val encodes = baseUnit.encodes.asInstanceOf[AsyncApi]
+      // This version adds Solace bindings
+
+      // Operation Binding
+      val forthChannel = encodes.endPoints.last
+      val publishOperation = forthChannel.operations.head
+      val solaceOperationBinding = publishOperation.bindings.bindings.head
+
       result.baseUnit mustBe a[Document]
       result.conforms shouldBe true
       result.sourceSpec.isAsync shouldBe true
       result.sourceSpec.id mustBe Spec.ASYNC23.id
+      solaceOperationBinding.componentId shouldBe "/solace-operation"
     }
   }
 
   it should "parse an AsyncAPI 2.4 API" in {
     val client = AsyncAPIConfiguration.Async20().baseUnitClient()
     client.parse("file://src/test/resources/examples/asyncApi-2.4-all.yaml") map { result =>
+      //no new bindings in this version
       result.baseUnit mustBe a[Document]
       result.conforms shouldBe true
       result.sourceSpec.isAsync shouldBe true
@@ -208,20 +263,50 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
   it should "parse an AsyncAPI 2.5 API" in {
     val client = AsyncAPIConfiguration.Async20().baseUnitClient()
     client.parse("file://src/test/resources/examples/asyncApi-2.5-all.yaml") map { result =>
+      val baseUnit = result.baseUnit.asInstanceOf[Document]
+      val encodes = baseUnit.encodes.asInstanceOf[AsyncApi]
+      // This version adds GooglePubSub binding.
+
+      // Channel Binding
+      val topicProtoSchema = encodes.endPoints.last
+      val googlePubSubChannelBinding = topicProtoSchema.bindings.bindings.head
+
+      // Message Binding
+      val messageComponent = baseUnit.declares(2).asInstanceOf[Message]
+      val googlePubSubMessageBinding = messageComponent.bindings.bindings.head
+
       result.baseUnit mustBe a[Document]
       result.conforms shouldBe true
       result.sourceSpec.isAsync shouldBe true
       result.sourceSpec.id mustBe Spec.ASYNC25.id
+      // By default we assume that the version is 0.1.0
+      googlePubSubChannelBinding.componentId shouldBe "/googlepubsub-channel-010"
+      googlePubSubMessageBinding.componentId shouldBe "/googlepubsub-message-010"
     }
   }
 
   it should "parse an AsyncAPI 2.6 API" in {
     val client = AsyncAPIConfiguration.Async20().baseUnitClient()
     client.parse("file://src/test/resources/examples/asyncApi-2.6-all.yaml") map { result =>
+      val baseUnit = result.baseUnit.asInstanceOf[Document]
+      val encodes = baseUnit.encodes.asInstanceOf[AsyncApi]
+      // This version adds Pulsar bindings.
+
+      // Server Binding
+      val theNameServer = encodes.servers.last
+      val pulsarServerBinding = theNameServer.bindings.bindings.head
+
+      // Channel Binding
+      val sixthChannel = encodes.endPoints.last
+      val pulsarChannelBinding = sixthChannel.bindings.bindings.head
+
       result.baseUnit mustBe a[Document]
       result.conforms shouldBe true
       result.sourceSpec.isAsync shouldBe true
       result.sourceSpec.id mustBe Spec.ASYNC26.id
+      pulsarServerBinding.componentId shouldBe "/pulsar-server"
+    // Uncomment this line when bug is fixed
+//      pulsarChannelBinding.componentId shouldBe "/pulsar-channel"
     }
   }
 }
