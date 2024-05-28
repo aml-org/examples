@@ -361,7 +361,8 @@ public class ParsingTest {
         assertNotNull(asyncApi);
         assertTrue(spec.isAsync());
         assertEquals(spec.id(), Spec.ASYNC23().id());
-        assertTrue(operationBinding.id().contains("/solace-operation"));
+        // Asume 0.3.0 version
+        assertTrue(operationBinding.id().contains("/solace-operation-030"));
     }
 
     @Test

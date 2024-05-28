@@ -281,7 +281,8 @@ describe('Parsing', () => {
             // Uncomment line when bug fixes are uploaded
             // expect(parsingResult.sourceSpec.isAsync).to.be.true;
             expect(parsingResult.sourceSpec.id).to.be.equal(Spec.ASYNC23.id);
-            expect(operationBinding.id).to.contain("/solace-operation")
+            // Asume 0.3.0 version
+            expect(operationBinding.id).to.contain("/solace-operation-030")
 
         });
         it('parse 2.4 API from document', async () => {

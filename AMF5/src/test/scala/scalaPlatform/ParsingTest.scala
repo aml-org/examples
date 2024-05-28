@@ -245,7 +245,8 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
       result.conforms shouldBe true
       result.sourceSpec.isAsync shouldBe true
       result.sourceSpec.id mustBe Spec.ASYNC23.id
-      solaceOperationBinding.componentId shouldBe "/solace-operation"
+      // Asume 0.3.0 version
+      solaceOperationBinding.componentId shouldBe "/solace-operation-030"
     }
   }
 
