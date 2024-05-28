@@ -320,8 +320,7 @@ describe('Parsing', () => {
             // Uncomment line when bug fixes are uploaded
             // expect(parsingResult.sourceSpec.isAsync).to.be.true;
             expect(parsingResult.sourceSpec.id).to.be.equal(Spec.ASYNC25.id);
-            // Uncomment line when bug fixes are uploaded
-            // expect(channelBinding.id).to.contain("/googlepubsub-channel-010")
+            expect(channelBinding.id).to.contain("/googlepubsub-channel")
             expect(messageBinding.id).to.contain("/googlepubsub-message")
         });
         it('parse 2.6 API from document', async () => {
