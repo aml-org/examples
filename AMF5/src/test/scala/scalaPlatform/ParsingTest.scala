@@ -1,8 +1,5 @@
 package scalaPlatform
 
-import amf.apicontract.client.scala.model.domain.Message
-import amf.apicontract.client.scala.model.domain.api.{AsyncApi, WebApi}
-import amf.apicontract.client.scala.model.domain.bindings.ChannelBindings
 import amf.apicontract.client.scala.{
   APIConfiguration,
   AsyncAPIConfiguration,
@@ -17,6 +14,14 @@ import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.must.Matchers.convertToAnyMustWrapper
 import org.scalatest.matchers.should
 import org.scalatestplus.junit.JUnitRunner
+import utils.BaseUnitUtils.{
+  getFirstOperationFromLastEndpoint,
+  getFirstRequest,
+  getFirstServer,
+  getLastEndpoint,
+  getLastServer,
+  getMessageComponent
+}
 
 @RunWith(classOf[JUnitRunner])
 class ParsingTest extends AsyncFlatSpec with should.Matchers {
@@ -177,21 +182,19 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
   it should "parse an AsyncAPI 2.1 API" in {
     val client = AsyncAPIConfiguration.Async20().baseUnitClient()
     client.parse("file://src/test/resources/examples/asyncApi-2.1-all.yaml") map { result =>
-      val bu = result.baseUnit.asInstanceOf[Document]
-      val encodes = bu.encodes.asInstanceOf[AsyncApi]
+      val baseUnit = result.baseUnit.asInstanceOf[Document]
       // This version supports Mercure and IBMMQ bindings
 
       // Server Binding
-      val server = encodes.servers.head
+      val server = getFirstServer(baseUnit)
       val ibmmqServerBinding = server.bindings.bindings.head
 
       // Channel Binding
-      val someOtherChannel = encodes.endPoints.last
+      val someOtherChannel = getLastEndpoint(baseUnit)
       val ibmmqChannelBinding = someOtherChannel.bindings.bindings.head
 
       // Message Binding
-      val publishOperation = someOtherChannel.operations.head
-      val messageRequest = publishOperation.requests.head
+      val messageRequest = getFirstRequest(baseUnit)
       val ibmmqMessageBinding = messageRequest.bindings.bindings.head
 
       result.baseUnit mustBe a[Document]
@@ -208,16 +211,14 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
     val client = AsyncAPIConfiguration.Async20().baseUnitClient()
     client.parse("file://src/test/resources/examples/asyncApi-2.2-all.yaml") map { result =>
       val baseUnit = result.baseUnit.asInstanceOf[Document]
-      val encodes = baseUnit.encodes.asInstanceOf[AsyncApi]
       // This version adds AnypointMQ bindings
 
       // Channel Binding
-      val anotherChannel = encodes.endPoints.last
+      val anotherChannel = getLastEndpoint(baseUnit)
       val anypointMQChannelBinding = anotherChannel.bindings.bindings.head
 
       // Message Binding
-      val publishOperation = anotherChannel.operations.head
-      val messageRequest = publishOperation.requests.head
+      val messageRequest = getFirstRequest(baseUnit)
       val anypointMQMessageBinding = messageRequest.bindings.bindings.head
 
       result.baseUnit mustBe a[Document]
@@ -233,12 +234,10 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
     val client = AsyncAPIConfiguration.Async20().baseUnitClient()
     client.parse("file://src/test/resources/examples/asyncApi-2.3-all.yaml") map { result =>
       val baseUnit = result.baseUnit.asInstanceOf[Document]
-      val encodes = baseUnit.encodes.asInstanceOf[AsyncApi]
       // This version adds Solace bindings
 
       // Operation Binding
-      val forthChannel = encodes.endPoints.last
-      val publishOperation = forthChannel.operations.head
+      val publishOperation = getFirstOperationFromLastEndpoint(baseUnit)
       val solaceOperationBinding = publishOperation.bindings.bindings.head
 
       result.baseUnit mustBe a[Document]
@@ -265,15 +264,14 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
     val client = AsyncAPIConfiguration.Async20().baseUnitClient()
     client.parse("file://src/test/resources/examples/asyncApi-2.5-all.yaml") map { result =>
       val baseUnit = result.baseUnit.asInstanceOf[Document]
-      val encodes = baseUnit.encodes.asInstanceOf[AsyncApi]
       // This version adds GooglePubSub binding.
 
       // Channel Binding
-      val topicProtoSchema = encodes.endPoints.last
+      val topicProtoSchema = getLastEndpoint(baseUnit)
       val googlePubSubChannelBinding = topicProtoSchema.bindings.bindings.head
 
       // Message Binding
-      val messageComponent = baseUnit.declares(2).asInstanceOf[Message]
+      val messageComponent = getMessageComponent(baseUnit)
       val googlePubSubMessageBinding = messageComponent.bindings.bindings.head
 
       result.baseUnit mustBe a[Document]
@@ -290,15 +288,14 @@ class ParsingTest extends AsyncFlatSpec with should.Matchers {
     val client = AsyncAPIConfiguration.Async20().baseUnitClient()
     client.parse("file://src/test/resources/examples/asyncApi-2.6-all.yaml") map { result =>
       val baseUnit = result.baseUnit.asInstanceOf[Document]
-      val encodes = baseUnit.encodes.asInstanceOf[AsyncApi]
       // This version adds Pulsar bindings.
 
       // Server Binding
-      val theNameServer = encodes.servers.last
+      val theNameServer = getLastServer(baseUnit)
       val pulsarServerBinding = theNameServer.bindings.bindings.head
 
       // Channel Binding
-      val sixthChannel = encodes.endPoints.last
+      val sixthChannel = getLastEndpoint(baseUnit)
       val pulsarChannelBinding = sixthChannel.bindings.bindings.head
 
       result.baseUnit mustBe a[Document]
